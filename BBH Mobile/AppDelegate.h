@@ -23,3 +23,10 @@
 
 @end
 
+@interface UIView (BBHUIView)
+
+@property (nonatomic) IBInspectable UIColor *borderColor;
+@property (nonatomic) IBInspectable CGFloat borderWidth;
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
+
+@end

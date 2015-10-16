@@ -7,14 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		582F1FCE1BBA6E0F00852423 /* RunSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 582F1FCD1BBA6E0F00852423 /* RunSummaryViewController.m */; };
+		582F1FD01BBA6E6200852423 /* RunSummary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 582F1FCF1BBA6E6200852423 /* RunSummary.storyboard */; };
+		583009991BB9301B0094A401 /* MenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 583009981BB9301B0094A401 /* MenuTableView.m */; };
+		5830099B1BB949BA0094A401 /* NavMenuEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5830099A1BB949BA0094A401 /* NavMenuEntry.m */; };
+		58357C721BBAC1B900982E70 /* Entities.m in Sources */ = {isa = PBXBuildFile; fileRef = 58357C711BBAC1B900982E70 /* Entities.m */; };
 		58382C561BA02ABA00ECF0D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C551BA02ABA00ECF0D2 /* main.m */; };
 		58382C591BA02ABA00ECF0D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C581BA02ABA00ECF0D2 /* AppDelegate.m */; };
 		58382C5C1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 58382C5A1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld */; };
-		58382C5F1BA02ABA00ECF0D2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C5E1BA02ABA00ECF0D2 /* ViewController.m */; };
+		58382C5F1BA02ABA00ECF0D2 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C5E1BA02ABA00ECF0D2 /* LoginViewController.m */; };
 		58382C621BA02ABA00ECF0D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58382C601BA02ABA00ECF0D2 /* Main.storyboard */; };
 		58382C641BA02ABB00ECF0D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58382C631BA02ABA00ECF0D2 /* Images.xcassets */; };
 		58382C671BA02ABB00ECF0D2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 58382C651BA02ABB00ECF0D2 /* LaunchScreen.xib */; };
 		58382C731BA02ABB00ECF0D2 /* BBH_MobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C721BA02ABB00ECF0D2 /* BBH_MobileTests.m */; };
+		5840BE451BBE925900EB5CD3 /* RunDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5840BE441BBE925900EB5CD3 /* RunDetailViewController.m */; };
+		5840BE491BBEBDF500EB5CD3 /* GeneralInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5840BE481BBEBDF500EB5CD3 /* GeneralInfoViewController.m */; };
+		5840BE4B1BBEC03D00EB5CD3 /* RunDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5840BE4A1BBEC03D00EB5CD3 /* RunDetail.storyboard */; };
+		584131161BCE2ACF008294ED /* GeneralInfoEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584131151BCE2ACF008294ED /* GeneralInfoEditViewController.m */; };
+		584131191BCE6C45008294ED /* PickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 584131181BCE6C45008294ED /* PickerDelegate.m */; };
+		584193731BC6725D007FB4C7 /* TimeCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584193721BC6725D007FB4C7 /* TimeCardViewController.m */; };
+		584193761BC67938007FB4C7 /* TimeCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 584193751BC67938007FB4C7 /* TimeCardViewCell.m */; };
+		584363FB1BC7C77E003B75AD /* DriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584363FA1BC7C77E003B75AD /* DriverViewController.m */; };
+		5844824D1BC5180000E86823 /* CriteriaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5844824C1BC5180000E86823 /* CriteriaViewController.m */; };
+		5846E2C91BB15005005132BA /* RESTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846E2C81BB15005005132BA /* RESTDelegate.m */; };
+		5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846E2CA1BB1629F005132BA /* RESTParams.m */; };
+		584818881BC3AD9700EE4CD6 /* PaymentMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */; };
+		5849948A1BCBE53E008EC7C4 /* RunDetailEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 584994891BCBE53E008EC7C4 /* RunDetailEdit.storyboard */; };
+		5849948D1BCBE5BC008EC7C4 /* RunDetailEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849948C1BCBE5BC008EC7C4 /* RunDetailEditViewController.m */; };
+		584EF8861BC1611F0046E7DA /* FreightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584EF8851BC1611E0046E7DA /* FreightViewController.m */; };
+		585487E91BB53A6E0058256B /* Navigation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 585487E81BB53A6E0058256B /* Navigation.storyboard */; };
+		585487EE1BB53DC70058256B /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 585487ED1BB53DC70058256B /* NavigationViewController.m */; };
+		585487F11BB571EF0058256B /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 585487F01BB571EF0058256B /* MenuViewController.m */; };
+		5861F9E71BC916910088EF6C /* InvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5861F9E61BC916910088EF6C /* InvoiceViewController.m */; };
+		5861F9E91BC917890088EF6C /* Invoice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5861F9E81BC917890088EF6C /* Invoice.storyboard */; };
+		5888E2671BA9ADD700D82DDB /* RESTClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 5888E2661BA9ADD700D82DDB /* RESTClient.m */; };
+		589E2D9D1BBAB1C800E31B98 /* RunSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 589E2D9C1BBAB1C800E31B98 /* RunSummaryCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,20 +55,66 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		582F1FCC1BBA6DA800852423 /* RunSummaryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunSummaryViewController.h; sourceTree = "<group>"; };
+		582F1FCD1BBA6E0F00852423 /* RunSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunSummaryViewController.m; sourceTree = "<group>"; };
+		582F1FCF1BBA6E6200852423 /* RunSummary.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RunSummary.storyboard; sourceTree = "<group>"; };
+		583009971BB930030094A401 /* MenuTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuTableView.h; sourceTree = "<group>"; };
+		583009981BB9301B0094A401 /* MenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableView.m; sourceTree = "<group>"; };
+		5830099A1BB949BA0094A401 /* NavMenuEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavMenuEntry.m; sourceTree = "<group>"; };
+		58357C711BBAC1B900982E70 /* Entities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entities.m; sourceTree = "<group>"; };
 		58382C501BA02ABA00ECF0D2 /* BBH Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BBH Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58382C541BA02ABA00ECF0D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58382C551BA02ABA00ECF0D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		58382C571BA02ABA00ECF0D2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		58382C581BA02ABA00ECF0D2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		58382C5B1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BBH_Mobile.xcdatamodel; sourceTree = "<group>"; };
-		58382C5D1BA02ABA00ECF0D2 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		58382C5E1BA02ABA00ECF0D2 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		58382C5D1BA02ABA00ECF0D2 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		58382C5E1BA02ABA00ECF0D2 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		58382C611BA02ABA00ECF0D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		58382C631BA02ABA00ECF0D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		58382C661BA02ABB00ECF0D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		58382C6C1BA02ABB00ECF0D2 /* BBH MobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BBH MobileTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58382C711BA02ABB00ECF0D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58382C721BA02ABB00ECF0D2 /* BBH_MobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BBH_MobileTests.m; sourceTree = "<group>"; };
+		5840BE431BBE922C00EB5CD3 /* RunDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunDetailViewController.h; sourceTree = "<group>"; };
+		5840BE441BBE925900EB5CD3 /* RunDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDetailViewController.m; sourceTree = "<group>"; };
+		5840BE471BBEBDE200EB5CD3 /* GeneralInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralInfoViewController.h; sourceTree = "<group>"; };
+		5840BE481BBEBDF500EB5CD3 /* GeneralInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralInfoViewController.m; sourceTree = "<group>"; };
+		5840BE4A1BBEC03D00EB5CD3 /* RunDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RunDetail.storyboard; sourceTree = "<group>"; };
+		584131141BCE2AB9008294ED /* GeneralInfoEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneralInfoEditViewController.h; sourceTree = "<group>"; };
+		584131151BCE2ACF008294ED /* GeneralInfoEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneralInfoEditViewController.m; sourceTree = "<group>"; };
+		584131171BCE6C30008294ED /* PickerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerDelegate.h; sourceTree = "<group>"; };
+		584131181BCE6C45008294ED /* PickerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerDelegate.m; sourceTree = "<group>"; };
+		584193711BC67248007FB4C7 /* TimeCardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeCardViewController.h; sourceTree = "<group>"; };
+		584193721BC6725D007FB4C7 /* TimeCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardViewController.m; sourceTree = "<group>"; };
+		584193741BC6791E007FB4C7 /* TimeCardViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeCardViewCell.h; sourceTree = "<group>"; };
+		584193751BC67938007FB4C7 /* TimeCardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardViewCell.m; sourceTree = "<group>"; };
+		584363F91BC7C767003B75AD /* DriverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DriverViewController.h; sourceTree = "<group>"; };
+		584363FA1BC7C77E003B75AD /* DriverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverViewController.m; sourceTree = "<group>"; };
+		5844824B1BC517EB00E86823 /* CriteriaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CriteriaViewController.h; sourceTree = "<group>"; };
+		5844824C1BC5180000E86823 /* CriteriaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriteriaViewController.m; sourceTree = "<group>"; };
+		5846E2C81BB15005005132BA /* RESTDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTDelegate.m; sourceTree = "<group>"; };
+		5846E2CA1BB1629F005132BA /* RESTParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTParams.m; sourceTree = "<group>"; };
+		584818861BC3AD7B00EE4CD6 /* PaymentMethodViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethodViewController.h; sourceTree = "<group>"; };
+		584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodViewController.m; sourceTree = "<group>"; };
+		584994891BCBE53E008EC7C4 /* RunDetailEdit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RunDetailEdit.storyboard; sourceTree = "<group>"; };
+		5849948B1BCBE5A1008EC7C4 /* RunDetailEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunDetailEditViewController.h; sourceTree = "<group>"; };
+		5849948C1BCBE5BC008EC7C4 /* RunDetailEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDetailEditViewController.m; sourceTree = "<group>"; };
+		584EF8841BC161070046E7DA /* FreightViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreightViewController.h; sourceTree = "<group>"; };
+		584EF8851BC1611E0046E7DA /* FreightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreightViewController.m; sourceTree = "<group>"; };
+		585487E71BB5320B0058256B /* Entities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Entities.h; sourceTree = "<group>"; };
+		585487E81BB53A6E0058256B /* Navigation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Navigation.storyboard; sourceTree = "<group>"; };
+		585487EC1BB53B370058256B /* NavigationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		585487ED1BB53DC70058256B /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		585487EF1BB571CF0058256B /* MenuViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
+		585487F01BB571EF0058256B /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
+		5861F9E51BC9167A0088EF6C /* InvoiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvoiceViewController.h; sourceTree = "<group>"; };
+		5861F9E61BC916910088EF6C /* InvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceViewController.m; sourceTree = "<group>"; };
+		5861F9E81BC917890088EF6C /* Invoice.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Invoice.storyboard; sourceTree = "<group>"; };
+		5888E2651BA9ABEB00D82DDB /* RESTClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RESTClient.h; sourceTree = "<group>"; };
+		5888E2661BA9ADD700D82DDB /* RESTClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTClient.m; sourceTree = "<group>"; };
+		589E2D9B1BBAB1AA00E31B98 /* RunSummaryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunSummaryCell.h; sourceTree = "<group>"; };
+		589E2D9C1BBAB1C800E31B98 /* RunSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunSummaryCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +135,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		582F1FCB1BBA6D8700852423 /* Run */ = {
+			isa = PBXGroup;
+			children = (
+				582F1FCC1BBA6DA800852423 /* RunSummaryViewController.h */,
+				582F1FCD1BBA6E0F00852423 /* RunSummaryViewController.m */,
+				589E2D9B1BBAB1AA00E31B98 /* RunSummaryCell.h */,
+				589E2D9C1BBAB1C800E31B98 /* RunSummaryCell.m */,
+				5840BE431BBE922C00EB5CD3 /* RunDetailViewController.h */,
+				5840BE441BBE925900EB5CD3 /* RunDetailViewController.m */,
+				5849948B1BCBE5A1008EC7C4 /* RunDetailEditViewController.h */,
+				5849948C1BCBE5BC008EC7C4 /* RunDetailEditViewController.m */,
+			);
+			name = Run;
+			sourceTree = "<group>";
+		};
 		58382C471BA02ABA00ECF0D2 = {
 			isa = PBXGroup;
 			children = (
@@ -85,12 +173,18 @@
 			children = (
 				58382C571BA02ABA00ECF0D2 /* AppDelegate.h */,
 				58382C581BA02ABA00ECF0D2 /* AppDelegate.m */,
-				58382C5D1BA02ABA00ECF0D2 /* ViewController.h */,
-				58382C5E1BA02ABA00ECF0D2 /* ViewController.m */,
-				58382C601BA02ABA00ECF0D2 /* Main.storyboard */,
-				58382C631BA02ABA00ECF0D2 /* Images.xcassets */,
-				58382C651BA02ABB00ECF0D2 /* LaunchScreen.xib */,
 				58382C5A1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld */,
+				58382C631BA02ABA00ECF0D2 /* Images.xcassets */,
+				5861F9E41BC9165C0088EF6C /* Invoice */,
+				58382C651BA02ABB00ECF0D2 /* LaunchScreen.xib */,
+				58D9B6751BB9933200FFD9E1 /* Login */,
+				585487E61BB531DC0058256B /* Model */,
+				58D9B6741BB992F500FFD9E1 /* NavigationMenu */,
+				585487E51BB531C30058256B /* REST */,
+				582F1FCB1BBA6D8700852423 /* Run */,
+				584131131BCE2A78008294ED /* RunDetailEdit */,
+				5840BE461BBEBD9600EB5CD3 /* RunDetailView */,
+				5849948E1BCBE9BA008EC7C4 /* Storyboards */,
 				58382C531BA02ABA00ECF0D2 /* Supporting Files */,
 			);
 			path = "BBH Mobile";
@@ -120,6 +214,103 @@
 				58382C711BA02ABB00ECF0D2 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		5840BE461BBEBD9600EB5CD3 /* RunDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				5840BE471BBEBDE200EB5CD3 /* GeneralInfoViewController.h */,
+				5840BE481BBEBDF500EB5CD3 /* GeneralInfoViewController.m */,
+				584EF8841BC161070046E7DA /* FreightViewController.h */,
+				584EF8851BC1611E0046E7DA /* FreightViewController.m */,
+				584818861BC3AD7B00EE4CD6 /* PaymentMethodViewController.h */,
+				584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */,
+				5844824B1BC517EB00E86823 /* CriteriaViewController.h */,
+				5844824C1BC5180000E86823 /* CriteriaViewController.m */,
+				584193711BC67248007FB4C7 /* TimeCardViewController.h */,
+				584193721BC6725D007FB4C7 /* TimeCardViewController.m */,
+				584193741BC6791E007FB4C7 /* TimeCardViewCell.h */,
+				584193751BC67938007FB4C7 /* TimeCardViewCell.m */,
+				584363F91BC7C767003B75AD /* DriverViewController.h */,
+				584363FA1BC7C77E003B75AD /* DriverViewController.m */,
+			);
+			name = RunDetailView;
+			sourceTree = "<group>";
+		};
+		584131131BCE2A78008294ED /* RunDetailEdit */ = {
+			isa = PBXGroup;
+			children = (
+				584131141BCE2AB9008294ED /* GeneralInfoEditViewController.h */,
+				584131151BCE2ACF008294ED /* GeneralInfoEditViewController.m */,
+				584131171BCE6C30008294ED /* PickerDelegate.h */,
+				584131181BCE6C45008294ED /* PickerDelegate.m */,
+			);
+			name = RunDetailEdit;
+			sourceTree = "<group>";
+		};
+		5849948E1BCBE9BA008EC7C4 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				58382C601BA02ABA00ECF0D2 /* Main.storyboard */,
+				585487E81BB53A6E0058256B /* Navigation.storyboard */,
+				582F1FCF1BBA6E6200852423 /* RunSummary.storyboard */,
+				5840BE4A1BBEC03D00EB5CD3 /* RunDetail.storyboard */,
+				5861F9E81BC917890088EF6C /* Invoice.storyboard */,
+				584994891BCBE53E008EC7C4 /* RunDetailEdit.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		585487E51BB531C30058256B /* REST */ = {
+			isa = PBXGroup;
+			children = (
+				5888E2651BA9ABEB00D82DDB /* RESTClient.h */,
+				5888E2661BA9ADD700D82DDB /* RESTClient.m */,
+				5846E2C81BB15005005132BA /* RESTDelegate.m */,
+				5846E2CA1BB1629F005132BA /* RESTParams.m */,
+			);
+			name = REST;
+			sourceTree = "<group>";
+		};
+		585487E61BB531DC0058256B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				585487E71BB5320B0058256B /* Entities.h */,
+				5830099A1BB949BA0094A401 /* NavMenuEntry.m */,
+				58357C711BBAC1B900982E70 /* Entities.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		5861F9E41BC9165C0088EF6C /* Invoice */ = {
+			isa = PBXGroup;
+			children = (
+				5861F9E51BC9167A0088EF6C /* InvoiceViewController.h */,
+				5861F9E61BC916910088EF6C /* InvoiceViewController.m */,
+			);
+			name = Invoice;
+			sourceTree = "<group>";
+		};
+		58D9B6741BB992F500FFD9E1 /* NavigationMenu */ = {
+			isa = PBXGroup;
+			children = (
+				585487EC1BB53B370058256B /* NavigationViewController.h */,
+				585487ED1BB53DC70058256B /* NavigationViewController.m */,
+				585487EF1BB571CF0058256B /* MenuViewController.h */,
+				585487F01BB571EF0058256B /* MenuViewController.m */,
+				583009971BB930030094A401 /* MenuTableView.h */,
+				583009981BB9301B0094A401 /* MenuTableView.m */,
+			);
+			name = NavigationMenu;
+			sourceTree = "<group>";
+		};
+		58D9B6751BB9933200FFD9E1 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				58382C5D1BA02ABA00ECF0D2 /* LoginViewController.h */,
+				58382C5E1BA02ABA00ECF0D2 /* LoginViewController.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,6 +362,7 @@
 				TargetAttributes = {
 					58382C4F1BA02ABA00ECF0D2 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = AYW4J8P7X3;
 					};
 					58382C6B1BA02ABB00ECF0D2 = {
 						CreatedOnToolsVersion = 6.4;
@@ -202,7 +394,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5861F9E91BC917890088EF6C /* Invoice.storyboard in Resources */,
 				58382C621BA02ABA00ECF0D2 /* Main.storyboard in Resources */,
+				582F1FD01BBA6E6200852423 /* RunSummary.storyboard in Resources */,
+				585487E91BB53A6E0058256B /* Navigation.storyboard in Resources */,
+				5840BE4B1BBEC03D00EB5CD3 /* RunDetail.storyboard in Resources */,
+				5849948A1BCBE53E008EC7C4 /* RunDetailEdit.storyboard in Resources */,
 				58382C671BA02ABB00ECF0D2 /* LaunchScreen.xib in Resources */,
 				58382C641BA02ABB00ECF0D2 /* Images.xcassets in Resources */,
 			);
@@ -222,9 +419,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				584EF8861BC1611F0046E7DA /* FreightViewController.m in Sources */,
+				583009991BB9301B0094A401 /* MenuTableView.m in Sources */,
+				5888E2671BA9ADD700D82DDB /* RESTClient.m in Sources */,
+				5840BE491BBEBDF500EB5CD3 /* GeneralInfoViewController.m in Sources */,
+				5844824D1BC5180000E86823 /* CriteriaViewController.m in Sources */,
+				5849948D1BCBE5BC008EC7C4 /* RunDetailEditViewController.m in Sources */,
+				582F1FCE1BBA6E0F00852423 /* RunSummaryViewController.m in Sources */,
+				5840BE451BBE925900EB5CD3 /* RunDetailViewController.m in Sources */,
+				589E2D9D1BBAB1C800E31B98 /* RunSummaryCell.m in Sources */,
 				58382C591BA02ABA00ECF0D2 /* AppDelegate.m in Sources */,
+				585487EE1BB53DC70058256B /* NavigationViewController.m in Sources */,
+				584363FB1BC7C77E003B75AD /* DriverViewController.m in Sources */,
+				585487F11BB571EF0058256B /* MenuViewController.m in Sources */,
+				584193731BC6725D007FB4C7 /* TimeCardViewController.m in Sources */,
+				5846E2C91BB15005005132BA /* RESTDelegate.m in Sources */,
+				5830099B1BB949BA0094A401 /* NavMenuEntry.m in Sources */,
 				58382C561BA02ABA00ECF0D2 /* main.m in Sources */,
-				58382C5F1BA02ABA00ECF0D2 /* ViewController.m in Sources */,
+				5861F9E71BC916910088EF6C /* InvoiceViewController.m in Sources */,
+				5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */,
+				58382C5F1BA02ABA00ECF0D2 /* LoginViewController.m in Sources */,
+				58357C721BBAC1B900982E70 /* Entities.m in Sources */,
+				584818881BC3AD9700EE4CD6 /* PaymentMethodViewController.m in Sources */,
+				584131191BCE6C45008294ED /* PickerDelegate.m in Sources */,
+				584193761BC67938007FB4C7 /* TimeCardViewCell.m in Sources */,
+				584131161BCE2ACF008294ED /* GeneralInfoEditViewController.m in Sources */,
 				58382C5C1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -353,6 +572,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "BBH Mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -363,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "BBH Mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -422,6 +643,7 @@
 				58382C781BA02ABB00ECF0D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		58382C791BA02ABB00ECF0D2 /* Build configuration list for PBXNativeTarget "BBH MobileTests" */ = {
 			isa = XCConfigurationList;
@@ -430,6 +652,7 @@
 				58382C7B1BA02ABB00ECF0D2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

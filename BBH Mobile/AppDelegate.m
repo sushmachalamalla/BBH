@@ -125,3 +125,21 @@
 }
 
 @end
+
+@implementation UIView (BBHUIView)
+
+@dynamic borderWidth, borderColor, cornerRadius;
+
+-(void)setBorderColor:(UIColor *)borderColor {
+    [[self layer] setBorderColor:[borderColor CGColor]];
+}
+
+- (void)setBorderWidth:(CGFloat)borderWidth {
+    [[self layer] setBorderWidth:borderWidth];
+}
+
+-(void)setCornerRadius:(CGFloat)cornerRadius {
+    [[self layer] setCornerRadius:cornerRadius];
+}
+
+@end
