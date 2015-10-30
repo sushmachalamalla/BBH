@@ -88,7 +88,7 @@ static RESTClient* instance;
     }
 }
 
--(void) doConnectWithRequest: (NSMutableURLRequest*) request handler: (NSObject<RESTResponseHandler>*)handler {
+-(void) doConnectWithRequest: (NSMutableURLRequest*) request complete: (void(^)(RESTResponse, NSDictionary*))handler {
     
     [self clearTLSCache];
     
@@ -112,12 +112,12 @@ static RESTClient* instance;
 
 /** RESTClient Interface Implementation **/
 
--(void)doGETWithURL:(NSString *)path data:(RESTParams *)params handler:(NSObject<RESTResponseHandler> *)handler {
+-(void)doGETWithURL:(NSString *)path data:(RESTParams *)params complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
-    [self doGETWithURL:path absolute:NO data:params handler:handler];
+    [self doGETWithURL:path absolute:NO data:params complete:handler];
 }
 
-- (void)doGETWithURL:(NSString *)path absolute:(BOOL)abosolute data:(RESTParams *)params handler:(NSObject<RESTResponseHandler> *)handler {
+- (void)doGETWithURL:(NSString *)path absolute:(BOOL)abosolute data:(RESTParams *)params complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
     NSURL* url = abosolute ? [NSURL URLWithString:path] : [self makeURLWithPath:path params:params];
     NSLog(@"GET Server URL: %@", url);
@@ -125,10 +125,10 @@ static RESTClient* instance;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
     [request setHTTPMethod:@"GET"];
-    [self doConnectWithRequest:request handler:handler];
+    [self doConnectWithRequest:request complete:handler];
 }
 
--(void)doPOSTWithURL:(NSString *)path data:(RESTParams *)params handler:(NSObject<RESTResponseHandler> *)handler {
+-(void)doPOSTWithURL:(NSString *)path data:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*))handler {
     
     NSURL* url = [self makeURLWithPath:path params:nil];
     NSLog(@"POST Server URL: %@", url);
@@ -140,10 +140,10 @@ static RESTClient* instance;
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:data];
     
-    [self doConnectWithRequest:request handler:handler];
+    [self doConnectWithRequest:request complete:handler];
 }
 
--(void)doPUTWithURL:(NSString *)path data:(RESTParams *)params handler:(NSObject<RESTResponseHandler> *)handler {
+-(void)doPUTWithURL:(NSString *)path data:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*)) handler {
     //
 }
 

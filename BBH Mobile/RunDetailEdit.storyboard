@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
+        <!--Run Detail Edit View Controller-->
+        <scene sceneID="x3Q-YB-Ulp">
+            <objects>
+                <tabBarController storyboardIdentifier="runDetailEditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mR2-iq-MxJ" customClass="RunDetailEditViewController" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="wDy-0R-a2c">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="73S-G4-o8r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4901" y="-182"/>
+        </scene>
         <!--General Info Edit View Controller-->
         <scene sceneID="HX6-39-hHp">
             <objects>
-                <viewController storyboardIdentifier="runDetailEditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VLC-3X-auv" customClass="GeneralInfoEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="genInfoEditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VLC-3X-auv" customClass="GeneralInfoEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bxH-KM-qzz"/>
                         <viewControllerLayoutGuide type="bottom" id="ODh-kz-k6X"/>
@@ -18,14 +33,19 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tEU-VG-3FS">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.2332782182" green="0.388585817" blue="0.68497474749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="tEU-VG-3FS" firstAttribute="leading" secondItem="34u-EX-IKp" secondAttribute="leading" id="MqH-FH-5sH"/>
-                            <constraint firstItem="tEU-VG-3FS" firstAttribute="bottom" secondItem="ODh-kz-k6X" secondAttribute="top" id="d02-VM-rkL"/>
-                            <constraint firstAttribute="trailing" secondItem="tEU-VG-3FS" secondAttribute="trailing" id="dgb-vP-fTb"/>
-                            <constraint firstItem="tEU-VG-3FS" firstAttribute="top" secondItem="34u-EX-IKp" secondAttribute="top" id="fAd-6L-d7Z"/>
+                            <constraint firstItem="tEU-VG-3FS" firstAttribute="leading" secondItem="34u-EX-IKp" secondAttribute="leading" id="Ksx-No-R6d"/>
+                            <constraint firstAttribute="trailing" secondItem="tEU-VG-3FS" secondAttribute="trailing" id="Rvf-td-ewE"/>
+                            <constraint firstItem="tEU-VG-3FS" firstAttribute="bottom" secondItem="ODh-kz-k6X" secondAttribute="top" id="ale-Pm-O9y"/>
+                            <constraint firstItem="tEU-VG-3FS" firstAttribute="top" secondItem="34u-EX-IKp" secondAttribute="top" id="oIO-Qm-Qha"/>
                         </constraints>
                     </view>
                     <connections>
@@ -34,7 +54,39 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYG-Ri-FDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="238" y="234"/>
+            <point key="canvasLocation" x="-4278" y="-182"/>
+        </scene>
+        <!--Freight Edit View Controller-->
+        <scene sceneID="zqV-iG-lXd">
+            <objects>
+                <viewController storyboardIdentifier="freightEditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8a3-gc-KAc" customClass="FreightEditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="t7P-v1-H9f"/>
+                        <viewControllerLayoutGuide type="bottom" id="QmF-7p-Wq3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OOg-s9-qBG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXb-8v-uPw">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WXb-8v-uPw" firstAttribute="bottom" secondItem="QmF-7p-Wq3" secondAttribute="top" id="7sS-4v-YGW"/>
+                            <constraint firstItem="WXb-8v-uPw" firstAttribute="top" secondItem="OOg-s9-qBG" secondAttribute="top" id="G6n-ZJ-08V"/>
+                            <constraint firstAttribute="trailing" secondItem="WXb-8v-uPw" secondAttribute="trailing" id="L6A-ea-g14"/>
+                            <constraint firstItem="WXb-8v-uPw" firstAttribute="leading" secondItem="OOg-s9-qBG" secondAttribute="leading" id="RuO-Lx-u6r"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="WXb-8v-uPw" id="Duc-8r-nSW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZJP-Ro-4S2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3660" y="-182"/>
         </scene>
     </scenes>
 </document>

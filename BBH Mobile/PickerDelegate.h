@@ -15,7 +15,7 @@
 @interface PickerDelegate : NSObject<UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property NSMutableArray* content;
-@property id selected;
+//@property id selected;
 @property (copy) void(^onSelect)(void);
 
 @end

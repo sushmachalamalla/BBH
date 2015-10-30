@@ -30,7 +30,24 @@
     [self setContent:[NSMutableArray array]];
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/timeCards",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/timeCards",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@"TC DATA: %@", data);
+            
+            NSArray* timeCards = [data valueForKey:@"TimeCards"];
+            [timeCards enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                [[self content] addObject:[[TimeCard alloc] initWithDict:obj]];
+            }];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [[self tableView] reloadData];
+            });
+        }
+    }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -75,18 +92,7 @@
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@"TC DATA: %@", data);
-    
-    NSArray* timeCards = [data valueForKey:@"TimeCards"];
-    [timeCards enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [[self content] addObject:[[TimeCard alloc] initWithDict:obj]];
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        
-        [[self tableView] reloadData];
-    });
+    //
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {

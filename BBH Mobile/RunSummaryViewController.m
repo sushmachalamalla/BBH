@@ -36,7 +36,48 @@
     RESTParams* params = [[RESTParams alloc] init];
     
     //[self toggleWait:YES];
-    [client doGETWithURL:[self nextFetchURL] data:params handler:self];
+    [client doGETWithURL:[self nextFetchURL] data:params complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+                NSLog(@"%@ -> %@", key, obj);
+            }];
+            
+            int pageCount = [[data objectForKey:@"PageCount"] intValue];
+            int pageSize = [[data objectForKey:@"PageSize"] intValue];
+            int pageNumber = [[data objectForKey:@"PageNumber"] intValue];
+            
+            NSArray* items = [data objectForKey:@"Items"];
+            NSArray* links = [data objectForKey:@"Links"];
+            
+            NSLog(@"count: %d", pageCount);
+            NSLog(@"size: %d", pageSize);
+            NSLog(@"number: %d", pageNumber);
+            
+            NSLog(@"items: %ld", (unsigned long)[items count]);
+            NSLog(@"links: %ld", (unsigned long)[links count]);
+            
+            [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                Run* run = [[Run alloc] initWithDict:obj];
+                [[self content] addObject:run];
+            }];
+            
+            [self setPageCount:pageCount];
+            [self setPageNumber:pageNumber];
+            [self setPageSize:pageSize];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[self tableView] reloadData];
+            });
+            
+        } else if(response == RESTResponseError) {
+            
+            UITableViewHeaderFooterView* header = (UITableViewHeaderFooterView*)[[self tableView] headerViewForSection:0];
+            [[header detailTextLabel] setText:[NSString stringWithFormat:@"An error ocurred: %@", [data objectForKey:@"message"]]];
+        }
+    }];
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -179,43 +220,12 @@
 
 -(void)success:(NSDictionary *)data {
     
-    [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        NSLog(@"%@ -> %@", key, obj);
-    }];
     
-    int pageCount = [[data objectForKey:@"PageCount"] intValue];
-    int pageSize = [[data objectForKey:@"PageSize"] intValue];
-    int pageNumber = [[data objectForKey:@"PageNumber"] intValue];
-    
-    NSArray* items = [data objectForKey:@"Items"];
-    NSArray* links = [data objectForKey:@"Links"];
-    
-    NSLog(@"count: %d", pageCount);
-    NSLog(@"size: %d", pageSize);
-    NSLog(@"number: %d", pageNumber);
-    
-    NSLog(@"items: %ld", (unsigned long)[items count]);
-    NSLog(@"links: %ld", (unsigned long)[links count]);
-    
-    [items enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        Run* run = [[Run alloc] initWithDict:obj];
-        [[self content] addObject:run];
-    }];
-    
-    [self setPageCount:pageCount];
-    [self setPageNumber:pageNumber];
-    [self setPageSize:pageSize];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[self tableView] reloadData];
-    });
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {
     
-    UITableViewHeaderFooterView* header = (UITableViewHeaderFooterView*)[[self tableView] headerViewForSection:0];
-    [[header detailTextLabel] setText:[NSString stringWithFormat:@"An error ocurred: %@", message]];
+    
 }
 
 -(void)progress:(NSNumber *)percent {

@@ -32,7 +32,25 @@
     [[self pmTableView] setDelegate:self];
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runPaymentMethods",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runPaymentMethods",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@"%@", data);
+            NSArray* runPaymentList = [data valueForKey:@"RunPaymentMethods"];
+            
+            [runPaymentList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                RunPaymentMethod* pm = [[RunPaymentMethod alloc] initWithDict:obj];
+                [[self content] addObject:pm];
+            }];
+            
+            dispatch_async(dispatch_get_main_queue(),^{
+                
+                [[self pmTableView] reloadData];
+            });
+        }
+    }];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -118,19 +136,7 @@
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@"%@", data);
-    NSArray* runPaymentList = [data valueForKey:@"RunPaymentMethods"];
-    
-    [runPaymentList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        RunPaymentMethod* pm = [[RunPaymentMethod alloc] initWithDict:obj];
-        [[self content] addObject:pm];
-    }];
-    
-    dispatch_async(dispatch_get_main_queue(),^{
-        
-        [[self pmTableView] reloadData];
-    });
+    //
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {

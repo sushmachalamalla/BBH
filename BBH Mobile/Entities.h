@@ -8,6 +8,7 @@
 
 #import "Foundation/Foundation.h"
 #import "UIKit/uikit.h"
+#import "BBHUtil.h"
 
 #ifndef BBH_Mobile_SysUser_h
 #define BBH_Mobile_SysUser_h
@@ -366,7 +367,7 @@
 @property NSString* pickupContactPhone;
 @property LocationType* pickupLocationType;
 
-@property EquipmentType* equipmentType;
+@property NSString* equipmentType;
 @property BOOL facilityWithDock;
 @property NSString* freightDetails;
 @property NSNumber* fuelAdvanceAmount;
@@ -468,17 +469,6 @@
 - (instancetype) initWithIcon: (NSString*) icon label: (NSString*) label actionURL: (NSString*) actionURL;
 - (instancetype) initWithIcon: (NSString*) icon label: (NSString*) label actionURL: (NSString*) actionURL actionEntity: (NSString*) actionEntity;
 - (void) addChildItem: (NavMenuEntry*) chidItem;
-
-@end
-
-@interface BBHUtil : NSObject
-
-+(NSDateFormatter*) dateScan;
-+(NSDateFormatter*) dateFormat;
-+(CGSize) statusBarSize;
-+(CGFloat) statusBarHeight;
-+(BOOL) isNull: (id) obj;
-+(UIColor*) headerTextColor;
 
 @end
 

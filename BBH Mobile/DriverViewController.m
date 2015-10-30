@@ -138,20 +138,30 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runReleasesResponded",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runReleasesResponded",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@"RunRelease: %@", data);
+            
+            NSArray* runReleases = [data valueForKey:@"RunReleases"];
+            [runReleases enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                [[self content] addObject:[[RunRelease alloc] initWithDict:obj]];
+            }];
+            
+            [self cb]();
+            
+        } else if(response == RESTResponseError) {
+            
+            //
+        }
+    }];
 }
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@"RunRelease: %@", data);
     
-    NSArray* runReleases = [data valueForKey:@"RunReleases"];
-    [runReleases enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [[self content] addObject:[[RunRelease alloc] initWithDict:obj]];
-    }];
-    
-    [self cb]();
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {
@@ -230,20 +240,26 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runDriversAccepted",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runDriversAccepted",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@"RunDriver: %@", data);
+            
+            NSArray* runDrivers = [data valueForKey:@"RunDrivers"];
+            [runDrivers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                [[self content] addObject:[[RunDriver alloc] initWithDict:obj]];
+            }];
+            
+            [self cb]();
+        }
+    }];
 }
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@"RunDriver: %@", data);
-    
-    NSArray* runDrivers = [data valueForKey:@"RunDrivers"];
-    [runDrivers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [[self content] addObject:[[RunDriver alloc] initWithDict:obj]];
-    }];
-    
-    [self cb]();
+    //
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {

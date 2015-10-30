@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, RESTResponse) {
+    
+    RESTResponseSuccess, RESTResponseError, RESTResponseProgress
+};
+
 @protocol RESTResponseHandler <NSObject>
 
 -(void) success: (NSDictionary*) data;
@@ -19,11 +24,11 @@
 @interface RESTDelegate : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 
 -(instancetype) init;
--(instancetype) initWithHandler: (NSObject<RESTResponseHandler>*) handler;
+-(instancetype) initWithHandler: (void(^)(RESTResponse,NSDictionary*)) handler;
 
 @property int statusCode;
 @property NSURLCredential* credential;
-@property NSObject<RESTResponseHandler>* responseHandler;
+@property (copy) void(^responseHandler)(RESTResponse, NSDictionary*);
 
 @end
 
@@ -54,12 +59,16 @@
 
 - (void) setCredentialsWithUser:(NSString *)userName password:(NSString*) password;
 
-- (void) doGETWithURL: (NSString*) path data: (RESTParams*) params handler: (NSObject<RESTResponseHandler>*) handler;
 
+/*- (void) doGETWithURL: (NSString*) path data: (RESTParams*) params handler: (NSObject<RESTResponseHandler>*) handler;
 - (void) doGETWithURL: (NSString*) path absolute: (BOOL) abosolute data: (RESTParams*) params handler: (NSObject<RESTResponseHandler>*) handler;
-
 - (void) doPOSTWithURL: (NSString*) path data: (RESTParams*) params handler: (NSObject<RESTResponseHandler>*) handler;
-
 - (void) doPUTWithURL: (NSString*) path data: (RESTParams*) params handler: (NSObject<RESTResponseHandler>*) handler;
+*/
+
+- (void) doPOSTWithURL: (NSString*) path data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doGETWithURL: (NSString*) path absolute: (BOOL) absolute data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doGETWithURL: (NSString*) path data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPUTWithURL: (NSString*) path data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
 
 @end

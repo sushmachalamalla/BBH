@@ -59,6 +59,8 @@
     
     UIStoryboard* sb = [UIStoryboard storyboardWithName:@"RunDetailEdit" bundle:[NSBundle mainBundle]];
     RunDetailEditViewController* editVC = [sb instantiateViewControllerWithIdentifier:@"runDetailEditVC"];
+    
+    [editVC setRunEntity:[self runEntity]];
     [[self navigationController] showViewController:editVC sender:self];
 }
 

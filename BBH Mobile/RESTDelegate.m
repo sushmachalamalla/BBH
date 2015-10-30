@@ -13,12 +13,14 @@
     NSDictionary* __headers;
 }
 
+//@synthesize responseHandler;
+
 - (instancetype)init {
     
     return [self initWithHandler:nil];
 }
 
-- (instancetype)initWithHandler: (NSObject<RESTResponseHandler> * __nonnull) handler {
+- (instancetype)initWithHandler: (void(^)(RESTResponse, NSDictionary*)) handler {
     
     self = [super init];
     if(self) {
@@ -47,8 +49,11 @@
     
     [dict setValue:[NSNumber numberWithInt:[error code]] forKey:@"code"];
     [dict setValue:[error description] forKey:@"description"];
+    [dict setValue:[NSString stringWithFormat:@"An error occured while fetching"] forKey:@"message"];
     
-    [[self responseHandler] failure:dict withMessage: [NSString stringWithFormat:@"An error occured while fetching"]];
+    //[[self responseHandler] failure:dict withMessage: [NSString stringWithFormat:@"An error occured while fetching"]];
+    
+    [self responseHandler](RESTResponseError, dict);
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -83,9 +88,17 @@
         [dict setValue:__headers forKey:@"headers"];
         
         if([self statusCode] == 200) {
-            [[self responseHandler] success:dict];
+            
+            //[[self responseHandler] success:dict];
+            [self responseHandler](RESTResponseSuccess, dict);
+            
         } else {
-            [[self responseHandler] failure:dict withMessage:[self statusCode] == 401 ? @"Incorrect creadentials, please try again." : @"An error occured"];
+            
+            //[[self responseHandler] failure:dict withMessage:[self statusCode] == 401 ? @"Incorrect credentials, please try again." : @"An error occured"];
+            
+            [dict setValue:[self statusCode] == 401 ? @"Incorrect credentials, please try again." : @"An error occured" forKey:@"message"];
+            
+            [self responseHandler](RESTResponseError, dict);
         }
         
     } else {
@@ -96,7 +109,10 @@
         dict = [NSMutableDictionary dictionary];
         [dict setValue:[NSNumber numberWithInt:[jsonError code]] forKey:@"code"];
         [dict setValue:[jsonError description] forKey:@"description"];
-        [[self responseHandler] failure:dict withMessage:@"An error occured"];
+        [dict setValue:@"An error occurred" forKey:@"description"];
+        
+        //[[self responseHandler] failure:dict withMessage:@"An error occured"];
+        [self responseHandler](RESTResponseError, dict);
     }
 }
 

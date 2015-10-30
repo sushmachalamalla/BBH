@@ -32,6 +32,8 @@
 		5846E2C91BB15005005132BA /* RESTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846E2C81BB15005005132BA /* RESTDelegate.m */; };
 		5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846E2CA1BB1629F005132BA /* RESTParams.m */; };
 		584818881BC3AD9700EE4CD6 /* PaymentMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */; };
+		5849874B1BDF7F9600E6D368 /* FreightEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849874A1BDF7F9600E6D368 /* FreightEditViewController.m */; settings = {ASSET_TAGS = (); }; };
+		5849874E1BDFACAC00E6D368 /* BBHUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849874D1BDFACAC00E6D368 /* BBHUtil.m */; settings = {ASSET_TAGS = (); }; };
 		5849948A1BCBE53E008EC7C4 /* RunDetailEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 584994891BCBE53E008EC7C4 /* RunDetailEdit.storyboard */; };
 		5849948D1BCBE5BC008EC7C4 /* RunDetailEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849948C1BCBE5BC008EC7C4 /* RunDetailEditViewController.m */; };
 		584EF8861BC1611F0046E7DA /* FreightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584EF8851BC1611E0046E7DA /* FreightViewController.m */; };
@@ -97,6 +99,10 @@
 		5846E2CA1BB1629F005132BA /* RESTParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTParams.m; sourceTree = "<group>"; };
 		584818861BC3AD7B00EE4CD6 /* PaymentMethodViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethodViewController.h; sourceTree = "<group>"; };
 		584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodViewController.m; sourceTree = "<group>"; };
+		584987491BDF7F7E00E6D368 /* FreightEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreightEditViewController.h; sourceTree = "<group>"; };
+		5849874A1BDF7F9600E6D368 /* FreightEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FreightEditViewController.m; sourceTree = "<group>"; };
+		5849874C1BDFAC6200E6D368 /* BBHUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BBHUtil.h; sourceTree = "<group>"; };
+		5849874D1BDFACAC00E6D368 /* BBHUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBHUtil.m; sourceTree = "<group>"; };
 		584994891BCBE53E008EC7C4 /* RunDetailEdit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RunDetailEdit.storyboard; sourceTree = "<group>"; };
 		5849948B1BCBE5A1008EC7C4 /* RunDetailEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunDetailEditViewController.h; sourceTree = "<group>"; };
 		5849948C1BCBE5BC008EC7C4 /* RunDetailEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunDetailEditViewController.m; sourceTree = "<group>"; };
@@ -244,6 +250,8 @@
 				584131151BCE2ACF008294ED /* GeneralInfoEditViewController.m */,
 				584131171BCE6C30008294ED /* PickerDelegate.h */,
 				584131181BCE6C45008294ED /* PickerDelegate.m */,
+				584987491BDF7F7E00E6D368 /* FreightEditViewController.h */,
+				5849874A1BDF7F9600E6D368 /* FreightEditViewController.m */,
 			);
 			name = RunDetailEdit;
 			sourceTree = "<group>";
@@ -278,6 +286,8 @@
 				585487E71BB5320B0058256B /* Entities.h */,
 				5830099A1BB949BA0094A401 /* NavMenuEntry.m */,
 				58357C711BBAC1B900982E70 /* Entities.m */,
+				5849874C1BDFAC6200E6D368 /* BBHUtil.h */,
+				5849874D1BDFACAC00E6D368 /* BBHUtil.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -357,7 +367,7 @@
 		58382C481BA02ABA00ECF0D2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Mac-Mini";
 				TargetAttributes = {
 					58382C4F1BA02ABA00ECF0D2 = {
@@ -421,6 +431,7 @@
 			files = (
 				584EF8861BC1611F0046E7DA /* FreightViewController.m in Sources */,
 				583009991BB9301B0094A401 /* MenuTableView.m in Sources */,
+				5849874E1BDFACAC00E6D368 /* BBHUtil.m in Sources */,
 				5888E2671BA9ADD700D82DDB /* RESTClient.m in Sources */,
 				5840BE491BBEBDF500EB5CD3 /* GeneralInfoViewController.m in Sources */,
 				5844824D1BC5180000E86823 /* CriteriaViewController.m in Sources */,
@@ -436,6 +447,7 @@
 				5846E2C91BB15005005132BA /* RESTDelegate.m in Sources */,
 				5830099B1BB949BA0094A401 /* NavMenuEntry.m in Sources */,
 				58382C561BA02ABA00ECF0D2 /* main.m in Sources */,
+				5849874B1BDF7F9600E6D368 /* FreightEditViewController.m in Sources */,
 				5861F9E71BC916910088EF6C /* InvoiceViewController.m in Sources */,
 				5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */,
 				58382C5F1BA02ABA00ECF0D2 /* LoginViewController.m in Sources */,
@@ -507,6 +519,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -575,6 +588,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "BBH Mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NSP.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -586,6 +600,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "BBH Mobile/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NSP.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -604,6 +619,7 @@
 				);
 				INFOPLIST_FILE = "BBH MobileTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NSP.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BBH Mobile.app/BBH Mobile";
 			};
@@ -619,6 +635,7 @@
 				);
 				INFOPLIST_FILE = "BBH MobileTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "NSP.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BBH Mobile.app/BBH Mobile";
 			};

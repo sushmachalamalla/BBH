@@ -9,59 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Entities.h"
 
-@implementation BBHUtil
-
-static NSDateFormatter* dateScan;
-static NSDateFormatter* dateFormat;
-static SysUser* sysUser;
-static UIColor* headerTextColor;
-
-+ (NSDateFormatter *)dateScan {
-    
-    if(!dateScan) {
-        
-        dateScan = [[NSDateFormatter alloc] init];
-        [dateScan setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-    }
-    
-    return dateScan;
-}
-
-+ (NSDateFormatter *)dateFormat {
-    
-    if(!dateFormat) {
-        
-        dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    }
-    
-    return dateFormat;
-}
-
-+ (CGSize)statusBarSize {
-    
-    return [[UIApplication sharedApplication] statusBarFrame].size;
-}
-
-+ (CGFloat)statusBarHeight {
-    
-    return MIN([self statusBarSize].width, [self statusBarSize].height);
-}
-
-+ (BOOL) isNull: (id) obj {
-    
-    return !obj || (obj == (id) [NSNull null]);
-}
-
-+(UIColor *)headerTextColor {
-    
-    if(!headerTextColor) {
-        
-        headerTextColor = [UIColor colorWithRed:(59.0/255.0) green:(99.0/255.0) blue:(175.0/255.0) alpha:1.0];
-    }
-    
-    return headerTextColor;
-}
+@implementation Paginate
 
 @end
 
@@ -88,11 +36,6 @@ static BBHSession* instance;
     
     [self setExpired:YES];
 }
-
-@end
-
-@implementation Paginate
-
 
 @end
 
@@ -240,6 +183,11 @@ static BBHSession* instance;
     return self;
 }
 
+-(NSString *)description {
+    
+    return [self locationTypeName];
+}
+
 @end
 
 @implementation LoadingType
@@ -282,6 +230,11 @@ static BBHSession* instance;
     }
     
     return self;
+}
+
+-(NSString *)description {
+    
+    return [self runFrequencyName];
 }
 
 @end
@@ -659,23 +612,31 @@ static BBHSession* instance;
         _driverClass = [[DriverClass alloc] initWithDict:[dict valueForKey:@"DriverClass"]];
         _driverType = [[DriverType alloc] initWithDict:[dict valueForKey:@"DriverType"]];
         
+        id dropOffContactName = [dict valueForKey:@"DropOffContactName"];
+        _dropOffContactName = [BBHUtil isNull:dropOffContactName] ? nil : dropOffContactName;
+        
+        id dropOffContactPhone = [dict valueForKey:@"DropOffContactPhone"];
+        _dropOffContactPhone = [BBHUtil isNull:dropOffContactPhone] ? nil : dropOffContactPhone;
+        
         _dropOffAddress = [[Address alloc] initWithDict:[dict valueForKey:@"DropOffAddress"]];
-        _dropOffContactName = [dict valueForKey:@"DropOffContactName"];
         
         id dropOffLocationType = [dict valueForKey:@"DropOffLocationType"];
         _dropOffLocationType = [BBHUtil isNull:dropOffLocationType] ? nil : [[LocationType alloc] initWithDict:dropOffLocationType];
         
-        _equipmentType = [dict valueForKey:@"EquipmentType"];
+        id equipmentType = [dict valueForKey:@"EquipmentType"];
+        _equipmentType = [BBHUtil isNull:equipmentType] ? nil : equipmentType;
         
         id facilityWithDock = [dict valueForKey:@"FacilityWithDock"];
         _facilityWithDock = [BBHUtil isNull:facilityWithDock] ? NO : (BOOL)facilityWithDock;
         
-        _freightDetails = [dict valueForKey:@"FreightDetails"];
+        id freightDetails = [dict valueForKey:@"FreightDetails"];
+        _freightDetails = [BBHUtil isNull:freightDetails] ? nil : freightDetails;
         
         id fuelAdvanceAmount = [dict valueForKey:@"FuelAdvanceAmount"];
         _fuelAdvanceAmount = [BBHUtil isNull:fuelAdvanceAmount] ? nil : fuelAdvanceAmount;
         
-        _hiringCriteria = [dict valueForKey:@"HiringCriteria"];
+        id hiringCriteria = [dict valueForKey:@"HiringCriteria"];
+        _hiringCriteria = [BBHUtil isNull:hiringCriteria] ? nil : hiringCriteria;
         
         if(!_estimatedCost) {
             id estimatedCost = [dict valueForKey:@"EstimatedCost"];
@@ -700,7 +661,8 @@ static BBHSession* instance;
             [_links setValue:link forKey:[link rel]];
         }];
         
-        _loadDescription = [dict valueForKey:@"LoadDescription"];
+        id loadDescription = [dict valueForKey:@"LoadDescription"];
+        _loadDescription = [BBHUtil isNull:loadDescription] ? nil : loadDescription;
         
         id loadingType = [dict valueForKey:@"LoadingType"];
         _loadingType = [BBHUtil isNull:loadingType] ? nil : [[LoadingType alloc] initWithDict:loadingType];
@@ -727,8 +689,12 @@ static BBHSession* instance;
         _payLumperFee = [BBHUtil isNull:payLumperFee] ? NO : (BOOL)payLumperFee;
         
         _pickupAddress = [[Address alloc] initWithDict:[dict valueForKey:@"PickUpAddress"]];
-        _pickupContactName = [dict valueForKey:@"PickUpContactName"];
-        _pickupContactPhone = [dict valueForKey:@"PickUpContactPhone"];
+        
+        id pickupContactName = [dict valueForKey:@"PickUpContactName"];
+        _pickupContactName = [BBHUtil isNull:pickupContactName] ? nil : pickupContactName;
+        
+        id pickupContactPhone = [dict valueForKey:@"PickUpContactPhone"];
+        _pickupContactPhone = [BBHUtil isNull:pickupContactPhone] ? nil : pickupContactPhone;
         
         id pickupLocationType = [dict valueForKey:@"PickUpLocationType"];
         _pickupLocationType = [BBHUtil isNull:pickupLocationType] ? nil : [[LocationType alloc] initWithDict:pickupLocationType];
@@ -762,12 +728,14 @@ static BBHSession* instance;
         id runStops = [dict valueForKey:@"RunStops"];
         _runStops = [BBHUtil isNull:runStops] ? 0 : [runStops intValue];
         
-        _runTitle = [dict valueForKey:@"RunTitle"];
+        id runTitle = [dict valueForKey:@"RunTitle"];
+        _runTitle = [BBHUtil isNull:runTitle] ? nil : runTitle;
         
         id sealOnTrailer = [dict valueForKey:@"SealOnTrailer"];
         _sealOnTrailer = [BBHUtil isNull:sealOnTrailer] ? NO : (BOOL)sealOnTrailer;
         
-        _specialInstructions = [dict valueForKey:@"SpecialInstructions"];
+        id specialInstructions = [dict valueForKey:@"SpecialInstructions"];
+        _specialInstructions = [BBHUtil isNull: specialInstructions] ? nil : specialInstructions;
         
         id tonuForOO = [dict valueForKey:@"TONUForOO"];
         _tonuForOO = [BBHUtil isNull:tonuForOO] ? NO : (BOOL)tonuForOO;
@@ -849,6 +817,11 @@ static BBHSession* instance;
     return self;
 }
 
+-(NSString *)description {
+    
+    return [self driverClassName];
+}
+
 @end
 
 @implementation DriverType
@@ -869,6 +842,11 @@ static BBHSession* instance;
     }
     
     return self;
+}
+
+-(NSString *)description {
+    
+    return [self driverTypeName];
 }
 
 @end

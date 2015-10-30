@@ -9,11 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "RESTClient.h"
 #import "Entities.h"
+#import "BBHUtil.h"
+#import "GeneralInfoEditViewController.h"
+#import "FreightEditViewController.h"
 
 #ifndef BBH_Mobile_RunDetailEditViewController_h
 #define BBH_Mobile_RunDetailEditViewController_h
 
-@interface RunDetailEditViewController : UITabBarController<UITabBarControllerDelegate, UITabBarDelegate>
+@interface RunDetailEditViewController : UITabBarController<UITabBarControllerDelegate>
+
+@property Run* runEntity;
+@property EntityMode mode;
 
 @end
 

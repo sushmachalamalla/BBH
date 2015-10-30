@@ -161,21 +161,27 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEndorsements",[[self runEntity] runId]] data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEndorsements",[[self runEntity] runId]] data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@">> END: %@", data);
+            
+            NSArray* runEquipSkills = [data valueForKey:@"RunEquipmentSkills"];
+            [runEquipSkills enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                [[self content] addObject:[[RunEquipmentSkill alloc] initWithDict:obj]];
+            }];
+            
+            //NSLog(@">> END DATA: %d", [[self content] count]);
+            [self cb]();
+        }
+    }];
 }
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@">> END: %@", data);
     
-    NSArray* runEquipSkills = [data valueForKey:@"RunEquipmentSkills"];
-    [runEquipSkills enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [[self content] addObject:[[RunEquipmentSkill alloc] initWithDict:obj]];
-    }];
-    
-    //NSLog(@">> END DATA: %d", [[self content] count]);
-    [self cb]();
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {
@@ -274,20 +280,26 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runSkills",[[self runEntity] runId]] data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runSkills",[[self runEntity] runId]] data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@">> SKILL: %@", data);
+            
+            NSArray* runEquipSkills = [data valueForKey:@"RunEquipmentSkills"];
+            [runEquipSkills enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                [[self content] addObject:[[RunEquipmentSkill alloc] initWithDict:obj]];
+            }];
+            
+            [self cb]();
+        }
+    }];
 }
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@">> SKILL: %@", data);
     
-    NSArray* runEquipSkills = [data valueForKey:@"RunEquipmentSkills"];
-    [runEquipSkills enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [[self content] addObject:[[RunEquipmentSkill alloc] initWithDict:obj]];
-    }];
-    
-    [self cb]();
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {
@@ -357,7 +369,7 @@
     UILabel* expLabel = [[UILabel alloc] initWithFrame:CGRectMake(310, 5, 143.0, 21.0)];
     
     [skillLabel setTextColor:[BBHUtil headerTextColor]];
-    [skillLabel setText:@"Skill"];
+    [skillLabel setText:@"Equipment"];
     
     [expLabel setTextColor:[BBHUtil headerTextColor]];
     [expLabel setText:@"Year Slot"];
@@ -386,20 +398,26 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEquipments",[[self runEntity] runId]] data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEquipments",[[self runEntity] runId]] data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@">> EQUIP: %@", data);
+            
+            NSArray* runEquipSkills = [data valueForKey:@"RunEquipmentSkills"];
+            [runEquipSkills enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+                
+                [[self content] addObject:[[RunEquipmentSkill alloc] initWithDict:obj]];
+            }];
+            
+            [self cb]();
+        }
+    }];
 }
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@">> EQUIP: %@", data);
     
-    NSArray* runEquipSkills = [data valueForKey:@"RunEquipmentSkills"];
-    [runEquipSkills enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        
-        [[self content] addObject:[[RunEquipmentSkill alloc] initWithDict:obj]];
-    }];
-    
-    [self cb]();
 }
 
 -(void)failure:(NSDictionary *)detail withMessage:(NSString *)message {

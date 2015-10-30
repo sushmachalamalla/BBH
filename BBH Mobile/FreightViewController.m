@@ -100,16 +100,22 @@
     [self toggleWait:YES];
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[[[[self runEntity] links] objectForKey:@"self"] href] absolute:YES data:[[RESTParams alloc] init] handler:self];
+    [client doGETWithURL:[[[[self runEntity] links] objectForKey:@"self"] href] absolute:YES data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if (response == RESTResponseSuccess) {
+            
+            NSLog(@"%@", data);
+            [self setRunEntity:[[self runEntity] initWithDict:data]];
+            
+            [self makeUI];
+            [self toggleWait:NO];
+        }
+    }];
 }
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@"%@", data);
-    [self setRunEntity:[[self runEntity] initWithDict:data]];
-    
-    [self makeUI];
-    [self toggleWait:NO];
+    //
 }
 
 - (void)failure:(NSDictionary *)detail withMessage:(NSString *)message {

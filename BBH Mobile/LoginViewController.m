@@ -64,36 +64,42 @@
     
     [self toggleWait:true];
     [client setCredentialsWithUser:[[self userTF] text] password:[[self passwordTF] text]];
-    [client doPOSTWithURL:@"login" data:params handler:self];
+    [client doPOSTWithURL:@"login" data:params complete:^(RESTResponse response, NSDictionary *data) {
+        
+        if(response == RESTResponseSuccess) {
+            
+            NSLog(@"on success");
+            
+            [self toggleWait:NO];
+            [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+                NSLog(@"%@ -> %@", key, obj);
+            }];
+            
+            NSDictionary* headers = [data valueForKey:@"headers"];
+            NSString* accessToken = [headers valueForKey:@"token"];
+            
+            SysUser* user = [[SysUser alloc] initWithDict:data];
+            [[BBHSession curSession] setCurUser:user];
+            
+            [[RESTClient instance] setAccessToken:accessToken];
+            
+            UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Navigation" bundle:[NSBundle mainBundle]];
+            NavigationViewController* runVC = [sb instantiateInitialViewController];
+            
+            //[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+            
+            [self presentViewController:runVC animated:YES completion:^{
+                [runVC loadView];
+            }];
+            
+            NSLog(@" >> Seague performed ");
+        }
+    }];
 }
 
 - (void)success:(NSDictionary *)data {
     
-    NSLog(@"on success");
     
-    [self toggleWait:NO];
-    [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        NSLog(@"%@ -> %@", key, obj);
-    }];
-    
-    NSDictionary* headers = [data valueForKey:@"headers"];
-    NSString* accessToken = [headers valueForKey:@"token"];
-    
-    SysUser* user = [[SysUser alloc] initWithDict:data];
-    [[BBHSession curSession] setCurUser:user];
-    
-    [[RESTClient instance] setAccessToken:accessToken];
-    
-    UIStoryboard* sb = [UIStoryboard storyboardWithName:@"Navigation" bundle:[NSBundle mainBundle]];
-    NavigationViewController* runVC = [sb instantiateInitialViewController];
-    
-    //[self setModalPresentationStyle:UIModalPresentationCurrentContext];
-    
-    [self presentViewController:runVC animated:YES completion:^{
-        [runVC loadView];
-    }];
-    
-    NSLog(@" >> Seague performed ");
 }
 
 - (void)failure:(NSDictionary *)detail withMessage:(NSString *)message {
