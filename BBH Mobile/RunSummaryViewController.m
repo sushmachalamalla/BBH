@@ -36,7 +36,7 @@
     RESTParams* params = [[RESTParams alloc] init];
     
     //[self toggleWait:YES];
-    [client doGETWithURL:[self nextFetchURL] data:params complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:[self nextFetchURL] params:params complete:^(RESTResponse response, NSDictionary *data) {
         
         if(response == RESTResponseSuccess) {
             

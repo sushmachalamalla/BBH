@@ -100,7 +100,7 @@
     [self toggleWait:YES];
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[[[[self runEntity] links] objectForKey:@"self"] href] absolute:YES data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:[[[[self runEntity] links] objectForKey:@"self"] href] absolute:YES params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         if (response == RESTResponseSuccess) {
             

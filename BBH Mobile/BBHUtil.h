@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, ConfirmResponse) {
 +(CGSize) statusBarSize;
 +(CGFloat) statusBarHeight;
 +(BOOL) isNull: (id) obj;
++(BOOL) isEmpty: (NSString*) string;
 +(UIColor*) headerTextColor;
 +(void) showAlert: (UIViewController*)vc handler: (void (^)(ConfirmResponse)) handler;
 +(UILabel*) makeLabelWithText: (NSString*)text frame:(CGRect)rect;

@@ -66,9 +66,12 @@ typedef NS_ENUM(NSInteger, RESTResponse) {
 - (void) doPUTWithURL: (NSString*) path data: (RESTParams*) params handler: (NSObject<RESTResponseHandler>*) handler;
 */
 
-- (void) doPOSTWithURL: (NSString*) path data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
-- (void) doGETWithURL: (NSString*) path absolute: (BOOL) absolute data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
-- (void) doGETWithURL: (NSString*) path data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
-- (void) doPUTWithURL: (NSString*) path data: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPOSTWithURL: (NSString*) path params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doGETWithURL: (NSString*) path absolute: (BOOL) absolute params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doGETWithURL: (NSString*) path params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPUTWithURL: (NSString*) path params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+
+- (void) doPOSTWithURL: (NSString*) path data: (NSJSONSerialization*) json complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPUTWithURL: (NSString*) path data: (NSJSONSerialization*) json complete: (void(^)(RESTResponse, NSDictionary*)) handler;
 
 @end

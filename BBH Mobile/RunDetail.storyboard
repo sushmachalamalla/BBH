@@ -709,41 +709,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z53-ka-To1" id="vPR-xk-vBq">
                                             <rect key="frame" x="0.0" y="0.0" width="580" height="38"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Method" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F8S-IY-Fkj">
-                                                    <rect key="frame" x="1" y="8" width="288" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.2332782182" green="0.388585817" blue="0.68497474749999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est Rate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FY-ld-alk">
-                                                    <rect key="frame" x="433" y="8" width="131" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="131" id="wtG-3l-Mpj"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.2332782182" green="0.388585817" blue="0.68497474749999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Est Units" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cC-hg-RNs">
-                                                    <rect key="frame" x="303" y="8" width="113" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="113" id="hpB-c7-kxX"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.2332782182" green="0.388585817" blue="0.68497474749999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="6FY-ld-alk" firstAttribute="leading" secondItem="3cC-hg-RNs" secondAttribute="trailing" constant="17" id="0lb-BY-WMv"/>
-                                                <constraint firstItem="F8S-IY-Fkj" firstAttribute="top" secondItem="vPR-xk-vBq" secondAttribute="topMargin" id="5dN-Jz-yYN"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="6FY-ld-alk" secondAttribute="trailing" constant="8" id="GqT-x9-r2N"/>
-                                                <constraint firstItem="3cC-hg-RNs" firstAttribute="baseline" secondItem="F8S-IY-Fkj" secondAttribute="baseline" id="TRt-dn-2hN"/>
-                                                <constraint firstItem="3cC-hg-RNs" firstAttribute="leading" secondItem="F8S-IY-Fkj" secondAttribute="trailing" constant="14" id="ZS6-gw-OwM"/>
-                                                <constraint firstItem="6FY-ld-alk" firstAttribute="baseline" secondItem="3cC-hg-RNs" secondAttribute="baseline" id="mim-Sp-WRO"/>
-                                                <constraint firstItem="F8S-IY-Fkj" firstAttribute="leading" secondItem="vPR-xk-vBq" secondAttribute="leadingMargin" constant="-7" id="uVQ-ZW-8yf"/>
-                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pmDataCell" rowHeight="63" id="b6X-Ne-QMg">

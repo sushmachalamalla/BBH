@@ -112,12 +112,12 @@ static RESTClient* instance;
 
 /** RESTClient Interface Implementation **/
 
--(void)doGETWithURL:(NSString *)path data:(RESTParams *)params complete:(void (^)(RESTResponse, NSDictionary *))handler {
+-(void)doGETWithURL:(NSString *)path params:(RESTParams *)params complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
-    [self doGETWithURL:path absolute:NO data:params complete:handler];
+    [self doGETWithURL:path absolute:NO params:params complete:handler];
 }
 
-- (void)doGETWithURL:(NSString *)path absolute:(BOOL)abosolute data:(RESTParams *)params complete:(void (^)(RESTResponse, NSDictionary *))handler {
+- (void)doGETWithURL:(NSString *)path absolute:(BOOL)abosolute params:(RESTParams *)params complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
     NSURL* url = abosolute ? [NSURL URLWithString:path] : [self makeURLWithPath:path params:params];
     NSLog(@"GET Server URL: %@", url);
@@ -128,7 +128,7 @@ static RESTClient* instance;
     [self doConnectWithRequest:request complete:handler];
 }
 
--(void)doPOSTWithURL:(NSString *)path data:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*))handler {
+-(void)doPOSTWithURL:(NSString *)path params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*))handler {
     
     NSURL* url = [self makeURLWithPath:path params:nil];
     NSLog(@"POST Server URL: %@", url);
@@ -143,7 +143,26 @@ static RESTClient* instance;
     [self doConnectWithRequest:request complete:handler];
 }
 
--(void)doPUTWithURL:(NSString *)path data:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*)) handler {
+-(void)doPOSTWithURL:(NSString *)path data:(NSJSONSerialization *)json complete:(void (^)(RESTResponse, NSDictionary *))handler {
+    
+    /*NSURL* url = [self makeURLWithPath:path params:nil];
+    NSLog(@"POST Server URL: %@", url);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSData *data = [[NSJSONSerialization ] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:data];
+    
+    [self doConnectWithRequest:request complete:handler];*/
+}
+
+-(void)doPUTWithURL:(NSString *)path params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*)) handler {
+    //
+}
+
+-(void)doPUTWithURL:(NSString *)path data:(NSJSONSerialization *)json complete:(void (^)(RESTResponse, NSDictionary *))handler {
     //
 }
 

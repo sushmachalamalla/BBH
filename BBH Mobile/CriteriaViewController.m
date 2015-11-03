@@ -161,7 +161,7 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEndorsements",[[self runEntity] runId]] data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEndorsements",[[self runEntity] runId]] params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         if(response == RESTResponseSuccess) {
             
@@ -280,7 +280,7 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runSkills",[[self runEntity] runId]] data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runSkills",[[self runEntity] runId]] params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         if(response == RESTResponseSuccess) {
             
@@ -398,7 +398,7 @@
 -(void)fetchData {
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEquipments",[[self runEntity] runId]] data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runEquipments",[[self runEntity] runId]] params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         if(response == RESTResponseSuccess) {
             

@@ -32,7 +32,7 @@
     [[self pmTableView] setDelegate:self];
     
     RESTClient* client = [RESTClient instance];
-    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runPaymentMethods",[[self runEntity] runId]] absolute:NO data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runPaymentMethods",[[self runEntity] runId]] absolute:NO params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         if(response == RESTResponseSuccess) {
             

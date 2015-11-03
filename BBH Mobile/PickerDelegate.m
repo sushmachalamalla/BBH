@@ -54,8 +54,11 @@
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
-    NSLog(@">> PICKER SELECT");
-    //[self setSelected: [[self content] objectAtIndex:row]];
+    //NSLog(@">> PICKER SELECT; %@", [[self content] objectAtIndex:[pickerView selectedRowInComponent:0]]);
+    if([self onSelect]) {
+        
+        [self onSelect]();
+    }
 }
 
 /*-(CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {

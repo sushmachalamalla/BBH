@@ -39,7 +39,10 @@
     FreightEditViewController* freightEditVC = [sb instantiateViewControllerWithIdentifier:@"freightEditVC"];
     [freightEditVC setRunEntity:[self runEntity]];
     
-    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, nil];
+    PaymentMethodEditViewController* pmEditVC = [sb instantiateViewControllerWithIdentifier:@"pmEditVC"];
+    [pmEditVC setRunEntity:[self runEntity]];
+    
+    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, pmEditVC, nil];
     
     if ([[[BBHSession curSession] loginType] isEqualToString:@"Client"]) {
         

@@ -13,10 +13,20 @@
 #ifndef BBH_Mobile_SysUser_h
 #define BBH_Mobile_SysUser_h
 
-/* Role Type */
-@interface RoleType : NSObject
+/* Base Entity Protocol */
+@protocol BBHEntityProtocol <NSObject>
 
 - (instancetype) initWithDict: (NSDictionary*)dict;
+- (NSDictionary*) exportToDict;
+
+@end
+
+@interface BBHEntity : NSObject<BBHEntityProtocol>
+
+@end
+
+/* Role Type */
+@interface RoleType : BBHEntity
 
 @property int roleTypeId;
 @property NSString* roleTypeName;
@@ -24,9 +34,7 @@
 @end
 
 /* Role */
-@interface Role : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Role : BBHEntity
 
 @property int roleId;
 @property NSString* roleName;
@@ -35,9 +43,7 @@
 @end
 
 /* Sys User */
-@interface SysUser: NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface SysUser: BBHEntity
 
 @property int userId;
 @property NSString* userName;
@@ -55,9 +61,7 @@
 @end
 
 /* Client */
-@interface Client: NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Client: BBHEntity
 
 @property int clientId;
 @property NSString* clientName;
@@ -66,9 +70,7 @@
 @end
 
 /* Driver Class */
-@interface DriverClass: NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface DriverClass: BBHEntity
 
 @property int driverClassId;
 @property NSString* driverClassName;
@@ -76,9 +78,7 @@
 @end
 
 /* Driver Type */
-@interface DriverType : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface DriverType : BBHEntity
 
 @property int driverTypeId;
 @property NSString* driverTypeName;
@@ -87,9 +87,7 @@
 
 /* Address Type */
 
-@interface AddressType: NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface AddressType: BBHEntity
 
 @property int addressTypeId;
 @property NSString* addressTypeName;
@@ -97,9 +95,7 @@
 @end
 
 /* Country */
-@interface Country : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Country : BBHEntity
 
 @property int countryId;
 @property NSString* countryName;
@@ -107,9 +103,7 @@
 @end
 
 /* Address */
-@interface Address : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Address : BBHEntity
 
 @property NSString* address1;
 @property NSString* address2;
@@ -127,9 +121,7 @@
 @end
 
 /* Link */
-@interface Link : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Link : BBHEntity
 
 @property NSString* href;
 @property NSString* method;
@@ -138,9 +130,7 @@
 @end
 
 /* Run Status */
-@interface RunStatus : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface RunStatus : BBHEntity
 
 @property int runStatusId;
 @property NSString* runStatusName;
@@ -148,9 +138,7 @@
 @end
 
 /* Delivery Schedule Type */
-@interface DeliveryScheduleType : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface DeliveryScheduleType : BBHEntity
 
 @property int deliveryScheduleTypeId;
 @property NSString* deliveryScheduleTypeName;
@@ -158,9 +146,7 @@
 @end
 
 /* Location Type */
-@interface LocationType : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface LocationType : BBHEntity
 
 @property int locationTypeId;
 @property NSString* locationTypeName;
@@ -168,9 +154,7 @@
 @end
 
 /* Equipment Type */
-@interface EquipmentType : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface EquipmentType : BBHEntity
 
 @property int equipmentTypeId;
 @property NSString* equipmentTypeName;
@@ -178,9 +162,7 @@
 @end
 
 /* Loading Type */
-@interface LoadingType : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface LoadingType : BBHEntity
 
 @property int loadingTypeId;
 @property NSString* loadingTypeName;
@@ -188,9 +170,7 @@
 @end
 
 /* Run Frequency */
-@interface RunFrequency : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface RunFrequency : BBHEntity
 
 @property int runFrequencyId;
 @property NSString* runFrequencyName;
@@ -198,9 +178,7 @@
 @end
 
 /* Payment Method */
-@interface PaymentMethod : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface PaymentMethod : BBHEntity
 
 @property int paymentMethodId;
 @property NSString* paymentMethodName;
@@ -208,9 +186,7 @@
 @end
 
 /* Experience Type */
-@interface ExperienceType : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface ExperienceType : BBHEntity
 
 @property int experienceTypeId;
 @property NSString* experienceTypeName;
@@ -220,9 +196,7 @@
 
 
 /* Equipment Skill */
-@interface EquipmentSkill: NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface EquipmentSkill: BBHEntity
 
 @property int equipmentSkillId;
 @property NSString* equipmentSkillName;
@@ -232,9 +206,7 @@
 @end
 
 /* Experience Slot */
-@interface ExperienceSlot : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface ExperienceSlot : BBHEntity
 
 @property int experienceSlotId;
 @property NSString* experienceSlotName;
@@ -244,9 +216,7 @@
 @end
 
 /* RunEquipmentSkill */
-@interface RunEquipmentSkill : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface RunEquipmentSkill : BBHEntity
 
 @property int runEquipmentSkillId;
 @property EquipmentSkill* equipmentSkill;
@@ -257,9 +227,7 @@
 @end
 
 /* Run Payment Method */
-@interface RunPaymentMethod : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface RunPaymentMethod : BBHEntity
 
 @property int runPaymentMethodId;
 @property PaymentMethod* paymentMethod;
@@ -271,9 +239,7 @@
 @end
 
 /* Time Card Status */
-@interface TimeCardStatus : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface TimeCardStatus : BBHEntity
 
 @property int timeCardStatusId;
 @property NSString* timeCardStatusName;
@@ -282,9 +248,7 @@
 @end
 
 /* Driver */
-@interface Driver : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Driver : BBHEntity
 
 @property int driverId;
 @property NSString* email;
@@ -296,9 +260,7 @@
 @end
 
 /* Time Card */
-@interface TimeCard: NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface TimeCard: BBHEntity
 
 @property int timeCardId;
 @property NSNumber* invoiceId;
@@ -313,9 +275,7 @@
 @end
 
 /* Run Release */
-@interface RunRelease : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface RunRelease : BBHEntity
 
 @property int runReleaseId;
 @property Driver* driver;
@@ -329,9 +289,7 @@
 @end
 
 /* Run Driver */
-@interface RunDriver : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface RunDriver : BBHEntity
 
 @property int runDriverId;
 @property Driver* driver;
@@ -344,9 +302,7 @@
 @end
 
 /* Run */
-@interface Run : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Run : BBHEntity
 
 @property int runId;
 @property NSString* runNumber;
@@ -418,9 +374,7 @@
 @end
 
 /* Invoice Status */
-@interface InvoiceStatus : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface InvoiceStatus : BBHEntity
 
 @property int invoiceStatusId;
 @property NSString* invoiceStatusName;
@@ -429,9 +383,7 @@
 @end
 
 /* Invoice */
-@interface Invoice : NSObject
-
-- (instancetype) initWithDict: (NSDictionary*)dict;
+@interface Invoice : BBHEntity
 
 @property int invoiceId;
 @property NSString* invoiceNumber;

@@ -64,7 +64,7 @@
     
     [self toggleWait:true];
     [client setCredentialsWithUser:[[self userTF] text] password:[[self passwordTF] text]];
-    [client doPOSTWithURL:@"login" data:params complete:^(RESTResponse response, NSDictionary *data) {
+    [client doPOSTWithURL:@"login" params:params complete:^(RESTResponse response, NSDictionary *data) {
         
         if(response == RESTResponseSuccess) {
             
@@ -93,6 +93,16 @@
             }];
             
             NSLog(@" >> Seague performed ");
+            
+        } else if(response == RESTResponseError) {
+            
+            NSLog(@"on error");
+            
+            [self toggleWait:NO];
+            [[self statusLabel] setText: [data valueForKey:@"message"]];
+            [data enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
+                NSLog(@"%@ -> %@", key, obj);
+            }];
         }
     }];
 }
@@ -104,13 +114,7 @@
 
 - (void)failure:(NSDictionary *)detail withMessage:(NSString *)message {
     
-    NSLog(@"on error");
     
-    [self toggleWait:NO];
-    [[self statusLabel] setText: message];
-    [detail enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL* stop) {
-        NSLog(@"%@ -> %@", key, obj);
-    }];
 }
 
 - (void)progress:(NSNumber *)percent {

@@ -56,7 +56,7 @@
     int driverTypeId = [[[self runEntity] driverType] driverTypeId];
     __block DriverType* selDriverType = nil;
     
-    [client doGETWithURL:@"driverTypes" data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:@"driverTypes" params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         //NSLog([NSString stringWithFormat:@"SUCCESS >> %@", data]);
         
@@ -73,13 +73,15 @@
         }];
         
         [[self driverTypePicker] reloadAllComponents];
-        [[self driverTypePicker] selectRow:[[[self driverTypeDelegate] content] indexOfObject:selDriverType] inComponent:0 animated:YES];
+        if(selDriverType) {
+            [[self driverTypePicker] selectRow:[[[self driverTypeDelegate] content] indexOfObject:selDriverType] inComponent:0 animated:YES];
+        }
     }];
     
     int frequencyId = [[[self runEntity] runFrequency] runFrequencyId];
     __block RunFrequency* selFrequency = nil;
     
-    [client doGETWithURL:@"runFrequencies" data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:@"runFrequencies" params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         //NSLog([NSString stringWithFormat:@"SUCCESS >> %@", data]);
         
@@ -105,7 +107,7 @@
     int driverClassId = [[[self runEntity] driverClass] driverClassId];
     __block DriverClass* selDriverClass = nil;
     
-    [client doGETWithURL:@"driverClasses" data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:@"driverClasses" params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         //NSLog([NSString stringWithFormat:@"SUCCESS >> %@", data]);
         
@@ -133,7 +135,7 @@
     int dropLocationTypeId = [[[self runEntity] dropOffLocationType] locationTypeId];
     __block LocationType* selDropLocationType = nil;
     
-    [client doGETWithURL:@"locationTypes" data:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
+    [client doGETWithURL:@"locationTypes" params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
         //NSLog([NSString stringWithFormat:@"SUCCESS >> %@", data]);
         
@@ -170,8 +172,8 @@
     [[self teamRunSwitch] setOn:[[self runEntity] isTeamRun]];
     [[self recurringSwitch] setOn:[[self runEntity] isRecurring]];
     [[self loadDescTF] setText:[[self runEntity] loadDescription]];
-    [[self startDatePicker] setDate:([[self runEntity] runStartDate] ? [[self runEntity] runStartDate] : [NSDate date]) animated:YES];
-    [[self endDatePicker] setDate:([[self runEntity] runEndDate] ? [[self runEntity] runEndDate] : [NSDate date]) animated:YES];
+    [[self startDatePicker] setDate:[[self runEntity] runStartDate] animated:YES];
+    [[self endDatePicker] setDate:[[self runEntity] runEndDate] animated:YES];
     
     [[self pickupContactTF] setText:[[self runEntity] pickupContactName]];
     [[self pickupContactPhoneTF] setText:[[self runEntity] pickupContactPhone]];
@@ -270,12 +272,12 @@
         if(type && [[type driverTypeName] isEqualToString:@"Owner Operator"]) {
             
             [[self trailerSwitch] setEnabled:YES];
-            [[self trailerSwitch] setSelected:YES];
+            [[self trailerSwitch] setOn:YES];
             
         } else {
             
             [[self trailerSwitch] setEnabled:NO];
-            [[self trailerSwitch] setSelected:NO];
+            [[self trailerSwitch] setOn:NO];
         }
     }];
     
@@ -348,7 +350,7 @@
     rect = CGRectMake(orig.x, orig.y, pickerWidth, pickerHeight);
     [self setStartDatePicker: [[UIDatePicker alloc] initWithFrame:rect]];
     
-    [[self startDatePicker] setDatePickerMode:UIDatePickerModeDateAndTime];
+    [[self startDatePicker] setDatePickerMode:UIDatePickerModeDate];
     
     [contentView addSubview:[self startDateLabel]];
     [contentView addSubview:[self startDatePicker]];
@@ -361,7 +363,7 @@
     rect = CGRectMake(orig.x, orig.y, pickerWidth, pickerHeight);
     [self setEndDatePicker: [[UIDatePicker alloc] initWithFrame:rect]];
     
-    [[self endDatePicker] setDatePickerMode:UIDatePickerModeDateAndTime];
+    [[self endDatePicker] setDatePickerMode:UIDatePickerModeDate];
     
     [contentView addSubview:[self endDateLabel]];
     [contentView addSubview:[self endDatePicker]];
@@ -593,7 +595,107 @@
 
 -(void) saveInfo {
     
-    NSLog(@"Saving General Info");
+    Run* run = [self runEntity];
+    
+    NSString* runTitle = [[self runtTitleTF] text];
+    DriverType* driverType = [[[self driverTypeDelegate] content] objectAtIndex:[[self driverTypePicker] selectedRowInComponent:0]];
+    
+    NSString* equipmentType = [[self equipTypeTF] text];
+    
+    BOOL trailer = [[self trailerSwitch] isOn];
+    BOOL teamRun = [[self teamRunSwitch] isOn];
+    BOOL recurring = [[self recurringSwitch] isOn];
+    
+    RunFrequency* frequency = [[[self frequencyDelegate] content] objectAtIndex:[[self freqPicker] selectedRowInComponent:0]];
+    
+    DriverClass* driverClass = [[[self driverClassDelegate] content] objectAtIndex:[[self driverClassPicker] selectedRowInComponent:0]];
+    
+    NSString* loadDesc = [[self loadDescTF] text];
+    NSDate* startDate = [[self startDatePicker] date];
+    NSDate* endDate = [[self endDatePicker] date];
+    
+    NSString* pickupContactName = [[self pickupContactTF] text];
+    NSString* pickupContactPhone = [[self pickupContactPhoneTF] text];
+    
+    NSString* pickupStreetAddr = [[self pickupStreetAddressTF] text];
+    NSString* pickupCity = [[self pickupCityTF] text];
+    NSString* pickupState = [[self pickupStateTF] text];
+    NSString* pickupZipCode = [[self pickupZipCodeTF] text];
+    
+    LocationType* pickupLocationType = [[[self dropLocationTypeDelegate] content] objectAtIndex:[[self dropLocationTypePicker] selectedRowInComponent:0]];
+    
+    NSString* dropContactName = [[self dropContactTF] text];
+    NSString* dropContactPhone = [[self dropContactPhoneTF] text];
+    
+    NSString* dropStreetAddr = [[self dropStreetAddressTF] text];
+    NSString* dropCity = [[self dropCityTF] text];
+    NSString* dropState = [[self dropStateTF] text];
+    NSString* dropZipCode = [[self dropZipCodeTF] text];
+    
+    LocationType* dropLocationType = [[[self dropLocationTypeDelegate] content] objectAtIndex:[[self dropLocationTypePicker] selectedRowInComponent:0]];
+    
+    [run setRunTitle: [BBHUtil isEmpty:runTitle] ? nil : runTitle];
+    [run setDriverType:driverType];
+    
+    [run setEquipmentType:[BBHUtil isEmpty:equipmentType] ? nil : equipmentType];
+    
+    [run setIsTrailerProvided:trailer];
+    [run setIsTeamRun:teamRun];
+    [run setIsRecurring:recurring];
+    
+    [run setRunFrequency:frequency];
+    [run setDriverClass:driverClass];
+    
+    [run setLoadDescription:[BBHUtil isEmpty:loadDesc] ? nil : loadDesc];
+    [run setRunStartDate:startDate];
+    [run setRunEndDate:endDate];
+    
+    [run setPickupLocationType:pickupLocationType];
+    [run setPickupContactName:pickupContactName];
+    [run setPickupContactPhone:pickupContactPhone];
+    
+    if(![BBHUtil isEmpty: pickupStreetAddr]) {
+        
+        if (![run pickupAddress]) {
+            [run setPickupAddress:[[Address alloc] init]];
+        }
+        
+        Address* addr = [run pickupAddress];
+        [addr setAddress1:pickupStreetAddr];
+        [addr setCity:[BBHUtil isEmpty:pickupCity] ? nil : pickupCity];
+        [addr setStateCode:[BBHUtil isEmpty:pickupState] ? nil : pickupState];
+        [addr setZipCode:[BBHUtil isEmpty:pickupZipCode] ? nil : pickupZipCode];
+    }
+    
+    [run setDropOffLocationType:dropLocationType];
+    [run setDropOffContactName:dropContactName];
+    [run setDropOffContactPhone:dropContactPhone];
+    
+    if(![BBHUtil isEmpty: dropStreetAddr]) {
+        
+        if (![run dropOffAddress]) {
+            [run setDropOffAddress:[[Address alloc] init]];
+        }
+        
+        Address* addr = [run dropOffAddress];
+        [addr setAddress1:dropStreetAddr];
+        [addr setCity:[BBHUtil isEmpty:dropCity] ? nil : dropCity];
+        [addr setStateCode:[BBHUtil isEmpty:dropState] ? nil : dropState];
+        [addr setZipCode:[BBHUtil isEmpty:dropZipCode] ? nil : dropZipCode];
+    }
+    
+    NSError* error = nil;
+    NSDictionary* dict = [[self runEntity] exportToDict];
+    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
+    
+    if(data && !error) {
+        
+        NSLog(@"Saving General Info: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+        
+    } else {
+        
+        NSLog(@"Error serealizing to JSON");
+    }
 }
 
 -(void)success:(NSDictionary *)data {

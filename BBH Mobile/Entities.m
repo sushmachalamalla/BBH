@@ -8,6 +8,60 @@
 
 #import <Foundation/Foundation.h>
 #import "Entities.h"
+#import <objc/runtime.h>
+
+@implementation BBHEntity
+
+-(instancetype)initWithDict:(NSDictionary *)dict {
+    
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
+
+-(NSDictionary *)exportToDict {
+    
+    NSMutableDictionary* dict = [NSMutableDictionary dictionary];
+    
+    unsigned int count = 0;
+    
+    objc_property_t* property = class_copyPropertyList(objc_getClass([NSStringFromClass([self class]) cStringUsingEncoding:NSUTF8StringEncoding]), &count);
+    
+    const char* pName = NULL;
+    NSString* key = nil;
+    id value = nil;
+    
+    for (int i=0; i<count; i++) {
+        
+        pName = property_getName(property[i]);
+        key = [NSString stringWithCString:pName encoding:NSUTF8StringEncoding];
+        
+        value = [self valueForKey:key];
+        key = [NSString stringWithFormat:@"%@%@", [[key substringToIndex:1] uppercaseString],[key substringFromIndex:1]];
+        
+        //NSLog(@"Property: %s: %@", pName, value);
+        
+        if([value isKindOfClass:[BBHEntity class]]) {
+            
+            [dict setValue:[((BBHEntity*)value) exportToDict] forKey:key];
+            
+        } else if([value isKindOfClass:[NSDate class]]) {
+            
+            [dict setValue:(value ? [[BBHUtil dateScan] stringFromDate:value] : [NSNull null]) forKey:key];
+            
+        } else if([value isKindOfClass:[NSDictionary class]]) {
+            
+            [dict setValue:[NSNull null] forKey:key];
+            
+        } else {
+            
+            [dict setValue:(value ? value : [NSNull null]) forKey:key];
+        }
+    }
+    
+    return dict;
+}
+
+@end
 
 @implementation Paginate
 
@@ -161,6 +215,11 @@ static BBHSession* instance;
     return self;
 }
 
+-(NSString *)description {
+    
+    return [self deliveryScheduleTypeName];
+}
+
 @end
 
 @implementation LocationType
@@ -208,6 +267,11 @@ static BBHSession* instance;
     }
     
     return self;
+}
+
+-(NSString *)description {
+    
+    return [self loadingTypeName];
 }
 
 @end
@@ -281,7 +345,7 @@ static BBHSession* instance;
         _estimatedUnits = [BBHUtil isNull:estimatedUnits] ? nil : estimatedUnits;
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
         
         id modifiedDate = [dict valueForKey:@"ModifiedDate"];
         _modifiedDate = [BBHUtil isNull:modifiedDate] ? nil : [[BBHUtil dateScan] dateFromString:modifiedDate];
@@ -311,7 +375,7 @@ static BBHSession* instance;
         _experienceTypeName = [dict valueForKey:@"ExperienceTypeName"];
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
     }
     
     return self;
@@ -337,7 +401,7 @@ static BBHSession* instance;
         _experienceSlotName = [dict valueForKey:@"ExperienceSlotName"];
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
         
         id sequence = [dict valueForKey:@"Sequence"];
         _sequence = [BBHUtil isNull:sequence] ? 0 : [sequence intValue];
@@ -365,7 +429,7 @@ static BBHSession* instance;
         _equipmentSkillName = [dict valueForKey:@"EquipmentSkillName"];
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
         
         _experienceType = [[ExperienceType alloc] initWithDict:[dict valueForKey:@"ExperienceType"]];
     }
@@ -394,7 +458,7 @@ static BBHSession* instance;
         _experienceSlot = [[ExperienceSlot alloc] initWithDict:[dict valueForKey:@"ExperienceSlot"]];
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
         
         id modifiedDate = [dict valueForKey:@"ModifiedDate"];
         _modifiedDate = [BBHUtil isNull:modifiedDate] ? nil : [[BBHUtil dateScan] dateFromString:modifiedDate];
@@ -453,7 +517,7 @@ static BBHSession* instance;
         _timeCardStatusName = [dict valueForKey:@"TimeCardStatusName"];
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
     }
     
     return self;
@@ -519,10 +583,10 @@ static BBHSession* instance;
         _driver = [[Driver alloc] initWithDict:[dict valueForKey:@"Driver"]];
         
         id isHonked = [dict valueForKey:@"IsHonked"];
-        _isHonked = [BBHUtil isNull:isHonked] ? NO : (BOOL)isHonked;
+        _isHonked = [BBHUtil isNull:isHonked] ? NO : [isHonked boolValue];
         
         id isRunAccepted = [dict valueForKey:@"IsRunAccepted"];
-        _isRunAccepted = [BBHUtil isNull:isRunAccepted] ? NO : (BOOL)isRunAccepted;
+        _isRunAccepted = [BBHUtil isNull:isRunAccepted] ? NO : [isRunAccepted boolValue];
         
         id honkedByUserId = [dict valueForKey:@"HonkedByUserId"];
         _honkedByUserId = [BBHUtil isNull:honkedByUserId] ? nil : honkedByUserId;
@@ -559,10 +623,10 @@ static BBHSession* instance;
         _driver = [[Driver alloc] initWithDict:[dict valueForKey:@"Driver"]];
         
         id isConfirmed = [dict valueForKey:@"IsConfirmed"];
-        _isConfirmed = [BBHUtil isNull:isConfirmed] ? NO : (BOOL)isConfirmed;
+        _isConfirmed = [BBHUtil isNull:isConfirmed] ? NO : [isConfirmed boolValue];
         
         id isCancelledByDriver = [dict valueForKey:@"IsCancelledByDriver"];
-        _isCancelledByDriver = [BBHUtil isNull:isCancelledByDriver] ? NO : (BOOL)isCancelledByDriver;
+        _isCancelledByDriver = [BBHUtil isNull:isCancelledByDriver] ? NO : [isCancelledByDriver boolValue];
         
         id driverAcceptedDate = [dict valueForKey:@"DriverAcceptedDate"];
         _driverAcceptedDate = [BBHUtil isNull:driverAcceptedDate] ? nil : [[BBHUtil dateScan] dateFromString:driverAcceptedDate];
@@ -598,7 +662,7 @@ static BBHSession* instance;
         _createdDate = [BBHUtil isNull:createdDate] ? nil : [[BBHUtil dateScan] dateFromString:createdDate];
         
         id criminalBackgroundCheckRequired = [dict valueForKey:@"CriminalBackgroundCheckRequired"];
-        _criminalBackgroundCheckRequired = [BBHUtil isNull:criminalBackgroundCheckRequired] ? NO : (BOOL)criminalBackgroundCheckRequired;
+        _criminalBackgroundCheckRequired = [BBHUtil isNull:criminalBackgroundCheckRequired] ? NO : [criminalBackgroundCheckRequired boolValue];
         
         id deliveryScheduleType = [dict valueForKey:@"DeliveryScheduleType"];
         _deliveryScheduleType = [BBHUtil isNull:deliveryScheduleType] ? nil : [[DeliveryScheduleType alloc] initWithDict:deliveryScheduleType];
@@ -607,7 +671,7 @@ static BBHSession* instance;
         _detentionFee = [BBHUtil isNull:detentionFee] ? nil : detentionFee;
         
         id driverAssist = [dict valueForKey:@"DriverAssist"];
-        _driverAssist = [BBHUtil isNull:driverAssist] ? NO : (BOOL)driverAssist;
+        _driverAssist = [BBHUtil isNull:driverAssist] ? NO : [driverAssist boolValue];
         
         _driverClass = [[DriverClass alloc] initWithDict:[dict valueForKey:@"DriverClass"]];
         _driverType = [[DriverType alloc] initWithDict:[dict valueForKey:@"DriverType"]];
@@ -627,7 +691,7 @@ static BBHSession* instance;
         _equipmentType = [BBHUtil isNull:equipmentType] ? nil : equipmentType;
         
         id facilityWithDock = [dict valueForKey:@"FacilityWithDock"];
-        _facilityWithDock = [BBHUtil isNull:facilityWithDock] ? NO : (BOOL)facilityWithDock;
+        _facilityWithDock = [BBHUtil isNull:facilityWithDock] ? NO : [facilityWithDock boolValue];
         
         id freightDetails = [dict valueForKey:@"FreightDetails"];
         _freightDetails = [BBHUtil isNull:freightDetails] ? nil : freightDetails;
@@ -644,13 +708,13 @@ static BBHSession* instance;
         }
         
         id isRecurring = [dict valueForKey:@"IsRecurring"];
-        _isRecurring = [BBHUtil isNull:isRecurring] ? NO : (BOOL)isRecurring;
+        _isRecurring = [BBHUtil isNull:isRecurring] ? NO : [isRecurring boolValue];
         
         id isTeamRun = [dict valueForKey:@"IsTeamRun"];
-        _isTeamRun = [BBHUtil isNull:isTeamRun] ? NO : (BOOL)isTeamRun;
+        _isTeamRun = [BBHUtil isNull:isTeamRun] ? NO : [isTeamRun boolValue];
         
         id isTrailerProvided = [dict valueForKey:@"IsTrailerProvided"];
-        _isTrailerProvided = [BBHUtil isNull:isTrailerProvided] ? NO : (BOOL)isTrailerProvided;
+        _isTrailerProvided = [BBHUtil isNull:isTrailerProvided] ? NO : [isTrailerProvided boolValue];
         
         NSArray* linkList = [dict valueForKey:@"Links"];
         _links = [NSMutableDictionary dictionary];
@@ -674,19 +738,19 @@ static BBHSession* instance;
         _modifiedDate = [BBHUtil isNull:modifiedDate] ? nil : [[BBHUtil dateScan] dateFromString:modifiedDate];
         
         id needBillOfLoading = [dict valueForKey:@"NeedBillOfLlading"];
-        _needBillOfLoading = [BBHUtil isNull:needBillOfLoading] ? NO : (BOOL) needBillOfLoading;
+        _needBillOfLoading = [BBHUtil isNull:needBillOfLoading] ? NO : [needBillOfLoading boolValue];
         
         id ooNeedScaleTickets = [dict valueForKey:@"OONeedScaleTickets"];
-        _ooNeedScaleTickets = [BBHUtil isNull:ooNeedScaleTickets] ? NO : (BOOL)ooNeedScaleTickets;
+        _ooNeedScaleTickets = [BBHUtil isNull:ooNeedScaleTickets] ? NO : [ooNeedScaleTickets boolValue];
         
         id offerFuelAdvance = [dict valueForKey:@"OfferFuelAdvance"];
-        _offerFuelAdvance = [BBHUtil isNull:offerFuelAdvance] ? NO : (BOOL)offerFuelAdvance;
+        _offerFuelAdvance = [BBHUtil isNull:offerFuelAdvance] ? NO : [offerFuelAdvance boolValue];
         
         id payDetentionFee = [dict valueForKey:@"PayDetentionFee"];
-        _payDetentionFee = [BBHUtil isNull:payDetentionFee] ? NO : (BOOL)payDetentionFee;
+        _payDetentionFee = [BBHUtil isNull:payDetentionFee] ? NO : [payDetentionFee boolValue];
         
         id payLumperFee = [dict valueForKey:@"PayLumperFee"];
-        _payLumperFee = [BBHUtil isNull:payLumperFee] ? NO : (BOOL)payLumperFee;
+        _payLumperFee = [BBHUtil isNull:payLumperFee] ? NO : [payLumperFee boolValue];
         
         _pickupAddress = [[Address alloc] initWithDict:[dict valueForKey:@"PickUpAddress"]];
         
@@ -732,13 +796,13 @@ static BBHSession* instance;
         _runTitle = [BBHUtil isNull:runTitle] ? nil : runTitle;
         
         id sealOnTrailer = [dict valueForKey:@"SealOnTrailer"];
-        _sealOnTrailer = [BBHUtil isNull:sealOnTrailer] ? NO : (BOOL)sealOnTrailer;
+        _sealOnTrailer = [BBHUtil isNull:sealOnTrailer] ? NO : [sealOnTrailer boolValue];
         
         id specialInstructions = [dict valueForKey:@"SpecialInstructions"];
         _specialInstructions = [BBHUtil isNull: specialInstructions] ? nil : specialInstructions;
         
         id tonuForOO = [dict valueForKey:@"TONUForOO"];
-        _tonuForOO = [BBHUtil isNull:tonuForOO] ? NO : (BOOL)tonuForOO;
+        _tonuForOO = [BBHUtil isNull:tonuForOO] ? NO : [tonuForOO boolValue];
         
         id tonuPenaltyAmount = [dict valueForKey:@"TONUPenaltyAmount"];
         _tonuPenaltyAmount = [BBHUtil isNull:tonuPenaltyAmount] ? nil : tonuPenaltyAmount;
@@ -908,23 +972,34 @@ static BBHSession* instance;
     
     if(self) {
         
-        _address1 = [dict objectForKey:@"Address1"];
-        _address2 = [dict objectForKey:@"Address2"];
+        id address1 = [dict objectForKey:@"Address1"];
+        _address1 = [BBHUtil isNull:address1] ? nil : address1;
+        
+        id address2 = [dict objectForKey:@"Address2"];
+        _address2 = [BBHUtil isNull:address2] ? nil : address2;
+        
         _addressId = [[dict objectForKey:@"AddressId"] intValue];
+        
         _addressType = [[AddressType alloc] initWithDict:[dict objectForKey:@"AddressType"]];
-        _city = [dict objectForKey:@"City"];
+        
+        id city = [dict objectForKey:@"City"];
+        _city = [BBHUtil isNull:city] ? nil : city;
+        
         _country = [[Country alloc] initWithDict:[dict objectForKey:@"Country"]];
         
         id isCurrent = [dict objectForKey:@"IsCurrent"];
-        _isCurrent = (isCurrent == (id)[NSNull null]) ? NO : (BOOL)isCurrent;
+        _isCurrent = (isCurrent == (id)[NSNull null]) ? NO : [isCurrent boolValue];
         
         NSDateFormatter* fmt = [BBHUtil dateScan];
         
         id modifiedDate = [dict objectForKey:@"ModifiedDate"];
         _modifiedDate = (modifiedDate == (id)[NSNull null]) ? nil : [fmt dateFromString:modifiedDate];
         
-        _stateCode = [dict objectForKey:@"StateCode"];
-        _zipCode = [dict objectForKey:@"ZipCode"];
+        id stateCode = [dict objectForKey:@"StateCode"];
+        _stateCode = [BBHUtil isNull:stateCode] ? nil : stateCode;
+        
+        id zipCode = [dict objectForKey:@"ZipCode"];
+        _zipCode = [BBHUtil isNull:zipCode] ? nil : zipCode;
     }
     
     return self;
@@ -953,7 +1028,7 @@ static BBHSession* instance;
         _invoiceStatusName = [dict valueForKey:@"InvoiceStatusName"];
         
         id isDeleted = [dict valueForKey:@"IsDeleted"];
-        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : (BOOL)isDeleted;
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
     }
     
     return self;

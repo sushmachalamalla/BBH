@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Run Detail Edit View Controller-->
@@ -87,6 +88,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJP-Ro-4S2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3660" y="-182"/>
+        </scene>
+        <!--Payment Method Edit View Controller-->
+        <scene sceneID="2Kl-1H-j7n">
+            <objects>
+                <viewController storyboardIdentifier="pmEditVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZU8-lS-NP7" customClass="PaymentMethodEditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="m9f-IP-zMk"/>
+                        <viewControllerLayoutGuide type="bottom" id="PxT-pK-Luk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="uwL-CG-6aK">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-Le-PfS">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="QfV-id-AKe">
+                                <rect key="frame" x="0.0" y="73" width="580" height="428"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pmDataCell" rowHeight="63" id="Mo9-X7-C4o">
+                                        <rect key="frame" x="0.0" y="22" width="580" height="63"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mo9-X7-C4o" id="lrw-dV-0qI">
+                                            <rect key="frame" x="0.0" y="0.0" width="580" height="62"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PxT-pK-Luk" firstAttribute="top" secondItem="QfV-id-AKe" secondAttribute="bottom" constant="99" id="T8d-Iq-u7g"/>
+                            <constraint firstItem="QfV-id-AKe" firstAttribute="top" secondItem="m9f-IP-zMk" secondAttribute="bottom" constant="53" id="am3-DT-fCD"/>
+                            <constraint firstItem="QfV-id-AKe" firstAttribute="trailing" secondItem="uwL-CG-6aK" secondAttribute="trailingMargin" id="jl5-dW-shs"/>
+                            <constraint firstItem="QfV-id-AKe" firstAttribute="leading" secondItem="uwL-CG-6aK" secondAttribute="leading" id="qcR-Il-3K2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pmTableView" destination="QfV-id-AKe" id="v0E-og-P0K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PBz-To-QTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3045" y="-182"/>
         </scene>
     </scenes>
 </document>

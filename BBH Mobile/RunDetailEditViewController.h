@@ -12,6 +12,7 @@
 #import "BBHUtil.h"
 #import "GeneralInfoEditViewController.h"
 #import "FreightEditViewController.h"
+#import "PaymentMethodEditViewController.h"
 
 #ifndef BBH_Mobile_RunDetailEditViewController_h
 #define BBH_Mobile_RunDetailEditViewController_h

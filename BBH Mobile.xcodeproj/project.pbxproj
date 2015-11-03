@@ -31,6 +31,7 @@
 		5844824D1BC5180000E86823 /* CriteriaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5844824C1BC5180000E86823 /* CriteriaViewController.m */; };
 		5846E2C91BB15005005132BA /* RESTDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846E2C81BB15005005132BA /* RESTDelegate.m */; };
 		5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 5846E2CA1BB1629F005132BA /* RESTParams.m */; };
+		5847A8281BE7721B0098B804 /* PaymentMethodEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5847A8271BE7721B0098B804 /* PaymentMethodEditViewController.m */; settings = {ASSET_TAGS = (); }; };
 		584818881BC3AD9700EE4CD6 /* PaymentMethodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */; };
 		5849874B1BDF7F9600E6D368 /* FreightEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849874A1BDF7F9600E6D368 /* FreightEditViewController.m */; settings = {ASSET_TAGS = (); }; };
 		5849874E1BDFACAC00E6D368 /* BBHUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 5849874D1BDFACAC00E6D368 /* BBHUtil.m */; settings = {ASSET_TAGS = (); }; };
@@ -97,6 +98,8 @@
 		5844824C1BC5180000E86823 /* CriteriaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriteriaViewController.m; sourceTree = "<group>"; };
 		5846E2C81BB15005005132BA /* RESTDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTDelegate.m; sourceTree = "<group>"; };
 		5846E2CA1BB1629F005132BA /* RESTParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESTParams.m; sourceTree = "<group>"; };
+		5847A8261BE772020098B804 /* PaymentMethodEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethodEditViewController.h; sourceTree = "<group>"; };
+		5847A8271BE7721B0098B804 /* PaymentMethodEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodEditViewController.m; sourceTree = "<group>"; };
 		584818861BC3AD7B00EE4CD6 /* PaymentMethodViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethodViewController.h; sourceTree = "<group>"; };
 		584818871BC3AD9700EE4CD6 /* PaymentMethodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodViewController.m; sourceTree = "<group>"; };
 		584987491BDF7F7E00E6D368 /* FreightEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FreightEditViewController.h; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				584131181BCE6C45008294ED /* PickerDelegate.m */,
 				584987491BDF7F7E00E6D368 /* FreightEditViewController.h */,
 				5849874A1BDF7F9600E6D368 /* FreightEditViewController.m */,
+				5847A8261BE772020098B804 /* PaymentMethodEditViewController.h */,
+				5847A8271BE7721B0098B804 /* PaymentMethodEditViewController.m */,
 			);
 			name = RunDetailEdit;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				584131191BCE6C45008294ED /* PickerDelegate.m in Sources */,
 				584193761BC67938007FB4C7 /* TimeCardViewCell.m in Sources */,
 				584131161BCE2ACF008294ED /* GeneralInfoEditViewController.m in Sources */,
+				5847A8281BE7721B0098B804 /* PaymentMethodEditViewController.m in Sources */,
 				58382C5C1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

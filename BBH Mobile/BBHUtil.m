@@ -53,6 +53,11 @@ static UIColor* headerTextColor;
     return !obj || (obj == (id) [NSNull null]);
 }
 
++(BOOL)isEmpty:(NSString *)string {
+    
+    return [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0;
+}
+
 +(UIColor *)headerTextColor {
     
     if(!headerTextColor) {
