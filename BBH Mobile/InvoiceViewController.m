@@ -41,12 +41,12 @@
                 NSLog(@"%@ -> %@", key, obj);
             }];
             
-            int pageCount = [[data objectForKey:@"PageCount"] intValue];
-            int pageSize = [[data objectForKey:@"PageSize"] intValue];
-            int pageNumber = [[data objectForKey:@"PageNumber"] intValue];
+            int pageCount = 0;//[[data objectForKey:@"PageCount"] intValue];
+            int pageSize = 0;//[[data objectForKey:@"PageSize"] intValue];
+            int pageNumber = 0;//[[data objectForKey:@"PageNumber"] intValue];
             
             NSArray* items = [data objectForKey:@"Invoices"];
-            NSArray* links = [data objectForKey:@"Links"];
+            NSArray* links = [NSArray array];//[data objectForKey:@"Links"];
             
             NSLog(@"count: %d", pageCount);
             NSLog(@"size: %d", pageSize);
