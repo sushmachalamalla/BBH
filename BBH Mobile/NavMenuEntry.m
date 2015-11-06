@@ -56,7 +56,6 @@
         
         [list addObject:myRuns];
         
-        [list addObject:[[NavMenuEntry alloc] initWithIcon:@"Arrow" label:@"My Honks" actionURL:@"runsMyHonks" actionEntity:@"Honk"]];
         [list addObject:[[NavMenuEntry alloc] initWithIcon:@"Arrow" label:@"Paid Invoice List" actionURL:@"invoicesPaid" actionEntity:@"Invoice"]];
         [list addObject:[[NavMenuEntry alloc] initWithIcon:@"Arrow" label:@"Un-Paid Invoice List" actionURL:@"invoicesUnPaid" actionEntity:@"Invoice"]];
         

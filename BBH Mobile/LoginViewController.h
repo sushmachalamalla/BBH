@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RESTClient.h"
 #import "NavigationViewController.h"
+#import "Masonry/Masonry.h"
 
 @interface LoginViewController : UIViewController<RESTResponseHandler>
 
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
 - (IBAction)loginTapped:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
 
 - (IBAction)unwindToLoginScreen:(UIStoryboardSegue*)sender;
 

@@ -51,13 +51,13 @@
             NSLog(@"%@", data);
             [self setRunEntity:[[self runEntity] initWithDict:data]];
             
-            [self makeUI];
+            [self populate];
             [self toggleWait:NO];
         }
     }];
 }
 
--(void) makeUI {
+-(void) populate {
     
     Run* run = [self runEntity];
     
@@ -134,11 +134,7 @@
 
 -(void)success:(NSDictionary *)data {
     
-    NSLog(@"%@", data);
-    [self setRunEntity:[[self runEntity] initWithDict:data]];
-    
-    [self makeUI];
-    [self toggleWait:NO];
+    //
 }
 
 - (void)failure:(NSDictionary *)detail withMessage:(NSString *)message {

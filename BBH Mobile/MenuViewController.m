@@ -99,6 +99,7 @@
     //[cell setSeparatorInset:[entry child] ? UIEdgeInsetsMake(insets.top, insets.left + 20.0f, insets.bottom, insets.right) : insets];
     
     //[[cell imageView] setImage:[UIImage imageNamed:[entry icon]]];
+    [[cell textLabel] setFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
     [[cell textLabel] setText:[entry label]];
     [[cell textLabel] setBackgroundColor:[UIColor colorWithWhite:1.0  alpha:0.0]];
     

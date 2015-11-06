@@ -15,28 +15,28 @@
 
 @interface GeneralInfoViewController : UIViewController<RESTResponseHandler>
 
-@property (weak, nonatomic) IBOutlet UILabel *companyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *runTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *runNoLabel;
-@property (weak, nonatomic) IBOutlet UILabel *estPayLabel;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (strong, nonatomic) UILabel *companyLabel;
+@property (strong, nonatomic) UILabel *runTitleLabel;
+@property (strong, nonatomic) UILabel *runNoLabel;
+@property (strong, nonatomic) UILabel *estPayLabel;
+@property (strong, nonatomic) UILabel *statusLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *driverTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *driverClassLabel;
-@property (weak, nonatomic) IBOutlet UILabel *loadDescLabel;
+@property (strong, nonatomic) UILabel *driverTypeLabel;
+@property (strong, nonatomic) UILabel *driverClassLabel;
+@property (strong, nonatomic) UILabel *loadDescLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *pickupDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupStreetAddrLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupCityLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupZipCodeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupStateCountryLabel;
+@property (strong, nonatomic) UILabel *pickupDateLabel;
+@property (strong, nonatomic) UILabel *pickupStreetAddrLabel;
+@property (strong, nonatomic) UILabel *pickupCityLabel;
+@property (strong, nonatomic) UILabel *pickupZipCodeLabel;
+@property (strong, nonatomic) UILabel *pickupStateCountryLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *dropDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dropStreetAddrLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dropCityLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dropZipCodeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dropStateCountryLabel;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingIndicator;
+@property (strong, nonatomic) UILabel *dropDateLabel;
+@property (strong, nonatomic) UILabel *dropStreetAddrLabel;
+@property (strong, nonatomic) UILabel *dropCityLabel;
+@property (strong, nonatomic) UILabel *dropZipCodeLabel;
+@property (strong, nonatomic) UILabel *dropStateCountryLabel;
+@property (strong, nonatomic) UIActivityIndicatorView *loadingIndicator;
 
 @property Run* runEntity;
 

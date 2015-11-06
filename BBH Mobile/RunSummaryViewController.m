@@ -13,6 +13,11 @@
 
 @implementation RunSummaryViewController
 
+-(void)loadView {
+    
+    [super loadView];
+}
+
 - (void)viewDidLoad {
     
     [[self navigationItem] setTitle:@"My Runs"];
@@ -124,6 +129,7 @@
         [[cell dropLocationLabel] setText:[[run dropOffAddress] displayString]];
         [[cell dropDateLabel] setText:[[BBHUtil dateFormat] stringFromDate:[run runEndDate]]];
         
+        [cell setNeedsUpdateConstraints];
         return cell;
     }
 }

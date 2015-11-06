@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, ConfirmResponse) {
 +(void) showAlert: (UIViewController*)vc handler: (void (^)(ConfirmResponse)) handler;
 +(UILabel*) makeLabelWithText: (NSString*)text frame:(CGRect)rect;
 +(UITextField*) makeTextFieldWithText: (NSString*)text frame: (CGRect)rect;
++(CGSize) textSizeForLabel:(UILabel*) label;
 
 @end
 

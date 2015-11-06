@@ -68,6 +68,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[self tableView] reloadData];
             });
+        } else {
+            //
         }
     }];
 }
@@ -188,7 +190,7 @@
         [[header contentView] addSubview:subtitleLabel];
     }
     
-    [subtitleLabel setText:[self loadInProgress] ? @"Fetching records" : [NSString stringWithFormat:@"Showing %lu of %lu page(s)", (unsigned long)[self pageNumber], (unsigned long)[self pageCount]]];
+    [subtitleLabel setText:[self loadInProgress] ? @"Fetching records" : [NSString stringWithFormat:@"Showing %lu of %ld page(s)", (unsigned long)[self pageNumber], (long)[self pageCount]]];
 }
 
 -(void)success:(NSDictionary *)data {

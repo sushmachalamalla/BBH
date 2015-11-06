@@ -21,6 +21,67 @@
     [self toggleWait:NO];
 }
 
+- (void)updateViewConstraints {
+    
+    UIFont* txtFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    //UIFont* stsFont = [UIFont systemFontOfSize:[UIFont systemFontSize]*0.9];
+    UIFont* hdrFont = [UIFont systemFontOfSize:[UIFont systemFontSize]*1.2];
+    
+    [[self headerLabel] setFont:hdrFont];
+    [[self statusLabel] setFont:txtFont];
+    [[self userTF] setFont:txtFont];
+    [[self passwordTF] setFont:txtFont];
+    
+    [[self headerLabel] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self view].mas_top).with.offset([[self view] frame].size.height/4.0);
+        make.centerX.equalTo([self view].mas_centerX);
+        
+        CGSize size = [[[self headerLabel] text] sizeWithAttributes:@{NSFontAttributeName:[[self headerLabel] font]}];
+        
+        //NSLog(@">> Width: %.2f", [[self view] frame].size.width - size.width);
+        make.width.mas_equalTo(size.width + 100.0);
+        make.height.mas_equalTo(size.height + 10);
+    }];
+    
+    [[self statusLabel] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self headerLabel].mas_bottom).with.offset(10.0);
+        make.centerX.equalTo([self view].mas_centerX);
+        
+        //NSLog(@">> Width: %.2f", [[self view] frame].size.width - size.width);
+        //make.width.mas_equalTo(size.width + 100.0);
+    }];
+    
+    [[self userTF] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self statusLabel].mas_bottom).with.offset(10.0);
+        make.width.equalTo([self headerLabel].mas_width).multipliedBy(0.80);
+        make.centerX.equalTo([self view].mas_centerX);
+    }];
+    
+    [[self passwordTF] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self userTF].mas_bottom).with.offset(10.0);
+        make.width.equalTo([self headerLabel].mas_width).multipliedBy(0.80);
+        make.centerX.equalTo([self view].mas_centerX);
+    }];
+    
+    [[self loginBtn] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self passwordTF].mas_bottom).with.offset(20.0);
+        make.centerX.equalTo([self view].mas_centerX);
+    }];
+    
+    [[self loadingIndicator] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.centerY.equalTo([self loginBtn].mas_centerY);
+        make.left.equalTo([self loginBtn].mas_right).with.offset(10.0);
+    }];
+    
+    [super updateViewConstraints];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [[self userTF] setText:@""];
