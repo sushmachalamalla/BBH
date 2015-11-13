@@ -217,6 +217,7 @@
 		58382C521BA02ABA00ECF0D2 /* BBH Mobile */ = {
 			isa = PBXGroup;
 			children = (
+				584824A41BECA578003114AF /* Utilities */,
 				589D565F1BEA28440005ABFA /* Masonry */,
 				58382C571BA02ABA00ECF0D2 /* AppDelegate.h */,
 				58382C581BA02ABA00ECF0D2 /* AppDelegate.m */,
@@ -299,6 +300,15 @@
 			name = RunDetailEdit;
 			sourceTree = "<group>";
 		};
+		584824A41BECA578003114AF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5849874C1BDFAC6200E6D368 /* BBHUtil.h */,
+				5849874D1BDFACAC00E6D368 /* BBHUtil.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		5849948E1BCBE9BA008EC7C4 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,8 +339,6 @@
 				585487E71BB5320B0058256B /* Entities.h */,
 				5830099A1BB949BA0094A401 /* NavMenuEntry.m */,
 				58357C711BBAC1B900982E70 /* Entities.m */,
-				5849874C1BDFAC6200E6D368 /* BBHUtil.h */,
-				5849874D1BDFACAC00E6D368 /* BBHUtil.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";

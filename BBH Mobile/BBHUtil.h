@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Masonry.h"
 
 #ifndef BBHUtil_h
 #define BBHUtil_h
@@ -30,6 +31,13 @@ typedef NS_ENUM(NSInteger, ConfirmResponse) {
 
 @end
 
+@interface StackElt : NSObject
+
+@property UIView* last;
+@property CGPoint bottomRight;
+
+@end
+
 @interface BBHUtil : NSObject
 
 +(NSDateFormatter*) dateScan;
@@ -41,8 +49,12 @@ typedef NS_ENUM(NSInteger, ConfirmResponse) {
 +(UIColor*) headerTextColor;
 +(void) showAlert: (UIViewController*)vc handler: (void (^)(ConfirmResponse)) handler;
 +(UILabel*) makeLabelWithText: (NSString*)text frame:(CGRect)rect;
++(UILabel*) makeLabelWithText: (NSString*)text;
 +(UITextField*) makeTextFieldWithText: (NSString*)text frame: (CGRect)rect;
++(UITextField*) makeTextFieldWithText: (NSString*)text;
 +(CGSize) textSizeForLabel:(UILabel*) label;
++(CGPoint) makeColumn: (NSArray*)items withOrig: (CGPoint) orig superview: (UIView*)view;
++(CGSize) makeStack: (NSArray*) views superview: (UIView*) superView offset: (CGPoint) offset;
 
 @end
 
