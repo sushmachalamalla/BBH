@@ -117,8 +117,16 @@
     } else {
         
         Run* run = [[self content] objectAtIndex:[indexPath row]];
-        RunSummaryCell* cell = [tableView dequeueReusableCellWithIdentifier:@"runViewCell" forIndexPath:indexPath];
+        RunSummaryCell* cell = [tableView dequeueReusableCellWithIdentifier:@"runViewCell"];
         
+        if(!cell) {
+            
+            cell = [[RunSummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"runViewCell"];
+            
+            [self makeUI:cell];
+        }
+        
+        NSLog(@"============================= %@", [run runTitle]);
         [[cell companyLabel] setText:[[run client] clientName]];
         [[cell runTitleLabel] setText:[run runTitle]];
         [[cell estPayLabel] setText:[NSString stringWithFormat:@"%.2f", [[run estimatedCost] doubleValue]]];
@@ -131,6 +139,58 @@
         
         [cell setNeedsUpdateConstraints];
         return cell;
+    }
+}
+
+-(void) makeUI: (RunSummaryCell*) cell {
+    
+    if (![cell companyKeyLabel]) {
+        
+        [cell setCompanyKeyLabel:[BBHUtil makeLabelWithText:@"Company:"]];
+        [cell setRunTitleKeyLabel:[BBHUtil makeLabelWithText:@"Run Title:"]];
+        [cell setEstPayKeyLabel:[BBHUtil makeLabelWithText: @"Est Pay:"]];
+        [cell setDriverTypeKeyLabel:[BBHUtil makeLabelWithText:@"Driver Type:"]];
+        [cell setDriverClassKeyLabel:[BBHUtil makeLabelWithText:@"Driver Class:"]];
+        
+        [cell setCompanyLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [cell setRunTitleLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [cell setEstPayLabel:[BBHUtil makeLabelWithText: @"-"]];
+        [cell setDriverTypeLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [cell setDriverClassLabel:[BBHUtil makeLabelWithText:@"-"]];
+        
+        [cell setPickupAddrView:[[UIView alloc] init]];
+        
+        [cell setPickupKeyLabel:[BBHUtil makeLabelWithText:@"Pickup"]];
+        [cell setPickupDateLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [cell setPickupLocationLabel:[BBHUtil makeLabelWithText:@"-"]];
+        
+        [[cell pickupAddrView] addSubview:[cell pickupKeyLabel]];
+        [[cell pickupAddrView] addSubview:[cell pickupDateLabel]];
+        [[cell pickupAddrView] addSubview:[cell pickupLocationLabel]];
+        
+        [cell setDropAddrView:[[UIView alloc] init]];
+        
+        [cell setDropKeyLabel:[BBHUtil makeLabelWithText:@"Drop"]];
+        [cell setDropDateLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [cell setDropLocationLabel:[BBHUtil makeLabelWithText:@"-"]];
+        
+        [[cell dropAddrView] addSubview:[cell dropKeyLabel]];
+        [[cell dropAddrView] addSubview:[cell dropDateLabel]];
+        [[cell dropAddrView] addSubview:[cell dropLocationLabel]];
+        
+        [[cell contentView] addSubview:[cell companyKeyLabel]];
+        [[cell contentView] addSubview:[cell companyLabel]];
+        [[cell contentView] addSubview:[cell runTitleKeyLabel]];
+        [[cell contentView] addSubview:[cell runTitleLabel]];
+        [[cell contentView] addSubview:[cell estPayKeyLabel]];
+        [[cell contentView] addSubview:[cell estPayLabel]];
+        [[cell contentView] addSubview:[cell driverTypeKeyLabel]];
+        [[cell contentView] addSubview:[cell driverTypeLabel]];
+        [[cell contentView] addSubview:[cell driverClassKeyLabel]];
+        [[cell contentView] addSubview:[cell driverClassLabel]];
+        
+        [[cell contentView] addSubview:[cell pickupAddrView]];
+        [[cell contentView] addSubview:[cell dropAddrView]];
     }
 }
 
@@ -159,6 +219,21 @@
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return indexPath;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    RunDetailViewController* vc = (RunDetailViewController*)[[UIStoryboard storyboardWithName:@"RunSummary" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"runDetailVC"];
+    
+    NSLog(@">> SOURCE VC");
+    
+    RunSummaryCell* cell = (RunSummaryCell*)[tableView cellForRowAtIndexPath:indexPath];
+    NSIndexPath* path = [[self tableView] indexPathForCell:cell];
+    
+    Run* entity = [[self content] objectAtIndex:[path row]];
+    [vc setRunEntity:entity];
+    
+    [[self navigationController] pushViewController:vc animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -209,19 +284,6 @@
     }
     
     [subtitleLabel setText:[self loadInProgress] ? @"Fetching records" : [NSString stringWithFormat:@"Showing %lu of %lu page(s)", (unsigned long)[self pageNumber], (unsigned long)[self pageCount]]];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
-    NSLog(@">> SOURCE VC");
-    
-    RunSummaryCell* cell = (RunSummaryCell*)sender;
-    NSIndexPath* path = [[self tableView] indexPathForCell:cell];
-    
-    Run* entity = [[self content] objectAtIndex:[path row]];
-    
-    RunDetailViewController* vc = (RunDetailViewController*)[segue destinationViewController];
-    [vc setRunEntity:entity];
 }
 
 -(void)success:(NSDictionary *)data {

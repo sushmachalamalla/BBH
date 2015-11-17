@@ -143,27 +143,36 @@ static RESTClient* instance;
     [self doConnectWithRequest:request complete:handler];
 }
 
--(void)doPOSTWithURL:(NSString *)path data:(NSJSONSerialization *)json complete:(void (^)(RESTResponse, NSDictionary *))handler {
+-(void)doPOSTWithURL:(NSString *)path data:(NSData *) data complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
-    /*NSURL* url = [self makeURLWithPath:path params:nil];
+    NSURL* url = [NSURL URLWithString:path];
     NSLog(@"POST Server URL: %@", url);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    NSData *data = [[NSJSONSerialization ] dataUsingEncoding:NSStringEncodingConversionExternalRepresentation];
     
     [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:data];
     
-    [self doConnectWithRequest:request complete:handler];*/
+    [self doConnectWithRequest:request complete:handler];
 }
 
 -(void)doPUTWithURL:(NSString *)path params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*)) handler {
     //
 }
 
--(void)doPUTWithURL:(NSString *)path data:(NSJSONSerialization *)json complete:(void (^)(RESTResponse, NSDictionary *))handler {
-    //
+-(void)doPUTWithURL:(NSString *)path data:(NSData *) data complete:(void (^)(RESTResponse, NSDictionary *))handler {
+    
+    NSURL* url = [NSURL URLWithString:path];
+    NSLog(@"PUT Server URL: %@", url);
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    
+    [request setHTTPMethod:@"PUT"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:data];
+    
+    [self doConnectWithRequest:request complete:handler];
 }
 
 @end

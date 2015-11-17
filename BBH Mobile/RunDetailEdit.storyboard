@@ -20,10 +20,10 @@
             </objects>
             <point key="canvasLocation" x="-4901" y="-182"/>
         </scene>
-        <!--General Info Edit View Controller-->
+        <!--General Info-->
         <scene sceneID="HX6-39-hHp">
             <objects>
-                <viewController storyboardIdentifier="genInfoEditVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VLC-3X-auv" customClass="GeneralInfoEditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="genInfoEditVC" title="General Info" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VLC-3X-auv" customClass="GeneralInfoEditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bxH-KM-qzz"/>
                         <viewControllerLayoutGuide type="bottom" id="ODh-kz-k6X"/>
@@ -31,27 +31,9 @@
                     <view key="view" contentMode="scaleToFill" id="34u-EX-IKp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tEU-VG-3FS">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.2332782182" green="0.388585817" blue="0.68497474749999998" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="tEU-VG-3FS" firstAttribute="leading" secondItem="34u-EX-IKp" secondAttribute="leading" id="Ksx-No-R6d"/>
-                            <constraint firstAttribute="trailing" secondItem="tEU-VG-3FS" secondAttribute="trailing" id="Rvf-td-ewE"/>
-                            <constraint firstItem="tEU-VG-3FS" firstAttribute="bottom" secondItem="ODh-kz-k6X" secondAttribute="top" id="ale-Pm-O9y"/>
-                            <constraint firstItem="tEU-VG-3FS" firstAttribute="top" secondItem="34u-EX-IKp" secondAttribute="top" id="oIO-Qm-Qha"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="scrollView" destination="tEU-VG-3FS" id="Lca-Zp-m0F"/>
-                    </connections>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TYG-Ri-FDP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,22 +50,8 @@
                     <view key="view" contentMode="scaleToFill" id="OOg-s9-qBG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WXb-8v-uPw">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="WXb-8v-uPw" firstAttribute="bottom" secondItem="QmF-7p-Wq3" secondAttribute="top" id="7sS-4v-YGW"/>
-                            <constraint firstItem="WXb-8v-uPw" firstAttribute="top" secondItem="OOg-s9-qBG" secondAttribute="top" id="G6n-ZJ-08V"/>
-                            <constraint firstAttribute="trailing" secondItem="WXb-8v-uPw" secondAttribute="trailing" id="L6A-ea-g14"/>
-                            <constraint firstItem="WXb-8v-uPw" firstAttribute="leading" secondItem="OOg-s9-qBG" secondAttribute="leading" id="RuO-Lx-u6r"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="scrollView" destination="WXb-8v-uPw" id="Duc-8r-nSW"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZJP-Ro-4S2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -53,8 +53,8 @@ typedef NS_ENUM(NSInteger, ConfirmResponse) {
 +(UITextField*) makeTextFieldWithText: (NSString*)text frame: (CGRect)rect;
 +(UITextField*) makeTextFieldWithText: (NSString*)text;
 +(CGSize) textSizeForLabel:(UILabel*) label;
-+(CGPoint) makeColumn: (NSArray*)items withOrig: (CGPoint) orig superview: (UIView*)view;
 +(CGSize) makeStack: (NSArray*) views superview: (UIView*) superView offset: (CGPoint) offset;
++(void) makeStackEdit: (NSArray*) views superview: (UIView*) superView offset: (CGPoint) offset;
 
 @end
 

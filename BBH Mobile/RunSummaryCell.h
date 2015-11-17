@@ -15,31 +15,31 @@
 
 @interface RunSummaryCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *companyKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *companyLabel;
+@property (strong, nonatomic) UILabel *companyKeyLabel;
+@property (strong, nonatomic) UILabel *companyLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *runTitleKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *runTitleLabel;
+@property (strong, nonatomic) UILabel *runTitleKeyLabel;
+@property (strong, nonatomic) UILabel *runTitleLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *estPayKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *estPayLabel;
+@property (strong, nonatomic) UILabel *estPayKeyLabel;
+@property (strong, nonatomic) UILabel *estPayLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *driverTypeKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *driverTypeLabel;
+@property (strong, nonatomic) UILabel *driverTypeKeyLabel;
+@property (strong, nonatomic) UILabel *driverTypeLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *driverClassKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *driverClassLabel;
+@property (strong, nonatomic) UILabel *driverClassKeyLabel;
+@property (strong, nonatomic) UILabel *driverClassLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *pickupKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupLocationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *pickupDateLabel;
+@property (strong, nonatomic) UILabel *pickupKeyLabel;
+@property (strong, nonatomic) UILabel *pickupLocationLabel;
+@property (strong, nonatomic) UILabel *pickupDateLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *dropKeyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dropLocationLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dropDateLabel;
+@property (strong, nonatomic) UILabel *dropKeyLabel;
+@property (strong, nonatomic) UILabel *dropLocationLabel;
+@property (strong, nonatomic) UILabel *dropDateLabel;
 
-@property (weak, nonatomic) IBOutlet UIView *pickupAddrView;
-@property (weak, nonatomic) IBOutlet UIView *dropAddrView;
+@property (strong, nonatomic) UIView *pickupAddrView;
+@property (strong, nonatomic) UIView *dropAddrView;
 
 @end
 #endif

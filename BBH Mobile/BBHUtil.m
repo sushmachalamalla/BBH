@@ -61,7 +61,7 @@ static UIColor* headerTextColor;
 
 +(BOOL)isEmpty:(NSString *)string {
     
-    return [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] > 0;
+    return [[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0;
 }
 
 +(UIColor *)headerTextColor {
@@ -139,7 +139,7 @@ static UIColor* headerTextColor;
     return [[label text] sizeWithAttributes:@{NSFontAttributeName:[label font]}];
 }
 
-+(CGPoint) makeColumn: (NSArray*)items withOrig: (CGPoint) orig superview: (UIView*)view {
+/*+(CGPoint) makeColumn: (NSArray*)items withOrig: (CGPoint) orig superview: (UIView*)view {
     
     //CGPoint viewOrig = [view frame].origin;
     //__block CGPoint curOrig = CGPointMake(viewOrig.x + orig.x, viewOrig.y + orig.y);
@@ -169,11 +169,11 @@ static UIColor* headerTextColor;
     }];
     
     return CGPointMake(orig.x + maxRight, orig.y + [last frame].origin.y + [last frame].size.height);
-}
+}*/
 
 +(CGSize) makeStack: (NSArray*) views superview: (UIView*) superView offset: (CGPoint) offset {
     
-    UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    //UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     __block UILabel* last = nil;
     __block CGFloat maxRight = 0.0;
     
@@ -181,7 +181,7 @@ static UIColor* headerTextColor;
         
         UILabel* view = (UILabel*) obj;
         
-        [view setFont:font];
+        //[view setFont:font];
         
         [view mas_updateConstraints:^(MASConstraintMaker *make) {
             
@@ -195,12 +195,65 @@ static UIColor* headerTextColor;
         }];
         
         last = view;
-        NSLog(@">>>>> MAX: %.2f", [BBHUtil textSizeForLabel:last].width);
+        //NSLog(@">>>>> MAX: %.2f", [BBHUtil textSizeForLabel:last].width);
         maxRight = MAX(maxRight, [BBHUtil textSizeForLabel:last].width);
     }];
     
-    NSLog(@">>>>> DONE");
+    //NSLog(@">>>>> DONE");
     return CGSizeMake(offset.x + maxRight, ([last frame].origin.y + [last frame].size.height)-offset.y);
+}
+
++(void) makeStackEdit: (NSArray*) views superview: (UIView*) superView offset: (CGPoint) offset {
+    
+    //UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    __block UIView* last = nil;
+    
+    CGFloat labelWidth = 266.0;
+    CGFloat labelHeight = 21.0;
+    
+    CGFloat tfWidth = 584.0;
+    CGFloat tfHeight = 30.0;
+    
+    CGFloat pickerWidth = 300.0;
+    CGFloat pickerHeight = 100.0;
+    
+    [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        UIView* view = (UIView*) obj;
+        CGFloat height = -1.0;
+        
+        if([view isKindOfClass:[UILabel class]]) {
+            
+            height = labelHeight;
+            
+        } else if([view isKindOfClass:[UITextField class]]) {
+            
+            height = tfHeight;
+            
+        } else if([view isKindOfClass: [UIPickerView class]] || [view isKindOfClass: [UIDatePicker class]]) {
+            
+            height = pickerHeight;
+        }
+        
+        [view mas_updateConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(superView.mas_left).with.offset(offset.x);
+            make.right.equalTo(superView.mas_right).with.offset(offset.x);
+            
+            if(last) {
+                make.top.equalTo(last.mas_bottom).with.offset(5.0);
+            } else {
+                make.top.equalTo(superView.mas_top).with.offset(offset.y);
+            }
+            
+            if(height > 0.0) {
+                
+                make.height.mas_equalTo(height);
+            }
+        }];
+        
+        last = view;
+    }];
 }
 
 @end

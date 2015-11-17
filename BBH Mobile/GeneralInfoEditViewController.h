@@ -47,6 +47,8 @@
 @property UILabel* endDateLabel;
 @property UIDatePicker* endDatePicker;
 
+@property UILabel* pickupLocLabel;
+
 @property UILabel* pickupContactLabel;
 @property UITextField* pickupContactTF;
 @property UILabel* pickupContactPhoneLabel;
@@ -61,6 +63,8 @@
 @property UITextField* pickupCityTF;
 @property UILabel* pickupStateLabel;
 @property UITextField* pickupStateTF;
+
+@property UILabel* dropLocLabel;
 
 @property UILabel* dropContactLabel;
 @property UITextField* dropContactTF;
@@ -84,7 +88,7 @@
 @property UILabel* criminalBGLabel;
 @property UISwitch* criminalBGSwitch;
 
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UIScrollView *scrollView;
 
 @end
 

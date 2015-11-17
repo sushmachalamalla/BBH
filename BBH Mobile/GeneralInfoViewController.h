@@ -25,18 +25,6 @@
 @property (strong, nonatomic) UILabel *driverClassKeyLabel;
 @property (strong, nonatomic) UILabel *loadDescKeyLabel;
 
-/*@property (strong, nonatomic) UILabel *pickupDateKeyLabel;
-@property (strong, nonatomic) UILabel *pickupStreetAddrKeyLabel;
-@property (strong, nonatomic) UILabel *pickupCityKeyLabel;
-@property (strong, nonatomic) UILabel *pickupZipCodeKeyLabel;
-@property (strong, nonatomic) UILabel *pickupStateCountryKeyLabel;
-
-@property (strong, nonatomic) UILabel *dropDateKeyLabel;
-@property (strong, nonatomic) UILabel *dropStreetAddrKeyLabel;
-@property (strong, nonatomic) UILabel *dropCityKeyLabel;
-@property (strong, nonatomic) UILabel *dropZipCodeKeyLabel;
-@property (strong, nonatomic) UILabel *dropStateCountryKeyLabel;*/
-
 @property (strong, nonatomic) UILabel *companyLabel;
 @property (strong, nonatomic) UILabel *runTitleLabel;
 @property (strong, nonatomic) UILabel *runNoLabel;

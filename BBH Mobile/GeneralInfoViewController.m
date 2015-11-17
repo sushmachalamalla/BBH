@@ -52,6 +52,7 @@
     RESTClient* client = [RESTClient instance];
     [client doGETWithURL:[[[[self runEntity] links] objectForKey:@"self"] href] absolute:YES params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
         
+        NSLog(@">> RESPONSE (General Info): %@", data);
         if(response == RESTResponseSuccess) {
             
             [self setRunEntity:[[self runEntity] initWithDict:data]];
@@ -68,16 +69,23 @@
     NSLog(@"%.2f, %.2f", [contentView frame].size.width, [contentView frame].size.height);
 }
 
+-(void)viewWillLayoutSubviews {
+    
+    //[[self view] setNeedsUpdateConstraints];
+    [super viewWillLayoutSubviews];
+}
+
 -(void)updateViewConstraints {
     
-    NSLog(@">> Update Contraints ....");
+    //NSLog(@">> Update Contraints ....");
     
+    //[[self scrollView] setBackgroundColor:[UIColor redColor]];
     [[self scrollView] mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo([self view].mas_left).with.offset(0.0);
-        make.top.equalTo([self view].mas_top).with.offset(0.0);
-        make.right.equalTo([self view].mas_right).with.offset(0.0);
-        make.bottom.equalTo([self view].mas_bottom).with.offset(0.0);
+        make.left.equalTo([self view].mas_left);
+        make.top.equalTo([self view].mas_top);
+        make.right.equalTo([self view].mas_right);
+        make.bottom.equalTo([self view].mas_bottom);
     }];
     
     UIView* contentView = (UIView*)[[[self scrollView] subviews] objectAtIndex:0];
@@ -95,13 +103,13 @@
     CGSize box = CGSizeMake(0.0, 0.0);
     
     box = [BBHUtil makeStack:array superview:contentView offset:offset];
-    NSLog(@">> box-1: %.2f, %.2f", box.width, box.height);
+    //NSLog(@">> box-1: %.2f, %.2f", box.width, box.height);
     
     offset.x = box.width + 5.0;
     array = [NSArray arrayWithObjects:[self companyLabel], [self runTitleLabel], [self runNoLabel], [self estPayLabel], [self statusLabel], [self driverTypeLabel], [self driverClassLabel], [self loadDescLabel], nil];
     
     box = [BBHUtil makeStack:array superview:contentView offset:offset];
-    NSLog(@">> box-2: %.2f, %.2f", box.width, box.height);
+    //NSLog(@">> box-2: %.2f, %.2f", box.width, box.height);
     
     [[self pickupAddrView] mas_updateConstraints:^(MASConstraintMaker *make) {
         
@@ -115,7 +123,7 @@
     offset.y = 5.0;
     
     box = [BBHUtil makeStack:array superview:[self pickupAddrView] offset:offset];
-    NSLog(@">> box-3: %.2f, %.2f", box.width, box.height);
+    //NSLog(@">> box-3: %.2f, %.2f", box.width, box.height);
     
     [[self pickupAddrView] mas_updateConstraints:^(MASConstraintMaker *make) {
         
@@ -125,25 +133,33 @@
     
     [[self dropAddrView] mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.width.equalTo([self pickupAddrView].mas_width);
         make.top.equalTo([self pickupAddrView].mas_top);
         make.left.equalTo([self pickupAddrView].mas_right).with.offset(5.0);
+        //make.right.equalTo(contentView.mas_right).with.offset(5.0);
+        //make.width.greaterThanOrEqualTo([self pickupAddrView].mas_width);
     }];
     
     array = [NSArray arrayWithObjects:[self dropKeyLabel], [self dropDateLabel], [self dropStreetAddrLabel], [self dropCityLabel], [self dropZipCodeLabel], [self dropStateCountryLabel], nil];
     
     box = [BBHUtil makeStack:array superview:[self dropAddrView] offset:offset];
-    NSLog(@">> box-4: %.2f, %.2f", box.width, box.height);
+    //NSLog(@">> box-4: %.2f, %.2f", box.width, box.height);
     
     [[self dropAddrView] mas_updateConstraints:^(MASConstraintMaker *make) {
         
+        make.right.equalTo([self pickupAddrView].mas_right).with.offset(5.0 + box.width + offset.x);
         make.bottom.equalTo([self dropStateCountryLabel].mas_bottom).with.offset(5.0);
-        make.right.equalTo(contentView.mas_right).with.offset(5.0);
     }];
     
     [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
         
+        make.right.equalTo([self dropAddrView].mas_right).with.offset(5.0);
         make.bottom.equalTo([self pickupAddrView].mas_bottom).with.offset(10.0);
+    }];
+    
+    [[self loadingIndicator] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        //make.centerX.equalTo([self view].mas_centerX);
+        //make.centerY.equalTo([self view].mas_centerY);
     }];
     
     [super updateViewConstraints];

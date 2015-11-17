@@ -50,7 +50,19 @@
             
         } else if([value isKindOfClass:[NSDictionary class]]) {
             
-            [dict setValue:[NSNull null] forKey:key];
+            if([key isEqualToString:@"Links"]) {
+                
+                NSDictionary* dict = (NSDictionary*) value;
+                NSMutableArray* array = [NSMutableArray array];
+                
+                [dict enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    
+                    Link* link = (Link*)obj;
+                    [array addObject:[link exportToDict]];
+                }];
+                
+                [dict setValue:array forKey:key];
+            }
             
         } else {
             
@@ -200,7 +212,6 @@ static BBHSession* instance;
 -(instancetype)initWithDict:(NSDictionary *)dict {
     
     if([BBHUtil isNull:dict]) {
-        //NSLog(@"Run[init] -> dict is NULL");
         return nil;
     }
     
@@ -721,7 +732,7 @@ static BBHSession* instance;
         
         [linkList enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             
-            Link* link = [[Link alloc] initWithDict:[linkList objectAtIndex:0]];
+            Link* link = [[Link alloc] initWithDict:[linkList objectAtIndex:idx]];
             [_links setValue:link forKey:[link rel]];
         }];
         

@@ -18,7 +18,7 @@
 @interface FreightEditViewController : UIViewController<UIScrollViewDelegate,RESTResponseHandler,EditView>
 
 @property Run* runEntity;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) UIScrollView *scrollView;
 
 @property PickerDelegate* deliveryDelegate;
 @property PickerDelegate* freightLoadingDelegate;
