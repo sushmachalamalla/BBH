@@ -11,6 +11,8 @@
 
 @implementation InvoiceViewController
 
+@synthesize isUIDone;
+
 -(void)viewDidLoad {
     
     [[self navigationItem] setTitle:[self isPaid] ? @"Paid Invoice List" : @"Unpaid Invoice List"];
@@ -74,9 +76,13 @@
     }];
 }
 
+-(void) makeUI {
+    //
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ( [[self content] count] == 0 || [[self content] count] == [indexPath row]) {
+    if ([[self content] count] == 0 || [[self content] count] == [indexPath row]) {
         
         if([[self content] count] == 0 && [self pageCount] != -1) {
             

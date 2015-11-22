@@ -156,11 +156,11 @@
         make.bottom.equalTo([self pickupAddrView].mas_bottom).with.offset(10.0);
     }];
     
-    [[self loadingIndicator] mas_updateConstraints:^(MASConstraintMaker *make) {
+    /*[[self loadingIndicator] mas_updateConstraints:^(MASConstraintMaker *make) {
         
         //make.centerX.equalTo([self view].mas_centerX);
         //make.centerY.equalTo([self view].mas_centerY);
-    }];
+    }];*/
     
     [super updateViewConstraints];
 }

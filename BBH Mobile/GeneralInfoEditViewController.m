@@ -12,6 +12,8 @@
 @implementation GeneralInfoEditViewController
 
 @synthesize mode;
+@synthesize isClean;
+@synthesize isUIDone;
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
     
@@ -482,7 +484,7 @@
 
 -(void)confirmSave:(void (^)(ConfirmResponse))handler {
     
-    [BBHUtil showAlert:self handler:handler];
+    [BBHUtil showConfirmSave:self handler:handler];
 }
 
 -(void) saveInfo {
@@ -588,7 +590,7 @@
         RESTClient* client = [RESTClient instance];
         Link* link = [[[self runEntity] links] valueForKey:@"updateRun"];
         
-        [client doPUTWithURL:[link href] data:data complete:^(RESTResponse response, NSDictionary* dict) {
+        [client doPUTWithURL:[link href] absolute:YES data:data complete:^(RESTResponse response, NSDictionary* dict) {
             
             NSLog(@">>> PUT Response: %ld %@", (long)response, dict);
         }];

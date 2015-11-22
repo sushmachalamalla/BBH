@@ -9,15 +9,17 @@
 #import "UIKit/uikit.h"
 #import "Entities.h"
 #import "RESTClient.h"
+#import "PaymentMethodCell.h"
+#import "UIViewController+BBHVIewController.h"
 
 #ifndef BBH_Mobile_PaymentMethodViewController_h
 #define BBH_Mobile_PaymentMethodViewController_h
 
-@interface PaymentMethodViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, RESTResponseHandler>
+@interface PaymentMethodViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, RESTResponseHandler, BBHView>
 
 @property NSMutableArray* content;
 @property Run* runEntity;
-@property (weak, nonatomic) IBOutlet UITableView *pmTableView;
+@property (strong, nonatomic) UITableView *pmTableView;
 
 @end
 

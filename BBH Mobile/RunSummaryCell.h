@@ -13,7 +13,7 @@
 #ifndef BBH_Mobile_RunSummaryCell_h
 #define BBH_Mobile_RunSummaryCell_h
 
-@interface RunSummaryCell : UITableViewCell
+@interface RunSummaryCell : UITableViewCell<BBHView>
 
 @property (strong, nonatomic) UILabel *companyKeyLabel;
 @property (strong, nonatomic) UILabel *companyLabel;

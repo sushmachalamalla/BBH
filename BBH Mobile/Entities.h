@@ -16,6 +16,7 @@
 /* Base Entity Protocol */
 @protocol BBHEntityProtocol <NSObject>
 
+- (instancetype) init;
 - (instancetype) initWithDict: (NSDictionary*)dict;
 - (NSDictionary*) exportToDict;
 
@@ -182,6 +183,7 @@
 
 @property int paymentMethodId;
 @property NSString* paymentMethodName;
+@property BOOL isDeleted;
 
 @end
 

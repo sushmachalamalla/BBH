@@ -130,7 +130,12 @@ static RESTClient* instance;
 
 -(void)doPOSTWithURL:(NSString *)path params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*))handler {
     
-    NSURL* url = [self makeURLWithPath:path params:nil];
+    [self doPOSTWithURL:path absolute:NO params:params complete:handler];
+}
+
+-(void)doPOSTWithURL:(NSString *)path absolute: (BOOL) absolute params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*))handler {
+    
+    NSURL* url = absolute ? [self makeURLWithPath:path params:nil] : [self makeURLWithPath:path params:nil];
     NSLog(@"POST Server URL: %@", url);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -145,7 +150,12 @@ static RESTClient* instance;
 
 -(void)doPOSTWithURL:(NSString *)path data:(NSData *) data complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
-    NSURL* url = [NSURL URLWithString:path];
+    [self doPOSTWithURL:path absolute:NO data: data complete:handler];
+}
+
+-(void)doPOSTWithURL:(NSString *)path absolute: (BOOL) absolute data:(NSData *) data complete:(void(^)(RESTResponse,NSDictionary*))handler {
+    
+    NSURL* url = absolute ? [NSURL URLWithString:path] : [self makeURLWithPath:path params:nil];
     NSLog(@"POST Server URL: %@", url);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
@@ -158,12 +168,23 @@ static RESTClient* instance;
 }
 
 -(void)doPUTWithURL:(NSString *)path params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*)) handler {
+    
+    [self doPUTWithURL:path absolute:NO params:params complete:handler];
+}
+
+-(void)doPUTWithURL:(NSString *)path absolute: (BOOL) absolute params:(RESTParams *)params complete:(void(^)(RESTResponse,NSDictionary*)) handler {
+    
     //
 }
 
 -(void)doPUTWithURL:(NSString *)path data:(NSData *) data complete:(void (^)(RESTResponse, NSDictionary *))handler {
     
-    NSURL* url = [NSURL URLWithString:path];
+    [self doPUTWithURL:path absolute:NO data:data complete:handler];
+}
+
+-(void)doPUTWithURL:(NSString *)path absolute: (BOOL) absolute data:(NSData *) data complete:(void (^)(RESTResponse, NSDictionary *))handler {
+    
+    NSURL* url = absolute ? [NSURL URLWithString:path] : [self makeURLWithPath:path params:nil];
     NSLog(@"PUT Server URL: %@", url);
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];

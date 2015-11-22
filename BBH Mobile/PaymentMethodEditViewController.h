@@ -11,25 +11,18 @@
 #import "Entities.h"
 #import "BBHUtil.h"
 #import "PaymentMethodViewController.h"
+#import "PaymentMethodEditView.h"
+#import "UIViewController+BBHVIewController.h"
 
 #ifndef PaymentMethodEditViewController_h
 #define PaymentMethodEditViewController_h
 
-@interface PaymentMethodEditViewController: PaymentMethodViewController<EditView>
+@interface PaymentMethodEditViewController: PaymentMethodViewController<BBHEditView>
 
-/*@property NSMutableArray* content;
-@property Run* runEntity;
-@property (weak, nonatomic) IBOutlet UITableView *pmTableView;*/
+@property PaymentMethodEditView* editController;
+@property UIBarButtonItem* addBtn;
 
-@property UIViewController* editController;
-
-@property UILabel* pmNameLabel;
-@property UILabel* pmUnitLabel;
-@property UILabel* pmCostLabel;
-
-@property UITextField* pmNameTF;
-@property UITextField* pmUnitTF;
-@property UITextField* pmCostTF;
+-(void)navStackPushedFrom:(UIViewController *)sourceVC;
 
 @end
 

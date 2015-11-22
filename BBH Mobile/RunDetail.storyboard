@@ -147,50 +147,8 @@
                     <view key="view" contentMode="scaleToFill" id="f0H-40-aWp">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ynO-Sz-O4H">
-                                <rect key="frame" x="0.0" y="73" width="580" height="473"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="separatorColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pmHeaderCell" rowHeight="39" id="z53-ka-To1">
-                                        <rect key="frame" x="0.0" y="22" width="580" height="39"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z53-ka-To1" id="vPR-xk-vBq">
-                                            <rect key="frame" x="0.0" y="0.0" width="580" height="38"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pmDataCell" rowHeight="63" id="b6X-Ne-QMg">
-                                        <rect key="frame" x="0.0" y="61" width="580" height="63"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b6X-Ne-QMg" id="hZ0-Ev-Xsz">
-                                            <rect key="frame" x="0.0" y="0.0" width="580" height="62"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ynO-Sz-O4H" firstAttribute="leading" secondItem="f0H-40-aWp" secondAttribute="leading" id="GUU-GC-tir"/>
-                            <constraint firstItem="9dL-KX-xxg" firstAttribute="top" secondItem="ynO-Sz-O4H" secondAttribute="bottom" constant="54" id="HEY-HN-IXc"/>
-                            <constraint firstItem="ynO-Sz-O4H" firstAttribute="top" secondItem="GA0-un-G3d" secondAttribute="bottom" constant="53" id="e0F-yb-FXh"/>
-                            <constraint firstAttribute="centerX" secondItem="ynO-Sz-O4H" secondAttribute="centerX" constant="10" id="eLH-LL-GjS"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="GUU-GC-tir"/>
-                                <exclude reference="e0F-yb-FXh"/>
-                                <exclude reference="eLH-LL-GjS"/>
-                                <exclude reference="HEY-HN-IXc"/>
-                            </mask>
-                        </variation>
                     </view>
-                    <connections>
-                        <outlet property="pmTableView" destination="ynO-Sz-O4H" id="kuM-JU-4zn"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Tp-MT-4cC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

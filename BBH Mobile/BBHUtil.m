@@ -9,18 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "BBHUtil.h"
 
-@implementation StackElt
-
-
-
-@end
-
 @implementation BBHUtil
 
 static NSDateFormatter* dateScan;
 static NSDateFormatter* dateFormat;
-//static SysUser* sysUser;
 static UIColor* headerTextColor;
+
+static NSNumberFormatter* decimalFormat;
+static NSNumberFormatter* integerFormat;
 
 + (NSDateFormatter *)dateScan {
     
@@ -74,7 +70,7 @@ static UIColor* headerTextColor;
     return headerTextColor;
 }
 
-+(void) showAlert:(UIViewController *)vc handler: (void (^)(ConfirmResponse)) handler {
++(void) showConfirmSave:(UIViewController *)vc handler: (void (^)(ConfirmResponse)) handler {
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Save Changes ?" message:@"If you choose to proceed, any unsaved changes would be lost. Save changes before proceeding ?" preferredStyle:UIAlertControllerStyleAlert];
     
@@ -100,13 +96,27 @@ static UIColor* headerTextColor;
     [vc presentViewController:alert animated:YES completion:nil];
 }
 
++(void) showValidationAlert:(UIViewController *)vc field: (NSString*) fieldName {
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Valid Input Required" message:[NSString stringWithFormat:@"A valid input is required for: %@", fieldName] preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* closeAction = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        //handler(ConfirmResponseSave);
+    }];
+    
+    [alert addAction:closeAction];
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
 +(UILabel*) makeLabelWithText: (NSString*)text frame:(CGRect)rect {
     
     UILabel* label = CGRectIsNull(rect) ? [[UILabel alloc] init] : [[UILabel alloc] initWithFrame:rect];
     //[label setText:([BBHUtil isEmpty: text] ? @" " : text)];
     [label setText:text];
     [label setTextColor:[UIColor grayColor]];
-    [label setFont:[UIFont systemFontOfSize:15.0]];
+    //[label setFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]];
+    [label setAdjustsFontSizeToFitWidth:YES];
     
     return label;
 }
@@ -138,38 +148,6 @@ static UIColor* headerTextColor;
     
     return [[label text] sizeWithAttributes:@{NSFontAttributeName:[label font]}];
 }
-
-/*+(CGPoint) makeColumn: (NSArray*)items withOrig: (CGPoint) orig superview: (UIView*)view {
-    
-    //CGPoint viewOrig = [view frame].origin;
-    //__block CGPoint curOrig = CGPointMake(viewOrig.x + orig.x, viewOrig.y + orig.y);
-    __block float maxRight = 0.0;
-    __block UIView* last = nil;
-    
-    UIFont* textFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-    
-    [items enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        
-        UILabel* label = (UILabel*) obj;
-        
-        [label setFont:textFont];
-        [label mas_updateConstraints:^(MASConstraintMaker *make) {
-            
-            make.left.equalTo(view.mas_left).with.offset(orig.x);
-            
-            if(last) {
-                make.top.equalTo(last.mas_bottom).with.offset(10.0);
-            } else {
-                make.top.equalTo(view.mas_top).with.offset(orig.y);
-            }
-        }];
-        
-        last = label;
-        maxRight = MAX(maxRight, [BBHUtil textSizeForLabel:label].width);
-    }];
-    
-    return CGPointMake(orig.x + maxRight, orig.y + [last frame].origin.y + [last frame].size.height);
-}*/
 
 +(CGSize) makeStack: (NSArray*) views superview: (UIView*) superView offset: (CGPoint) offset {
     
@@ -208,13 +186,13 @@ static UIColor* headerTextColor;
     //UIFont* font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     __block UIView* last = nil;
     
-    CGFloat labelWidth = 266.0;
+    //CGFloat labelWidth = 266.0;
     CGFloat labelHeight = 21.0;
     
-    CGFloat tfWidth = 584.0;
+    //CGFloat tfWidth = 584.0;
     CGFloat tfHeight = 30.0;
     
-    CGFloat pickerWidth = 300.0;
+    //CGFloat pickerWidth = 300.0;
     CGFloat pickerHeight = 100.0;
     
     [views enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -230,7 +208,11 @@ static UIColor* headerTextColor;
             
             height = tfHeight;
             
-        } else if([view isKindOfClass: [UIPickerView class]] || [view isKindOfClass: [UIDatePicker class]]) {
+        } else if([view isKindOfClass: [UIPickerView class]]) {
+            
+            height = pickerHeight;
+            
+        } else if([view isKindOfClass: [UIDatePicker class]]) {
             
             height = pickerHeight;
         }
@@ -254,6 +236,36 @@ static UIColor* headerTextColor;
         
         last = view;
     }];
+}
+
++(NSNumber *)readDecimal: (NSString*) string {
+    
+    if(!decimalFormat) {
+        
+        decimalFormat = [[NSNumberFormatter alloc] init];
+        [decimalFormat setMinimumFractionDigits:2];
+        [decimalFormat setMaximumFractionDigits:2];
+        [decimalFormat setMinimumIntegerDigits:0];
+        [decimalFormat setLenient:NO];
+        [decimalFormat setPartialStringValidationEnabled:NO];
+    }
+    
+    return [decimalFormat numberFromString:string];
+}
+
++(NSNumber *)readInteger: (NSString*) string {
+    
+    if(!integerFormat) {
+        
+        integerFormat = [[NSNumberFormatter alloc] init];
+        //[integerFormat setMinimumFractionDigits:2];
+        [integerFormat setMaximumFractionDigits:0];
+        [integerFormat setMinimumIntegerDigits:1];
+        [integerFormat setLenient:NO];
+        [integerFormat setPartialStringValidationEnabled:NO];
+    }
+    
+    return [integerFormat numberFromString:string];
 }
 
 @end

@@ -12,11 +12,17 @@
 @implementation PaymentMethodEditViewController
 
 @synthesize mode;
+@synthesize isClean;
 
 -(void)viewDidLoad {
     
     [super viewDidLoad];
-    [self makeUI];
+    [self setEditController: [[PaymentMethodEditView alloc] init]];
+    
+    [self setAddBtn:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPaymentMethod)]];
+    
+    NSArray* btnList = [[NSArray alloc] initWithObjects:[self addBtn], nil];
+    [[[self tabBarController] navigationItem] setRightBarButtonItems:btnList];
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -25,11 +31,56 @@
 
 -(void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [self populate];
-    [self presentViewController:[self editController] animated:YES completion:^{
+    [[self editController] setMode:EntityModeEdit];
+    [[self editController] setIsClean: NO];
+    [[self editController] setRunEntity:[self runEntity]];
+    [[self editController] setPmEntity:[[self content] objectAtIndex:[indexPath row]]];
+    [[self navigationController] pushViewController:[self editController] animated:YES];
+}
+
+-(void)navStackPushedFrom:(UIViewController *)sourceVC {
+    
+    if([sourceVC isKindOfClass:[PaymentMethodEditView class]]) {
         
-        NSLog(@">> Done editing");
-    }];
+        PaymentMethodEditView* view = (PaymentMethodEditView*) sourceVC;
+        if([view isClean]) {
+            
+            [super fetchData];
+        }
+    }
+    
+    NSLog(@">>> NAV STACK PUSH SUB CLASS: %@", sourceVC);
+}
+
+-(void)navStackPoppedTo:(UIViewController *)destVC {
+    
+    NSLog(@">>> NAV STACK POPTO SUB CLASS: %@", destVC);
+}
+
+-(void) makeUI {
+    
+    [super makeUI];
+}
+
+-(void) populate {
+    
+    [super populate];
+}
+
+-(void)saveInfo {
+    //
+}
+
+-(void)confirmSave:(void (^)(ConfirmResponse))handler {
+    //
+}
+
+-(void) addPaymentMethod {
+    
+    [[self editController] setMode:EntityModeAdd];
+    [[self editController] setIsClean:NO];
+    [[self editController] setRunEntity:[self runEntity]];
+    [[self navigationController] pushViewController:[self editController] animated:YES];
 }
 
 -(void)success:(NSDictionary *)data {
@@ -41,67 +92,6 @@
 }
 
 -(void)progress:(NSNumber *)percent {
-    //
-}
-
--(void) populate {
-    //
-}
-
--(void) makeUI {
-    
-    [self setEditController: [[UIViewController alloc] init]];
-    UIView* contentView = [[self editController] view];
-    
-    CGPoint orig = CGPointMake(20.0, 28.0);
-    
-    CGFloat labelWidth = 266.0;
-    CGFloat labelHeight = 21.0;
-    
-    CGFloat tfWidth = 584.0;
-    CGFloat tfHeight = 30.0;
-    
-    //CGFloat pickerWidth = 300.0;
-    //CGFloat pickerHeight = 100.0;
-    
-    CGRect rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setPmNameLabel: [BBHUtil makeLabelWithText: @"Payment Method Name" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setPmNameTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
-    
-    [contentView addSubview:[self pmNameLabel]];
-    [contentView addSubview:[self pmNameTF]];
-    
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setPmUnitLabel: [BBHUtil makeLabelWithText: @"Units" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setPmUnitTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
-    
-    [contentView addSubview:[self pmUnitLabel]];
-    [contentView addSubview:[self pmUnitTF]];
-    
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setPmCostLabel: [BBHUtil makeLabelWithText: @"Cost" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setPmCostTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
-    
-    [contentView addSubview:[self pmCostLabel]];
-    [contentView addSubview:[self pmCostTF]];
-}
-
--(void)saveInfo {
-    //
-}
-
--(void)confirmSave:(void (^)(ConfirmResponse))handler {
     //
 }
 

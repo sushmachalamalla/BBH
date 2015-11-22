@@ -11,51 +11,74 @@
 
 @implementation RunSummaryCell
 
-/*-(void)updateConstraints {
+@synthesize isUIDone;
+
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     
-    //UIFont* textFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-    UIView* view = [self contentView];
-    
-    __block CGPoint orig = CGPointMake(5.0, 15.0);
-    
-    __block NSArray* array = [NSArray arrayWithObjects: [self companyKeyLabel], [self runTitleKeyLabel], [self estPayKeyLabel], [self driverTypeKeyLabel], [self driverClassKeyLabel], nil];
-    
-    __block CGPoint bottomRight = [BBHUtil makeColumn: array withOrig:orig superview:view];
-    
-    orig.x = bottomRight.x + 10.0;
-    array = [NSArray arrayWithObjects: [self companyLabel], [self runTitleLabel], [self estPayLabel], [self driverTypeLabel], [self driverClassLabel], nil];
-    
-    bottomRight = [BBHUtil makeColumn: array withOrig:orig superview:view];
-    
-    [[self pickupAddrView] setOpaque:YES];
-    [view bringSubviewToFront:[self pickupAddrView]];
-    [[self pickupAddrView] setBackgroundColor:[UIColor grayColor]];
-    [[self pickupAddrView] mas_updateConstraints:^(MASConstraintMaker *make) {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if(self) {
         
-        make.top.equalTo(view.mas_top).with.offset(bottomRight.y + 10.0);
-        make.left.equalTo(view.mas_left).with.offset(5.0);
-        //make.width.equalTo(view.mas_width).multipliedBy(0.45);
-    }];
+        [self makeUI];
+    }
     
-    orig = CGPointMake(5.0, 5.0);
-    array = [NSArray arrayWithObjects:[self pickupKeyLabel], [self pickupLocationLabel],[self pickupDateLabel],nil];
+    return self;
+}
+
+-(void)populate {
+    //
+}
+
+-(void) makeUI {
     
-    [BBHUtil makeColumn:array withOrig:orig superview:[self pickupAddrView]];
-    
-    [[self dropAddrView] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-    [[self dropAddrView] mas_updateConstraints:^(MASConstraintMaker *make) {
+    if (![self companyKeyLabel]) {
         
-        make.top.equalTo([self pickupAddrView].mas_top);
-        make.left.equalTo([self pickupAddrView].mas_right).with.offset(5.0);
-        make.right.equalTo(view.mas_right).with.offset(10.0);
-        make.width.equalTo([self pickupAddrView].mas_width);
-    }];
-    
-    array = [NSArray arrayWithObjects:[self dropKeyLabel], [self dropLocationLabel],[self dropDateLabel],nil];
-    bottomRight = [BBHUtil makeColumn:array withOrig:orig superview:[self dropAddrView]];
-    
-    [super updateConstraints];
-}*/
+        [self setCompanyKeyLabel:[BBHUtil makeLabelWithText:@"Company:"]];
+        [self setRunTitleKeyLabel:[BBHUtil makeLabelWithText:@"Run Title:"]];
+        [self setEstPayKeyLabel:[BBHUtil makeLabelWithText: @"Est Pay:"]];
+        [self setDriverTypeKeyLabel:[BBHUtil makeLabelWithText:@"Driver Type:"]];
+        [self setDriverClassKeyLabel:[BBHUtil makeLabelWithText:@"Driver Class:"]];
+        
+        [self setCompanyLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [self setRunTitleLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [self setEstPayLabel:[BBHUtil makeLabelWithText: @"-"]];
+        [self setDriverTypeLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [self setDriverClassLabel:[BBHUtil makeLabelWithText:@"-"]];
+        
+        [self setPickupAddrView:[[UIView alloc] init]];
+        
+        [self setPickupKeyLabel:[BBHUtil makeLabelWithText:@"Pickup"]];
+        [self setPickupDateLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [self setPickupLocationLabel:[BBHUtil makeLabelWithText:@"-"]];
+        
+        [[self pickupAddrView] addSubview:[self pickupKeyLabel]];
+        [[self pickupAddrView] addSubview:[self pickupDateLabel]];
+        [[self pickupAddrView] addSubview:[self pickupLocationLabel]];
+        
+        [self setDropAddrView:[[UIView alloc] init]];
+        
+        [self setDropKeyLabel:[BBHUtil makeLabelWithText:@"Drop"]];
+        [self setDropDateLabel:[BBHUtil makeLabelWithText:@"-"]];
+        [self setDropLocationLabel:[BBHUtil makeLabelWithText:@"-"]];
+        
+        [[self dropAddrView] addSubview:[self dropKeyLabel]];
+        [[self dropAddrView] addSubview:[self dropDateLabel]];
+        [[self dropAddrView] addSubview:[self dropLocationLabel]];
+        
+        [[self contentView] addSubview:[self companyKeyLabel]];
+        [[self contentView] addSubview:[self companyLabel]];
+        [[self contentView] addSubview:[self runTitleKeyLabel]];
+        [[self contentView] addSubview:[self runTitleLabel]];
+        [[self contentView] addSubview:[self estPayKeyLabel]];
+        [[self contentView] addSubview:[self estPayLabel]];
+        [[self contentView] addSubview:[self driverTypeKeyLabel]];
+        [[self contentView] addSubview:[self driverTypeLabel]];
+        [[self contentView] addSubview:[self driverClassKeyLabel]];
+        [[self contentView] addSubview:[self driverClassLabel]];
+        
+        [[self contentView] addSubview:[self pickupAddrView]];
+        [[self contentView] addSubview:[self dropAddrView]];
+    }
+}
 
 -(void)updateConstraints {
     

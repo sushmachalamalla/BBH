@@ -13,6 +13,8 @@
 
 @implementation RunSummaryViewController
 
+@synthesize isUIDone;
+
 -(void)loadView {
     
     [super loadView];
@@ -85,6 +87,10 @@
     }];
 }
 
+-(void)makeUI {
+    //
+}
+
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
     return NO;
@@ -122,8 +128,6 @@
         if(!cell) {
             
             cell = [[RunSummaryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"runViewCell"];
-            
-            [self makeUI:cell];
         }
         
         NSLog(@"============================= %@", [run runTitle]);
@@ -139,58 +143,6 @@
         
         [cell setNeedsUpdateConstraints];
         return cell;
-    }
-}
-
--(void) makeUI: (RunSummaryCell*) cell {
-    
-    if (![cell companyKeyLabel]) {
-        
-        [cell setCompanyKeyLabel:[BBHUtil makeLabelWithText:@"Company:"]];
-        [cell setRunTitleKeyLabel:[BBHUtil makeLabelWithText:@"Run Title:"]];
-        [cell setEstPayKeyLabel:[BBHUtil makeLabelWithText: @"Est Pay:"]];
-        [cell setDriverTypeKeyLabel:[BBHUtil makeLabelWithText:@"Driver Type:"]];
-        [cell setDriverClassKeyLabel:[BBHUtil makeLabelWithText:@"Driver Class:"]];
-        
-        [cell setCompanyLabel:[BBHUtil makeLabelWithText:@"-"]];
-        [cell setRunTitleLabel:[BBHUtil makeLabelWithText:@"-"]];
-        [cell setEstPayLabel:[BBHUtil makeLabelWithText: @"-"]];
-        [cell setDriverTypeLabel:[BBHUtil makeLabelWithText:@"-"]];
-        [cell setDriverClassLabel:[BBHUtil makeLabelWithText:@"-"]];
-        
-        [cell setPickupAddrView:[[UIView alloc] init]];
-        
-        [cell setPickupKeyLabel:[BBHUtil makeLabelWithText:@"Pickup"]];
-        [cell setPickupDateLabel:[BBHUtil makeLabelWithText:@"-"]];
-        [cell setPickupLocationLabel:[BBHUtil makeLabelWithText:@"-"]];
-        
-        [[cell pickupAddrView] addSubview:[cell pickupKeyLabel]];
-        [[cell pickupAddrView] addSubview:[cell pickupDateLabel]];
-        [[cell pickupAddrView] addSubview:[cell pickupLocationLabel]];
-        
-        [cell setDropAddrView:[[UIView alloc] init]];
-        
-        [cell setDropKeyLabel:[BBHUtil makeLabelWithText:@"Drop"]];
-        [cell setDropDateLabel:[BBHUtil makeLabelWithText:@"-"]];
-        [cell setDropLocationLabel:[BBHUtil makeLabelWithText:@"-"]];
-        
-        [[cell dropAddrView] addSubview:[cell dropKeyLabel]];
-        [[cell dropAddrView] addSubview:[cell dropDateLabel]];
-        [[cell dropAddrView] addSubview:[cell dropLocationLabel]];
-        
-        [[cell contentView] addSubview:[cell companyKeyLabel]];
-        [[cell contentView] addSubview:[cell companyLabel]];
-        [[cell contentView] addSubview:[cell runTitleKeyLabel]];
-        [[cell contentView] addSubview:[cell runTitleLabel]];
-        [[cell contentView] addSubview:[cell estPayKeyLabel]];
-        [[cell contentView] addSubview:[cell estPayLabel]];
-        [[cell contentView] addSubview:[cell driverTypeKeyLabel]];
-        [[cell contentView] addSubview:[cell driverTypeLabel]];
-        [[cell contentView] addSubview:[cell driverClassKeyLabel]];
-        [[cell contentView] addSubview:[cell driverClassLabel]];
-        
-        [[cell contentView] addSubview:[cell pickupAddrView]];
-        [[cell contentView] addSubview:[cell dropAddrView]];
     }
 }
 

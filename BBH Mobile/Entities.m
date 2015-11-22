@@ -328,9 +328,17 @@ static BBHSession* instance;
         
         _paymentMethodId = [[dict valueForKey:@"PaymentMethodId"] intValue];
         _paymentMethodName = [dict valueForKey:@"PaymentMethodName"];
+        
+        id isDeleted = [dict valueForKey:@"IsDeleted"];
+        _isDeleted = [BBHUtil isNull:isDeleted] ? NO : [isDeleted boolValue];
     }
     
     return self;
+}
+
+-(NSString *)description {
+    
+    return [self paymentMethodName];
 }
 
 @end

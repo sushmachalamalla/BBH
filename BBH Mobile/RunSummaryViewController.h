@@ -15,7 +15,7 @@
 #import "RESTClient.h"
 #import "RunDetailViewController.h"
 
-@interface RunSummaryViewController: UITableViewController<UITableViewDataSource, UITableViewDelegate, RESTResponseHandler>
+@interface RunSummaryViewController: UITableViewController<UITableViewDataSource, UITableViewDelegate, RESTResponseHandler, BBHView>
 
 @property NSMutableArray* content;
 @property int pageNumber;

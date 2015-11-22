@@ -15,7 +15,7 @@
 #ifndef BBH_Mobile_GeneralInfoEditViewController_h
 #define BBH_Mobile_GeneralInfoEditViewController_h
 
-@interface GeneralInfoEditViewController : UIViewController<RESTResponseHandler, UIScrollViewDelegate, EditView>
+@interface GeneralInfoEditViewController : UIViewController<RESTResponseHandler, UIScrollViewDelegate, BBHEditView>
 
 @property Run* runEntity;
 @property PickerDelegate* driverTypeDelegate;

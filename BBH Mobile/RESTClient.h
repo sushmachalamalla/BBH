@@ -28,6 +28,7 @@ typedef NS_ENUM(NSInteger, RESTResponse) {
 
 @property int statusCode;
 @property NSURLCredential* credential;
+@property NSMutableData* responseData;
 @property (copy) void(^responseHandler)(RESTResponse, NSDictionary*);
 
 @end
@@ -70,9 +71,15 @@ typedef NS_ENUM(NSInteger, RESTResponse) {
 - (void) doGETWithURL: (NSString*) path params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
 
 - (void) doPOSTWithURL: (NSString*) path params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPOSTWithURL: (NSString*) path absolute: (BOOL) absolute params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+
 - (void) doPUTWithURL: (NSString*) path params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPUTWithURL: (NSString*) path absolute: (BOOL) absolute params: (RESTParams*) params complete: (void(^)(RESTResponse, NSDictionary*)) handler;
 
 - (void) doPOSTWithURL: (NSString*) path data: (NSData*) data complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPOSTWithURL: (NSString*) path absolute: (BOOL) absolute data: (NSData*) data complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+
 - (void) doPUTWithURL: (NSString*) path data: (NSData*) data complete: (void(^)(RESTResponse, NSDictionary*)) handler;
+- (void) doPUTWithURL: (NSString*) path absolute: (BOOL) absolute data: (NSData*) data complete: (void(^)(RESTResponse, NSDictionary*)) handler;
 
 @end

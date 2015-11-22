@@ -35,12 +35,15 @@
     
     GeneralInfoEditViewController* generalEditVC = [sb instantiateViewControllerWithIdentifier:@"genInfoEditVC"];
     [generalEditVC setRunEntity:[self runEntity]];
+    [generalEditVC setMode:EntityModeEdit];
     
     FreightEditViewController* freightEditVC = [sb instantiateViewControllerWithIdentifier:@"freightEditVC"];
     [freightEditVC setRunEntity:[self runEntity]];
+    [freightEditVC setMode:EntityModeEdit];
     
     PaymentMethodEditViewController* pmEditVC = [sb instantiateViewControllerWithIdentifier:@"pmEditVC"];
     [pmEditVC setRunEntity:[self runEntity]];
+    [pmEditVC setMode:EntityModeEdit];
     
     NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, pmEditVC, nil];
     
@@ -53,12 +56,19 @@
 }
 
 -(void) saveRun {
-    //
+    
+    id<BBHEditView> vc = [self selectedViewController];
+    NSLog(@">> TAB SAVE: %@", vc);
+    
+    if(![BBHUtil isNull:vc]) {
+        
+        [vc saveInfo];
+    }
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     
-    id<EditView> vc = [tabBarController selectedViewController];
+    id<BBHEditView> vc = [tabBarController selectedViewController];
     NSLog(@">> TAB SELECTED: %@", vc);
     
     if(![BBHUtil isNull:vc]) {
@@ -78,6 +88,13 @@
     }
     
     return NO;
+}
+
+-(void)navStackPushedFrom:(UIViewController *)sourceVC {
+    
+    NSLog(@">> NAVSTACK NAVBAR PUSH TABBARCTRL");
+    UIViewController* vc = [self selectedViewController];
+    [vc navStackPushedFrom:sourceVC];
 }
 
 @end

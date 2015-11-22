@@ -26,6 +26,7 @@
     if(self) {
         _responseHandler = handler;
         _statusCode = -1;
+        _responseData = [NSMutableData data];
     }
     
     return self;
@@ -33,7 +34,41 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
-    NSLog(@"Done");
+    NSError* jsonError;
+    NSJSONSerialization *json = [NSJSONSerialization JSONObjectWithData:[self responseData] options:kNilOptions error:&jsonError];
+    
+    NSMutableDictionary* dict = nil;
+    
+    if(jsonError == NULL) {
+        
+        dict = [[NSMutableDictionary alloc] initWithDictionary:(NSDictionary*)json];
+        [dict setValue:__headers forKey:@"headers"];
+        
+        if([self statusCode] == 200) {
+            
+            [self responseHandler](RESTResponseSuccess, dict);
+            
+        } else {
+            
+            [dict setValue:[self statusCode] == 401 ? @"Incorrect credentials, please try again." : @"An error occured" forKey:@"message"];
+            
+            [self responseHandler](RESTResponseError, dict);
+        }
+        
+    } else {
+        
+        NSLog(@"JSON-error: %@", [jsonError description]);
+        NSLog(@"html: %@", [NSString stringWithUTF8String:[[self responseData] bytes]]);
+        
+        dict = [NSMutableDictionary dictionary];
+        [dict setValue:[NSNumber numberWithInt:[jsonError code]] forKey:@"code"];
+        [dict setValue:[jsonError description] forKey:@"description"];
+        [dict setValue:@"An error occurred" forKey:@"description"];
+        
+        [self responseHandler](RESTResponseError, dict);
+    }
+    
+    NSLog(@"Connected");
 }
 
 - (void)connection:(NSURLConnection *)connection willSendRequestForAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
@@ -50,8 +85,6 @@
     [dict setValue:[NSNumber numberWithInt:[error code]] forKey:@"code"];
     [dict setValue:[error description] forKey:@"description"];
     [dict setValue:[NSString stringWithFormat:@"An error occured while fetching"] forKey:@"message"];
-    
-    //[[self responseHandler] failure:dict withMessage: [NSString stringWithFormat:@"An error occured while fetching"]];
     
     [self responseHandler](RESTResponseError, dict);
 }
@@ -76,44 +109,7 @@
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     
     //NSLog(@"didReceiveData:%@", data);
-    
-    NSError* jsonError;
-    NSJSONSerialization *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-    
-    NSMutableDictionary* dict = nil;
-    
-    if(jsonError == NULL) {
-        
-        dict = [[NSMutableDictionary alloc] initWithDictionary:(NSDictionary*)json];
-        [dict setValue:__headers forKey:@"headers"];
-        
-        if([self statusCode] == 200) {
-            
-            //[[self responseHandler] success:dict];
-            [self responseHandler](RESTResponseSuccess, dict);
-            
-        } else {
-            
-            //[[self responseHandler] failure:dict withMessage:[self statusCode] == 401 ? @"Incorrect credentials, please try again." : @"An error occured"];
-            
-            [dict setValue:[self statusCode] == 401 ? @"Incorrect credentials, please try again." : @"An error occured" forKey:@"message"];
-            
-            [self responseHandler](RESTResponseError, dict);
-        }
-        
-    } else {
-        
-        NSLog(@"JSON-error: %@", [jsonError description]);
-        NSLog(@"html: %@", [NSString stringWithUTF8String:[data bytes]]);
-        
-        dict = [NSMutableDictionary dictionary];
-        [dict setValue:[NSNumber numberWithInt:[jsonError code]] forKey:@"code"];
-        [dict setValue:[jsonError description] forKey:@"description"];
-        [dict setValue:@"An error occurred" forKey:@"description"];
-        
-        //[[self responseHandler] failure:dict withMessage:@"An error occured"];
-        [self responseHandler](RESTResponseError, dict);
-    }
+    [[self responseData] appendData:data];
 }
 
 - (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {

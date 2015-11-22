@@ -15,7 +15,7 @@
 #ifndef FreightEditViewController_h
 #define FreightEditViewController_h
 
-@interface FreightEditViewController : UIViewController<UIScrollViewDelegate,RESTResponseHandler,EditView>
+@interface FreightEditViewController : UIViewController<UIScrollViewDelegate,RESTResponseHandler,BBHEditView>
 
 @property Run* runEntity;
 @property (strong, nonatomic) UIScrollView *scrollView;

@@ -12,6 +12,8 @@
 @implementation FreightEditViewController
 
 @synthesize mode;
+@synthesize isClean;
+@synthesize isUIDone;
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
     
@@ -144,38 +146,52 @@
     [[self sealOnTrailerSwitch] setOn:[[self runEntity] sealOnTrailer]];    
 }
 
+-(void)updateViewConstraints {
+    
+    [[self scrollView] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo([self view].mas_left);
+        make.top.equalTo([self view].mas_top);
+        make.right.equalTo([self view].mas_right);
+        make.bottom.equalTo([self view].mas_bottom);
+    }];
+    
+    UIView* contentView = (UIView*)[[[self scrollView] subviews] objectAtIndex:0];
+    [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.equalTo([self scrollView].mas_left);
+        make.top.equalTo([self scrollView].mas_top);
+        make.right.equalTo([self scrollView].mas_right);
+        make.bottom.equalTo([self scrollView].mas_bottom);
+        make.width.equalTo([self view].mas_width).with.offset(-10.0);
+    }];
+    
+    NSArray* array = [[NSArray alloc] initWithObjects:[self totalWeightLabel], [self totalWeightTF], [self deliveryLabel], [self deliveryPicker], [self freightLoadingLabel], [self freightLoadingPicker], [self freightDescriptionLabel], [self freightDescriptionTF], [self lumperFeeLabel], [self lumperFeeSwitch], [self lumperFeeAmountLabel], [self lumperFeeAmountTF], [self detentionFeeLabel], [self detentionFeeSwitch], [self detentionFeeAmountLabel], [self detentionFeeAmountTF], [self fuelAdvanceLabel], [self fuelAdvanceSwitch], [self fuelAdvanceAmountLabel], [self fuelAdvanceAmountTF], [self tonuLabel], [self tonuSwitch], [self tonuPenaltyAmountLabel], [self tonuPenaltyAmountTF], [self driverAssistanceLabel], [self driverAssistanceSwitch], [self dockFacilityLabel], [self dockFacilitySwitch], [self scaleTicketsLabel], [self scaleTicketsSwitch], [self billOfLadingLabel], [self billOfLadingSwitch], [self sealOnTrailerLabel], [self sealOnTrailerSwitch], nil];
+    
+    CGPoint offset = CGPointMake(5.0, 5.0);
+    [BBHUtil makeStackEdit:array superview:contentView offset:offset];
+    
+    [contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        //make.right.equalTo([self runTitleLabel]).with.offset(10.0);
+        make.bottom.equalTo([self sealOnTrailerSwitch].mas_bottom).with.offset(10.0);
+    }];
+    
+    [super updateViewConstraints];
+}
+
 -(void) makeUI {
     
-    UIView* contentView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, [[self view] frame].size.width, 4000.0)];
+    UIView* contentView = [[UIView alloc] init];
     
-    CGPoint orig = CGPointMake(8.0, 8.0);
-    
-    CGFloat labelWidth = 266.0;
-    CGFloat labelHeight = 21.0;
-    
-    CGFloat tfWidth = 584.0;
-    CGFloat tfHeight = 30.0;
-    
-    CGFloat pickerWidth = 300.0;
-    CGFloat pickerHeight = 100.0;
-    
-    CGRect rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setTotalWeightLabel: [BBHUtil makeLabelWithText: @"Total Freight Weight" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setTotalWeightTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
+    [self setTotalWeightLabel: [BBHUtil makeLabelWithText: @"Total Freight Weight"]];
+    [self setTotalWeightTF: [BBHUtil makeTextFieldWithText:@"Total Weight"]];
     
     [contentView addSubview:[self totalWeightLabel]];
     [contentView addSubview:[self totalWeightTF]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setDeliveryLabel: [BBHUtil makeLabelWithText:@"Delivery" frame:rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, pickerWidth, pickerHeight);
-    [self setDeliveryPicker: [[UIPickerView alloc] initWithFrame:rect]];
+    [self setDeliveryLabel: [BBHUtil makeLabelWithText:@"Delivery"]];
+    [self setDeliveryPicker: [[UIPickerView alloc] init]];
     
     [[self deliveryPicker] setDelegate:[self deliveryDelegate]];
     [[self deliveryPicker] setDataSource:[self deliveryDelegate]];
@@ -183,13 +199,8 @@
     [contentView addSubview:[self deliveryLabel]];
     [contentView addSubview:[self deliveryPicker]];
     
-    orig.y += [[self deliveryPicker] frame].size.height + 8.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setFreightLoadingLabel:[BBHUtil makeLabelWithText:@"Freight Loading" frame:rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, pickerWidth, pickerHeight);
-    [self setFreightLoadingPicker: [[UIPickerView alloc] initWithFrame:rect]];
+    [self setFreightLoadingLabel:[BBHUtil makeLabelWithText:@"Freight Loading"]];
+    [self setFreightLoadingPicker: [[UIPickerView alloc] init]];
     
     [[self freightLoadingPicker] setDelegate:[self freightLoadingDelegate]];
     [[self freightLoadingPicker] setDataSource:[self freightLoadingDelegate]];
@@ -197,174 +208,115 @@
     [contentView addSubview:[self freightLoadingLabel]];
     [contentView addSubview:[self freightLoadingPicker]];
     
-    orig.y += [[self freightLoadingPicker] frame].size.height + 8.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setFreightDescriptionLabel: [BBHUtil makeLabelWithText: @"Freight Description" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setFreightDescriptionTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
+    [self setFreightDescriptionLabel: [BBHUtil makeLabelWithText: @"Freight Description"]];
+    [self setFreightDescriptionTF: [BBHUtil makeTextFieldWithText:@"Freight Description"]];
     
     [contentView addSubview:[self freightDescriptionLabel]];
     [contentView addSubview:[self freightDescriptionTF]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setLumperFeeLabel:[BBHUtil makeLabelWithText: @"Lumper Fee" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setLumperFeeSwitch:[[UISwitch alloc] initWithFrame:rect]];
+    [self setLumperFeeLabel:[BBHUtil makeLabelWithText: @"Lumper Fee"]];
+    [self setLumperFeeSwitch:[[UISwitch alloc] init]];
     
     [contentView addSubview:[self lumperFeeLabel]];
     [contentView addSubview:[self lumperFeeSwitch]];
     
     [[self lumperFeeSwitch] addTarget:self action:@selector(lumperSwitchChanged) forControlEvents:UIControlEventValueChanged];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setLumperFeeAmountLabel: [BBHUtil makeLabelWithText: @"Lumper Fee $" frame: rect]];
+    [self setLumperFeeAmountLabel: [BBHUtil makeLabelWithText: @"Lumper Fee $"]];
     
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setLumperFeeAmountTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
+    [self setLumperFeeAmountTF: [BBHUtil makeTextFieldWithText:@"Lumper Fee Amount"]];
     [[self lumperFeeAmountTF] setEnabled:[[self runEntity] payLumperFee]];
     
     [contentView addSubview:[self lumperFeeAmountLabel]];
     [contentView addSubview:[self lumperFeeAmountTF]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setDetentionFeeLabel: [BBHUtil makeLabelWithText: @"Detention Fee" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setDetentionFeeSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setDetentionFeeLabel: [BBHUtil makeLabelWithText: @"Detention Fee"]];
+    [self setDetentionFeeSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self detentionFeeLabel]];
     [contentView addSubview:[self detentionFeeSwitch]];
     
     [[self detentionFeeSwitch] addTarget:self action:@selector(detentionSwitchChanged) forControlEvents:UIControlEventValueChanged];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setDetentionFeeAmountLabel: [BBHUtil makeLabelWithText: @"Detention Fee $" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setDetentionFeeAmountTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
+    [self setDetentionFeeAmountLabel: [BBHUtil makeLabelWithText: @"Detention Fee $"]];
+    [self setDetentionFeeAmountTF: [BBHUtil makeTextFieldWithText:@"Detention Fee Amount"]];
     
     [contentView addSubview:[self detentionFeeAmountLabel]];
     [contentView addSubview:[self detentionFeeAmountTF]];
+    
     [[self detentionFeeAmountTF] setEnabled:[[self runEntity] payDetentionFee]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setFuelAdvanceLabel: [BBHUtil makeLabelWithText: @"Fuel Advance Provided" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setFuelAdvanceSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setFuelAdvanceLabel: [BBHUtil makeLabelWithText: @"Fuel Advance Provided"]];
+    [self setFuelAdvanceSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self fuelAdvanceLabel]];
     [contentView addSubview:[self fuelAdvanceSwitch]];
     
     [[self fuelAdvanceSwitch] addTarget:self action:@selector(fuelSwitchChanged) forControlEvents:UIControlEventValueChanged];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setFuelAdvanceAmountLabel: [BBHUtil makeLabelWithText: @"Fuel Advance $" frame: rect]];
+    [self setFuelAdvanceAmountLabel: [BBHUtil makeLabelWithText: @"Fuel Advance $"]];
+    [self setFuelAdvanceAmountTF: [BBHUtil makeTextFieldWithText:@"Fuel Advance Amount"]];
     
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setFuelAdvanceAmountTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
     [[self fuelAdvanceAmountTF] setEnabled:[[self runEntity] offerFuelAdvance]];
     
     [contentView addSubview:[self fuelAdvanceAmountLabel]];
     [contentView addSubview:[self fuelAdvanceAmountTF]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setTonuLabel: [BBHUtil makeLabelWithText: @"TONU" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setTonuSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setTonuLabel: [BBHUtil makeLabelWithText: @"TONU"]];
+    [self setTonuSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self tonuLabel]];
     [contentView addSubview:[self tonuSwitch]];
     
     [[self tonuSwitch] addTarget:self action:@selector(tonuSwitchChanged) forControlEvents:UIControlEventValueChanged];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setTonuPenaltyAmountLabel: [BBHUtil makeLabelWithText: @"TONU Penalty $" frame: rect]];
+    [self setTonuPenaltyAmountLabel: [BBHUtil makeLabelWithText: @"TONU Penalty $"]];
     
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, tfWidth, tfHeight);
-    [self setTonuPenaltyAmountTF: [BBHUtil makeTextFieldWithText:nil frame:rect]];
+    [self setTonuPenaltyAmountTF: [BBHUtil makeTextFieldWithText:@"TONU Penalty Amount"]];
     [[self tonuPenaltyAmountTF] setEnabled:[[self runEntity] tonuForOO]];
     
     [contentView addSubview:[self tonuPenaltyAmountLabel]];
     [contentView addSubview:[self tonuPenaltyAmountTF]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setDriverAssistanceLabel: [BBHUtil makeLabelWithText: @"Driver Assistance Provided" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setDriverAssistanceSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setDriverAssistanceLabel: [BBHUtil makeLabelWithText: @"Driver Assistance Provided"]];
+    [self setDriverAssistanceSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self driverAssistanceLabel]];
     [contentView addSubview:[self driverAssistanceSwitch]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setDockFacilityLabel: [BBHUtil makeLabelWithText: @"Dock At Facility" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setDockFacilitySwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setDockFacilityLabel: [BBHUtil makeLabelWithText: @"Dock At Facility"]];
+    [self setDockFacilitySwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self dockFacilityLabel]];
     [contentView addSubview:[self dockFacilitySwitch]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setScaleTicketsLabel: [BBHUtil makeLabelWithText: @"Scale Tickets Needed" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setScaleTicketsSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setScaleTicketsLabel: [BBHUtil makeLabelWithText: @"Scale Tickets Needed"]];
+    [self setScaleTicketsSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self scaleTicketsLabel]];
     [contentView addSubview:[self scaleTicketsSwitch]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setBillOfLadingLabel: [BBHUtil makeLabelWithText: @"Bill of Lading Provided" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setBillOfLadingSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setBillOfLadingLabel: [BBHUtil makeLabelWithText: @"Bill of Lading Provided"]];
+    [self setBillOfLadingSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self billOfLadingLabel]];
     [contentView addSubview:[self billOfLadingSwitch]];
     
-    orig.y += 38.0;
-    rect = CGRectMake(orig.x, orig.y, labelWidth, labelHeight);
-    [self setSealOnTrailerLabel: [BBHUtil makeLabelWithText: @"Seal on Trailer" frame: rect]];
-    
-    orig.y += 29.0;
-    rect = CGRectMake(orig.x, orig.y, 50.0, 30.0);
-    [self setSealOnTrailerSwitch: [[UISwitch alloc] initWithFrame:rect]];
+    [self setSealOnTrailerLabel: [BBHUtil makeLabelWithText: @"Seal on Trailer"]];
+    [self setSealOnTrailerSwitch: [[UISwitch alloc] init]];
     
     [contentView addSubview:[self sealOnTrailerLabel]];
     [contentView addSubview:[self sealOnTrailerSwitch]];
     
-    [[self scrollView] setContentSize:CGSizeMake([[self view] frame].size.width, orig.y+150.0)];
+    [self setScrollView:[[UIScrollView alloc] init]];
+    [[self scrollView] setScrollEnabled:YES];
+    [[self scrollView] setPagingEnabled:NO];
+    [[self scrollView] setDelegate:self];
+    
+    [self setEdgesForExtendedLayout:UIRectEdgeNone];
+    
     [[self scrollView] addSubview:contentView];
+    [[self view] addSubview:[self scrollView]];
 }
 
 -(void) detentionSwitchChanged {
@@ -425,12 +377,85 @@
 
 -(void) confirmSave: (void (^)(ConfirmResponse)) handler {
     
-    [BBHUtil showAlert:self handler:handler];
+    [BBHUtil showConfirmSave:self handler:handler];
 }
 
 -(void)saveInfo {
     
     NSLog(@"Saving Freight Info");
+    Run* run = [[Run alloc] initWithDict:[[self runEntity] exportToDict]];
+    
+    NSString* sTotalWeight = [[self totalWeightTF] text];
+    NSNumber* totalWeight = [BBHUtil readDecimal:sTotalWeight];
+    
+    DeliveryScheduleType* deliveryType = [[[self deliveryDelegate] content] objectAtIndex:[[self deliveryPicker] selectedRowInComponent:0]];
+    
+    LoadingType* loadingType = [[[self freightLoadingDelegate] content] objectAtIndex:[[self freightLoadingPicker] selectedRowInComponent:0]];
+    
+    NSString* freightDesc = [[self freightDescriptionTF] text];
+    
+    BOOL lumperFee = [[self lumperFeeSwitch] isOn];
+    
+    NSString* sLumperFeeAmount = [[self lumperFeeAmountTF] text];
+    NSNumber* lumperFeeAmount = [BBHUtil readDecimal:sLumperFeeAmount];
+    
+    BOOL detentionFee = [[self detentionFeeSwitch] isOn];
+    
+    NSString* sDetentionFeeAmount = [[self detentionFeeAmountTF] text];
+    NSNumber* detentionFeeAmount = [BBHUtil readDecimal:sDetentionFeeAmount];
+    
+    BOOL fuelAdvance = [[self fuelAdvanceSwitch] isOn];
+    
+    NSString* sFuelAdvanceAmount = [[self fuelAdvanceAmountTF] text];
+    NSNumber* fuelAdvanceAmount = [BBHUtil readDecimal:sFuelAdvanceAmount];
+    
+    BOOL tonu = [[self tonuSwitch] isOn];
+    
+    NSString* sTonuPenaltyAmount = [[self tonuPenaltyAmountTF] text];
+    NSNumber* tonuPenaltyAmount = [BBHUtil readDecimal:sTonuPenaltyAmount];
+    
+    BOOL driverAssistance = [[self driverAssistanceSwitch] isOn];
+    BOOL dockFacility = [[self dockFacilitySwitch] isOn];
+    BOOL scaleTickets = [[self scaleTicketsSwitch] isOn];
+    BOOL billOfLading = [[self billOfLadingSwitch] isOn];
+    BOOL sealOnTrailer = [[self sealOnTrailerSwitch] isOn];
+    
+    [run setTotalFreightWeight:totalWeight];
+    [run setDeliveryScheduleType:deliveryType];
+    [run setLoadingType:loadingType];
+    [run setFreightDetails:([BBHUtil isEmpty: freightDesc] ? nil : freightDesc)];
+    [run setPayLumperFee:lumperFee];
+    [run setLumperFee:lumperFeeAmount];
+    [run setPayDetentionFee:detentionFee];
+    [run setDetentionFee:detentionFeeAmount];
+    [run setOfferFuelAdvance:fuelAdvance];
+    [run setFuelAdvanceAmount:fuelAdvanceAmount];
+    [run setTonuForOO:tonu];
+    [run setTonuPenaltyAmount:tonuPenaltyAmount];
+    [run setDriverAssist:driverAssistance];
+    [run setFacilityWithDock:dockFacility];
+    [run setOoNeedScaleTickets:scaleTickets];
+    [run setNeedBillOfLoading:billOfLading];
+    [run setSealOnTrailer:sealOnTrailer];
+    
+    NSError* error = nil;
+    NSDictionary* dict = [run exportToDict];
+    NSData* data = [NSJSONSerialization dataWithJSONObject:dict options:kNilOptions error:&error];
+    
+    if(data && !error) {
+        
+        RESTClient* client = [RESTClient instance];
+        Link* link = [[run links] valueForKey:@"updateRun"];
+        
+        [client doPUTWithURL:[link href] absolute:YES data:data complete:^(RESTResponse response, NSDictionary* dict) {
+            
+            NSLog(@">>> PUT Response: %ld %@", (long)response, dict);
+        }];
+        
+    } else {
+        
+        NSLog(@"Error serealizing to JSON");
+    }
 }
 
 -(void)success:(NSDictionary *)data {

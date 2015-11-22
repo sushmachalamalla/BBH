@@ -61,6 +61,7 @@
     RunDetailEditViewController* editVC = [sb instantiateViewControllerWithIdentifier:@"runDetailEditVC"];
     
     [editVC setRunEntity:[self runEntity]];
+    [editVC setMode:EntityModeEdit];
     [[self navigationController] showViewController:editVC sender:self];
 }
 

@@ -11,6 +11,8 @@
 
 @implementation PaymentMethodViewController
 
+@synthesize isUIDone;
+
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
     
     self = [super initWithCoder:aDecoder];
@@ -26,10 +28,17 @@
 
 -(void)viewDidLoad {
     
-    [self setContent:[NSMutableArray array]];
+    [self makeUI];
+    [self fetchData];
+}
+
+-(void)fetchData {
     
-    [[self pmTableView] setDataSource:self];
-    [[self pmTableView] setDelegate:self];
+    if(![self content]) {
+        [self setContent:[NSMutableArray array]];
+    }
+
+    [[self content] removeAllObjects];
     
     RESTClient* client = [RESTClient instance];
     [client doGETWithURL:[NSString stringWithFormat:@"runs/%d/runPaymentMethods",[[self runEntity] runId]] absolute:NO params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary *data) {
@@ -45,84 +54,109 @@
                 [[self content] addObject:pm];
             }];
             
-            dispatch_async(dispatch_get_main_queue(),^{
-                
-                //[[self pmTableView] setNeedsUpdateConstraints];
-                [[self pmTableView] reloadData];
-            });
+            [self populate];
         }
     }];
 }
 
+-(void)updateViewConstraints {
+    
+    //NSLog(@"+++++++++++++ UPDATE CONSTRAINTS ++++++++++++++");
+    
+    [[self pmTableView] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self view].mas_top).with.offset(20.0);
+        make.left.equalTo([self view].mas_left);
+        make.right.equalTo([self view].mas_right);
+        make.bottom.equalTo([self view].mas_bottom);
+    }];
+    
+    [super updateViewConstraints];
+}
+
+-(void)viewDidLayoutSubviews {
+    
+    [super viewDidLayoutSubviews];
+    //[[self pmTableView] setSeparatorInset:UIEdgeInsetsZero];
+    //[[self pmTableView] setLayoutMargins:UIEdgeInsetsZero];
+}
+
+-(void) makeUI {
+    
+    [self setPmTableView:[[UITableView alloc] init]];
+    [[self pmTableView] setDataSource:self];
+    [[self pmTableView] setDelegate:self];
+    
+    if([[self pmTableView] respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
+        
+        [[self pmTableView] setCellLayoutMarginsFollowReadableWidth:NO];
+    }
+    
+    [[self view] addSubview:[self pmTableView]];
+    [[self view] setNeedsUpdateConstraints];
+}
+
+-(void) populate {
+    
+    dispatch_async(dispatch_get_main_queue(),^{
+        
+        //[[self pmTableView] setNeedsUpdateConstraints];
+        [[self pmTableView] reloadData];
+    });
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"pmDataCell" forIndexPath:indexPath];
+    PaymentMethodCell* cell = (PaymentMethodCell*) [tableView dequeueReusableCellWithIdentifier:@"pmDataCell"];
     
-    UILabel* pmLabel = (UILabel*)[cell viewWithTag:100];
-    UILabel* unitLabel = (UILabel*)[cell viewWithTag:101];
-    UILabel* rateLabel = (UILabel*)[cell viewWithTag:102];
-    
-    if(!pmLabel) {
+    if(!cell) {
         
-        NSLog(@">> NOT FOUND");
-        
-        pmLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 308.0, 21.0)];
-        unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(320, 5, 113.0, 21.0)];
-        rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(433, 5, 131.0, 21.0)];
-        
-        [pmLabel setTextAlignment:NSTextAlignmentLeft];
-        [unitLabel setTextAlignment:NSTextAlignmentRight];
-        [rateLabel setTextAlignment:NSTextAlignmentRight];
-        
-        [pmLabel setTextColor:[UIColor grayColor]];
-        [unitLabel setTextColor:[UIColor grayColor]];
-        [rateLabel setTextColor:[UIColor grayColor]];
-        
-        [pmLabel setTag:100];
-        [unitLabel setTag:101];
-        [rateLabel setTag:102];
-        
-        [[cell contentView] addSubview:pmLabel];
-        [[cell contentView] addSubview:unitLabel];
-        [[cell contentView] addSubview:rateLabel];
+        cell = [[PaymentMethodCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pmDataCell"];
     }
+    
+    UILabel* pmLabel = [cell pmLabel];
+    UILabel* unitLabel = [cell unitLabel];
+    UILabel* rateLabel = [cell rateLabel];
     
     RunPaymentMethod* pm = [[self content] objectAtIndex:[indexPath row]];
     [pmLabel setText:[[pm paymentMethod] paymentMethodName]];
     [unitLabel setText:[NSString stringWithFormat:@"%.2f", [[pm estimatedUnits] doubleValue]]];
     [rateLabel setText:[NSString stringWithFormat:@"%.2f", [[pm estimatedRate] doubleValue]]];
     
+    [cell setNeedsUpdateConstraints];
+    
     return cell;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    UIView* view = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 565.0, 32.0)];
-    UILabel* pmLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 308.0, 21.0)];
-    UILabel* unitLabel = [[UILabel alloc] initWithFrame:CGRectMake(320, 5, 113.0, 21.0)];
-    UILabel* rateLabel = [[UILabel alloc] initWithFrame:CGRectMake(433, 5, 131.0, 21.0)];
+    PaymentMethodCell* cell = (PaymentMethodCell*) [tableView dequeueReusableCellWithIdentifier:@"pmDataCell"];
+    
+    if(!cell) {
+        
+        cell = [[PaymentMethodCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pmDataCell"];
+    }
+    
+    UILabel* pmLabel = [cell pmLabel];
+    UILabel* unitLabel = [cell unitLabel];
+    UILabel* rateLabel = [cell rateLabel];
+    
+    [pmLabel setText:@"Payment Method"];
+    [unitLabel setText:@"Est Units"];
+    [rateLabel setText:@"Est Rate"];
     
     [pmLabel setTextColor:[BBHUtil headerTextColor]];
-    [pmLabel setText:@"Payment Method"];
-    
     [unitLabel setTextColor:[BBHUtil headerTextColor]];
-    [unitLabel setText:@"Est Units"];
-    
     [rateLabel setTextColor:[BBHUtil headerTextColor]];
-    [rateLabel setText:@"Est Rate"];
     
     [unitLabel setTextAlignment:NSTextAlignmentRight];
     [rateLabel setTextAlignment:NSTextAlignmentRight];
     
-    //[[tableView dequeueReusableCellWithIdentifier:@"endHeaderCell"] viewWithTag:100]
+    [[cell contentView] setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [[cell contentView] setOpaque:YES];
+    [cell setNeedsUpdateConstraints];
     
-    [view setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
-    [view addSubview:pmLabel];
-    [view addSubview:unitLabel];
-    [view addSubview:rateLabel];
-    [view setOpaque:YES];
-    
-    return view;
+    return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -133,6 +167,11 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [[self content] count];
+}
+
+-(void)navStackPushedFrom:(UIViewController *)sourceVC {
+    
+    NSLog(@">>> NAV STACK PUSH SUB CLASS - 1: %@", sourceVC);
 }
 
 -(void)success:(NSDictionary *)data {

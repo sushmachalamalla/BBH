@@ -8,15 +8,16 @@
 
 #import "NavigationViewController.h"
 
-
 @implementation NavigationViewController
 
-- (instancetype)init {
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
     
-    self = [super init];
+    self = [super initWithCoder:aDecoder];
     
     if(self) {
-        //[self setModalPresentationStyle:UIModalPresentationCurrentContext];
+        
+        [self setDelegate:self];
+        [self setNavigationHandlers:[NSMutableArray array]];
     }
     
     return self;
@@ -30,7 +31,21 @@
 
 -(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
-    NSLog(@">> Will show view controller");
+    NSLog(@">> Will show view controller -> %@", viewController);
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    
+    NSLog(@">>>> NAV STACK PUSH");
+    
+    [toVC navStackPushedFrom: fromVC];
+    
+    if(operation == UINavigationControllerOperationPop) {
+        
+        //[fromVC navStackPoppedTo:toVC];
+    }
+    
+    return nil;
 }
 
 @end

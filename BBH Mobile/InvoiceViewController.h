@@ -13,7 +13,7 @@
 #ifndef BBH_Mobile_InvoiceViewController_h
 #define BBH_Mobile_InvoiceViewController_h
 
-@interface InvoiceViewController : UITableViewController<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate>
+@interface InvoiceViewController : UITableViewController<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate, BBHView>
 
 @property NSMutableArray* content;
 @property BOOL isPaid;
