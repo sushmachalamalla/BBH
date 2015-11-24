@@ -29,9 +29,9 @@
 
 @property PickerDelegate* pmDelegate;
 
-@property UIView* btnPanel;
-@property UIButton* saveBtn;
-@property UIButton* cancelBtn;
+//@property UIView* btnPanel;
+//@property UIButton* saveBtn;
+//@property UIButton* cancelBtn;
 
 @property UIView* contentView;
 @property RunPaymentMethod* pmEntity;

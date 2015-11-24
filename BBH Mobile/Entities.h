@@ -22,6 +22,12 @@
 
 @end
 
+@interface BBHNone : NSObject
+
++(instancetype) instance;
+
+@end
+
 @interface BBHEntity : NSObject<BBHEntityProtocol>
 
 @end

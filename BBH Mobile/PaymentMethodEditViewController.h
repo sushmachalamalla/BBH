@@ -22,7 +22,7 @@
 @property PaymentMethodEditView* editController;
 @property UIBarButtonItem* addBtn;
 
--(void)navStackPushedFrom:(UIViewController *)sourceVC;
+//-(void)navStackPushedFrom:(UIViewController *)sourceVC;
 
 @end
 

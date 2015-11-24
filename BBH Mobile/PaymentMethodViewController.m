@@ -20,7 +20,9 @@
     if(self) {
         
         UITabBarItem* tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Payment Methods" image:nil tag:30];
+        
         [self setTabBarItem:tabBarItem];
+        [self setContent:[NSMutableArray array]];
     }
     
     return self;
@@ -34,9 +36,9 @@
 
 -(void)fetchData {
     
-    if(![self content]) {
+    /*if(![self content]) {
         [self setContent:[NSMutableArray array]];
-    }
+    }*/
 
     [[self content] removeAllObjects];
     

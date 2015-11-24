@@ -12,6 +12,8 @@
 		583009991BB9301B0094A401 /* MenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 583009981BB9301B0094A401 /* MenuTableView.m */; };
 		5830099B1BB949BA0094A401 /* NavMenuEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 5830099A1BB949BA0094A401 /* NavMenuEntry.m */; };
 		58357C721BBAC1B900982E70 /* Entities.m in Sources */ = {isa = PBXBuildFile; fileRef = 58357C711BBAC1B900982E70 /* Entities.m */; };
+		58367FF11C046C0900FC186C /* TimeCardEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58367FF01C046C0900FC186C /* TimeCardEditViewController.m */; settings = {ASSET_TAGS = (); }; };
+		58367FF41C04728700FC186C /* TimeCardEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58367FF31C04728700FC186C /* TimeCardEditView.m */; settings = {ASSET_TAGS = (); }; };
 		58382C561BA02ABA00ECF0D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C551BA02ABA00ECF0D2 /* main.m */; };
 		58382C591BA02ABA00ECF0D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 58382C581BA02ABA00ECF0D2 /* AppDelegate.m */; };
 		58382C5C1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 58382C5A1BA02ABA00ECF0D2 /* BBH_Mobile.xcdatamodeld */; };
@@ -59,6 +61,9 @@
 		589D56831BEA28440005ABFA /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 589D56761BEA28440005ABFA /* View+MASAdditions.m */; settings = {ASSET_TAGS = (); }; };
 		589D56841BEA28440005ABFA /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 589D56791BEA28440005ABFA /* ViewController+MASAdditions.m */; settings = {ASSET_TAGS = (); }; };
 		589E2D9D1BBAB1C800E31B98 /* RunSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 589E2D9C1BBAB1C800E31B98 /* RunSummaryCell.m */; };
+		58A9D9E21C01DB3700F08916 /* CriteriaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A9D9E11C01DB3700F08916 /* CriteriaCell.m */; settings = {ASSET_TAGS = (); }; };
+		58A9D9E51C02017E00F08916 /* CriteriaEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A9D9E41C02017E00F08916 /* CriteriaEditViewController.m */; settings = {ASSET_TAGS = (); }; };
+		58A9D9E81C02057500F08916 /* CriteriaEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58A9D9E71C02057500F08916 /* CriteriaEditView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,10 @@
 		583009981BB9301B0094A401 /* MenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuTableView.m; sourceTree = "<group>"; };
 		5830099A1BB949BA0094A401 /* NavMenuEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavMenuEntry.m; sourceTree = "<group>"; };
 		58357C711BBAC1B900982E70 /* Entities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entities.m; sourceTree = "<group>"; };
+		58367FEF1C046BF000FC186C /* TimeCardEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeCardEditViewController.h; sourceTree = "<group>"; };
+		58367FF01C046C0900FC186C /* TimeCardEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardEditViewController.m; sourceTree = "<group>"; };
+		58367FF21C04727300FC186C /* TimeCardEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeCardEditView.h; sourceTree = "<group>"; };
+		58367FF31C04728700FC186C /* TimeCardEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardEditView.m; sourceTree = "<group>"; };
 		58382C501BA02ABA00ECF0D2 /* BBH Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BBH Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58382C541BA02ABA00ECF0D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		58382C551BA02ABA00ECF0D2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -171,6 +180,12 @@
 		589D56791BEA28440005ABFA /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
 		589E2D9B1BBAB1AA00E31B98 /* RunSummaryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RunSummaryCell.h; sourceTree = "<group>"; };
 		589E2D9C1BBAB1C800E31B98 /* RunSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RunSummaryCell.m; sourceTree = "<group>"; };
+		58A9D9E01C01DB2700F08916 /* CriteriaCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CriteriaCell.h; sourceTree = "<group>"; };
+		58A9D9E11C01DB3700F08916 /* CriteriaCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriteriaCell.m; sourceTree = "<group>"; };
+		58A9D9E31C02016700F08916 /* CriteriaEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CriteriaEditViewController.h; sourceTree = "<group>"; };
+		58A9D9E41C02017E00F08916 /* CriteriaEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriteriaEditViewController.m; sourceTree = "<group>"; };
+		58A9D9E61C02056400F08916 /* CriteriaEditView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CriteriaEditView.h; sourceTree = "<group>"; };
+		58A9D9E71C02057500F08916 /* CriteriaEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CriteriaEditView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +308,8 @@
 				584363FA1BC7C77E003B75AD /* DriverViewController.m */,
 				5841F82A1BFCB43B0015A2D1 /* PaymentMethodCell.h */,
 				5841F82B1BFCB75E0015A2D1 /* PaymentMethodCell.m */,
+				58A9D9E01C01DB2700F08916 /* CriteriaCell.h */,
+				58A9D9E11C01DB3700F08916 /* CriteriaCell.m */,
 			);
 			name = RunDetailView;
 			sourceTree = "<group>";
@@ -310,6 +327,14 @@
 				5847A8271BE7721B0098B804 /* PaymentMethodEditViewController.m */,
 				58515F671BFDA0800062205A /* PaymentMethodEditView.h */,
 				58515F681BFDA0A40062205A /* PaymentMethodEditView.m */,
+				58A9D9E31C02016700F08916 /* CriteriaEditViewController.h */,
+				58A9D9E41C02017E00F08916 /* CriteriaEditViewController.m */,
+				58A9D9E61C02056400F08916 /* CriteriaEditView.h */,
+				58A9D9E71C02057500F08916 /* CriteriaEditView.m */,
+				58367FEF1C046BF000FC186C /* TimeCardEditViewController.h */,
+				58367FF01C046C0900FC186C /* TimeCardEditViewController.m */,
+				58367FF21C04727300FC186C /* TimeCardEditView.h */,
+				58367FF31C04728700FC186C /* TimeCardEditView.m */,
 			);
 			name = RunDetailEdit;
 			sourceTree = "<group>";
@@ -539,14 +564,18 @@
 				5841F82C1BFCB75E0015A2D1 /* PaymentMethodCell.m in Sources */,
 				589D567B1BEA28440005ABFA /* MASCompositeConstraint.m in Sources */,
 				589D567D1BEA28440005ABFA /* MASConstraintMaker.m in Sources */,
+				58A9D9E81C02057500F08916 /* CriteriaEditView.m in Sources */,
+				58A9D9E21C01DB3700F08916 /* CriteriaCell.m in Sources */,
 				5840BE491BBEBDF500EB5CD3 /* GeneralInfoViewController.m in Sources */,
 				589D56841BEA28440005ABFA /* ViewController+MASAdditions.m in Sources */,
 				589D567E1BEA28440005ABFA /* MASLayoutConstraint.m in Sources */,
 				5844824D1BC5180000E86823 /* CriteriaViewController.m in Sources */,
 				5849948D1BCBE5BC008EC7C4 /* RunDetailEditViewController.m in Sources */,
 				582F1FCE1BBA6E0F00852423 /* RunSummaryViewController.m in Sources */,
+				58A9D9E51C02017E00F08916 /* CriteriaEditViewController.m in Sources */,
 				5840BE451BBE925900EB5CD3 /* RunDetailViewController.m in Sources */,
 				589E2D9D1BBAB1C800E31B98 /* RunSummaryCell.m in Sources */,
+				58367FF11C046C0900FC186C /* TimeCardEditViewController.m in Sources */,
 				58382C591BA02ABA00ECF0D2 /* AppDelegate.m in Sources */,
 				585487EE1BB53DC70058256B /* NavigationViewController.m in Sources */,
 				584363FB1BC7C77E003B75AD /* DriverViewController.m in Sources */,
@@ -561,6 +590,7 @@
 				5849874B1BDF7F9600E6D368 /* FreightEditViewController.m in Sources */,
 				5861F9E71BC916910088EF6C /* InvoiceViewController.m in Sources */,
 				589D56801BEA28440005ABFA /* MASViewConstraint.m in Sources */,
+				58367FF41C04728700FC186C /* TimeCardEditView.m in Sources */,
 				5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */,
 				58382C5F1BA02ABA00ECF0D2 /* LoginViewController.m in Sources */,
 				58357C721BBAC1B900982E70 /* Entities.m in Sources */,

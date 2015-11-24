@@ -37,13 +37,13 @@
     PaymentMethodViewController* paymentMethodVC = [sb instantiateViewControllerWithIdentifier:@"pmVC"];
     [paymentMethodVC setRunEntity:[self runEntity]];
     
-    CriteriaViewController* criteriaVC = [sb instantiateViewControllerWithIdentifier:@"criteriaVC"];
+    CriteriaViewController* criteriaVC = [[CriteriaViewController alloc] init];
     [criteriaVC setRunEntity:[self runEntity]];
     
-    TimeCardViewController* tcVC = [sb instantiateViewControllerWithIdentifier:@"tcVC"];
+    TimeCardViewController* tcVC = [[TimeCardViewController alloc] init];
     [tcVC setRunEntity:[self runEntity]];
     
-    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalVC, freightVC, paymentMethodVC, criteriaVC, tcVC, nil];
+    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:tcVC, nil];
     
     if ([[[BBHSession curSession] loginType] isEqualToString:@"Client"]) {
         

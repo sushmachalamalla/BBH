@@ -45,7 +45,11 @@
     [pmEditVC setRunEntity:[self runEntity]];
     [pmEditVC setMode:EntityModeEdit];
     
-    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, pmEditVC, nil];
+    CriteriaEditViewController* criteriaEditVC = [[CriteriaEditViewController alloc] init];
+    [criteriaEditVC setRunEntity:[self runEntity]];
+    [criteriaEditVC setMode:EntityModeEdit];
+    
+    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, pmEditVC, criteriaEditVC, nil];
     
     if ([[[BBHSession curSession] loginType] isEqualToString:@"Client"]) {
         

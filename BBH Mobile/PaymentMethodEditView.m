@@ -81,18 +81,6 @@
         make.edges.equalTo([self view]).with.insets(UIEdgeInsetsMake(0.0, 0.0, 0.0, 10.0));
     }];
     
-    [[self saveBtn] mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo([self btnPanel].mas_left).with.offset(5.0);
-        make.centerY.equalTo([self btnPanel].mas_centerY);
-    }];
-    
-    [[self cancelBtn] mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-        make.left.equalTo([self saveBtn].mas_right).with.offset(10.0);
-        make.centerY.equalTo([self btnPanel].mas_centerY);
-    }];
-    
     NSArray* array = [[NSArray alloc] initWithObjects:[self pmNameLabel], [self pmPicker], [self pmUnitLabel], [self pmUnitTF], [self pmCostLabel], [self pmCostTF], nil];
     
     [BBHUtil makeStackEdit:array superview:[self contentView] offset:CGPointMake(5.0, [BBHUtil statusBarHeight] + 5.0)];
@@ -181,7 +169,8 @@
 }
 
 -(void)confirmSave:(void (^)(ConfirmResponse))handler {
-    //
+    
+    [BBHUtil showConfirmSave:self handler:handler];
 }
 
 -(void) saveInfo {
@@ -224,7 +213,13 @@
     [rpm setEstimatedRate:pmRate];
     
     NSError* error = nil;
-    NSArray* pmList = [[NSArray alloc] initWithObjects:[rpm exportToDict], nil];
+    NSDictionary* runPMDict = [rpm exportToDict];
+    
+    if ([self mode] == EntityModeAdd) {
+        //[runPMDict setValue:[NSNull null] forKey:@"runPaymentMethodId"];
+    }
+    
+    NSArray* pmList = [[NSArray alloc] initWithObjects:runPMDict, nil];
     NSDictionary* pmListJSON = [NSDictionary dictionaryWithObjectsAndKeys:pmList, @"RunPaymentMethods", nil];
     
     NSData* data = [NSJSONSerialization dataWithJSONObject:pmListJSON options:kNilOptions error:&error];

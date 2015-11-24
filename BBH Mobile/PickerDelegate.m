@@ -17,7 +17,7 @@
     
     if(self) {
         
-        [self setContent:[NSMutableArray array]];
+        [self setContent:[NSMutableArray arrayWithObjects:[BBHNone instance], nil]];
         
         /*NSMutableDictionary* dict = [NSMutableDictionary dictionary];
         [dict setValue:[NSNumber numberWithInt:2] forKey:@"DriverTypeId"];

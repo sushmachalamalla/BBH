@@ -14,10 +14,13 @@
 #ifndef BBH_Mobile_TimeCardViewController_h
 #define BBH_Mobile_TimeCardViewController_h
 
-@interface TimeCardViewController : UITableViewController<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate>
+@interface TimeCardViewController : UITableViewController<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate, BBHView>
 
 @property Run* runEntity;
 @property NSMutableArray* content;
+
+@property UITableView* tcTableView;
+
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *approvedByLabel;

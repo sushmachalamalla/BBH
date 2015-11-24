@@ -14,15 +14,20 @@
 @synthesize mode;
 @synthesize isClean;
 
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    NSArray* btnList = [[NSArray alloc] initWithObjects:[self addBtn], nil];
+    [[[self tabBarController] navigationItem] setRightBarButtonItems:btnList];
+}
+
 -(void)viewDidLoad {
     
     [super viewDidLoad];
     [self setEditController: [[PaymentMethodEditView alloc] init]];
     
     [self setAddBtn:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPaymentMethod)]];
-    
-    NSArray* btnList = [[NSArray alloc] initWithObjects:[self addBtn], nil];
-    [[[self tabBarController] navigationItem] setRightBarButtonItems:btnList];
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,7 +77,8 @@
 }
 
 -(void)confirmSave:(void (^)(ConfirmResponse))handler {
-    //
+    
+    [BBHUtil showConfirmSave:self handler:handler];
 }
 
 -(void) addPaymentMethod {

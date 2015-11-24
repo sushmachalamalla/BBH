@@ -12,9 +12,11 @@
 
 @implementation TimeCardViewController
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder {
+@synthesize isUIDone;
+
+-(instancetype)init {
     
-    self = [super initWithCoder:aDecoder];
+    self = [super init];
     
     if(self) {
         
@@ -26,6 +28,12 @@
 }
 
 -(void)viewDidLoad {
+    
+    [self makeUI];
+    [self fetchData];
+}
+
+-(void)fetchData {
     
     [self setContent:[NSMutableArray array]];
     
@@ -50,9 +58,52 @@
     }];
 }
 
+-(void)updateViewConstraints {
+    
+    //NSLog(@"+++++++++++++ UPDATE CONSTRAINTS ++++++++++++++");
+    
+    [[self tcTableView] mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo([self view].mas_top).with.offset(20.0);
+        make.left.equalTo([self view].mas_left);
+        make.right.equalTo([self view].mas_right);
+        make.bottom.equalTo([self view].mas_bottom);
+    }];
+    
+    [super updateViewConstraints];
+}
+
+-(void) makeUI {
+    
+    [self setTcTableView:[[UITableView alloc] init]];
+    [[self tcTableView] setDataSource:self];
+    [[self tcTableView] setDelegate:self];
+    
+    if([[self tcTableView] respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
+        
+        [[self tcTableView] setCellLayoutMarginsFollowReadableWidth:NO];
+    }
+    
+    [[self view] addSubview:[self tcTableView]];
+    [[self view] setNeedsUpdateConstraints];
+}
+
+-(void) populate {
+    
+    dispatch_async(dispatch_get_main_queue(),^{
+        
+        [[self tcTableView] reloadData];
+    });
+}
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    TimeCardViewCell* cell = (TimeCardViewCell*)[tableView dequeueReusableCellWithIdentifier:@"tcDataCell" forIndexPath:indexPath];
+    TimeCardViewCell* cell = (TimeCardViewCell*)[tableView dequeueReusableCellWithIdentifier:@"tcDataCell"];
+    
+    if(!cell) {
+        
+        cell = [[TimeCardViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tcDataCell"];
+    }
     
     TimeCard* tc = [[self content] objectAtIndex:[indexPath row]];
     
@@ -66,6 +117,8 @@
     [[cell approvedByLabel] setText:approvalBy];
     [[cell approvedDateLabel] setText:approvalDate];
     
+    [cell setNeedsUpdateConstraints];
+    
     return cell;
 }
 
@@ -76,7 +129,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 40.0;
+    return 35.0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -88,6 +141,23 @@
     UITableViewHeaderFooterView* header = (UITableViewHeaderFooterView*)view;
     [[header textLabel] setText:@"Time Card"];
     [[header textLabel] setTextColor:[BBHUtil headerTextColor]];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static dispatch_once_t onceToken;
+    static TimeCardViewCell* cell = nil;
+    
+    dispatch_once(&onceToken, ^{
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"tcDataCell"];
+    });
+    
+    [cell updateConstraintsIfNeeded];
+    [cell layoutIfNeeded];
+    
+    CGSize size = [[cell contentView] systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return size.height;
 }
 
 -(void)success:(NSDictionary *)data {

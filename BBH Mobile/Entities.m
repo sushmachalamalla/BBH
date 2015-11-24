@@ -10,6 +10,26 @@
 #import "Entities.h"
 #import <objc/runtime.h>
 
+@implementation BBHNone
+
+static BBHNone* bbhNoneInstance;
+
+-(NSString *)description {
+    
+    return @"<No Selection>";
+}
+
++(instancetype)instance {
+    
+    if (!bbhNoneInstance) {
+        bbhNoneInstance = [[BBHNone alloc] init];
+    }
+    
+    return bbhNoneInstance;
+}
+
+@end
+
 @implementation BBHEntity
 
 -(instancetype)initWithDict:(NSDictionary *)dict {
@@ -81,16 +101,16 @@
 
 @implementation BBHSession
 
-static BBHSession* instance;
+static BBHSession* bbhSessioninstance;
 
 + (instancetype)curSession {
     
-    if(!instance || [instance expired]) {
+    if(!bbhSessioninstance || [bbhSessioninstance expired]) {
         
-        instance = [[BBHSession alloc] init];
+        bbhSessioninstance = [[BBHSession alloc] init];
     }
     
-    return instance;
+    return bbhSessioninstance;
 }
 
 - (NSString *)loginType {
@@ -429,6 +449,11 @@ static BBHSession* instance;
     return self;
 }
 
+-(NSString *)description {
+    
+    return [self experienceSlotName];
+}
+
 @end
 
 @implementation EquipmentSkill
@@ -454,6 +479,11 @@ static BBHSession* instance;
     }
     
     return self;
+}
+
+-(NSString *)description {
+    
+    return [self equipmentSkillName];
 }
 
 @end

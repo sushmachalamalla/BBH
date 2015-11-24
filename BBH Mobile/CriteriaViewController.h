@@ -9,53 +9,41 @@
 #import "UIKit/uikit.h"
 #import "RESTClient.h"
 #import "Entities.h"
+#import "CriteriaCell.h"
 
 #ifndef BBH_Mobile_RequirementsViewController_h
 #define BBH_Mobile_RequirementsViewController_h
 
-@interface CriteriaViewController : UIViewController
+typedef  NS_ENUM(NSInteger, CriteriaTable) {
+    CriteriaTableSkill, CriteriaTableEquipment, CriteriaTableEndorsement, CriteriaTableNone
+};
 
--(void) reloadTableView: (NSString*)tableName;
+@interface CriteriaViewController : UIViewController<BBHView, UITableViewDataSource, UITableViewDelegate>
 
 @property Run* runEntity;
 
-@property (weak, nonatomic) IBOutlet UITableView *endorsementTableView;
-@property (weak, nonatomic) IBOutlet UITableView *skillTableView;
-@property (weak, nonatomic) IBOutlet UITableView *equipmentTableView;
+@property (strong, nonatomic) UITableView *endorsementTableView;
+@property (strong, nonatomic) UITableView *skillTableView;
+@property (strong, nonatomic) UITableView *equipmentTableView;
+
+@property NSMutableArray* skillContent;
+@property NSMutableArray* equipmentContent;
+@property NSMutableArray* endorsementContent;
+
+-(NSArray*)contentForCriteriaTable: (CriteriaTable)tag;
 
 @end
 
-@interface EndorsementViewDelegate : NSObject<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate>
+/*@interface SkillViewDelegate : NSObject<UITableViewDataSource, UITableViewDelegate>
 
--(void) fetchData;
--(instancetype) initWithCB: (void(^)(void))cb entity:(Run*) runEntity;
-
-@property (copy) void(^cb)(void);
 @property Run* runEntity;
-@property NSMutableArray* content;
 
-@end
+@property NSMutableArray* skillContent;
+@property NSMutableArray* equipmentContent;
+@property NSMutableArray* endorsementContent;
 
-@interface SkillViewDelegate : NSObject<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate>
+-(NSArray*)contentForCriteriaTable: (CriteriaTable)tag;
 
--(void) fetchData;
--(instancetype) initWithCB: (void(^)(void))cb entity:(Run*) runEntity;
-
-@property (copy) void(^cb)(void);
-@property Run* runEntity;
-@property NSMutableArray* content;
-
-@end
-
-@interface EquipmentViewDelegate : NSObject<RESTResponseHandler, UITableViewDataSource, UITableViewDelegate>
-
--(void) fetchData;
--(instancetype) initWithCB: (void(^)(void))cb entity:(Run*) runEntity;
-
-@property (copy) void(^cb)(void);
-@property Run* runEntity;
-@property NSMutableArray* content;
-
-@end
+@end*/
 
 #endif
