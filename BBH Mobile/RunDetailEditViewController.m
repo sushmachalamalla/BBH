@@ -41,7 +41,7 @@
     [freightEditVC setRunEntity:[self runEntity]];
     [freightEditVC setMode:EntityModeEdit];
     
-    PaymentMethodEditViewController* pmEditVC = [sb instantiateViewControllerWithIdentifier:@"pmEditVC"];
+    PaymentMethodEditViewController* pmEditVC = [[PaymentMethodEditViewController alloc] init];
     [pmEditVC setRunEntity:[self runEntity]];
     [pmEditVC setMode:EntityModeEdit];
     
@@ -49,7 +49,11 @@
     [criteriaEditVC setRunEntity:[self runEntity]];
     [criteriaEditVC setMode:EntityModeEdit];
     
-    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, pmEditVC, criteriaEditVC, nil];
+    TimeCardEditViewController* tcEditVC = [[TimeCardEditViewController alloc] init];
+    [tcEditVC setRunEntity:[self runEntity]];
+    [tcEditVC setMode:EntityModeEdit];
+    
+    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalEditVC, freightEditVC, pmEditVC, criteriaEditVC, tcEditVC, nil];
     
     if ([[[BBHSession curSession] loginType] isEqualToString:@"Client"]) {
         

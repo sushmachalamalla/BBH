@@ -22,6 +22,7 @@
 @interface RunDetailViewController : UITabBarController<UITabBarControllerDelegate, UITabBarDelegate>
 
 @property Run* runEntity;
+@property BOOL isConfirmed;
 
 @end
 

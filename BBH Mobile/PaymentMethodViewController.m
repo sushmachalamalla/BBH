@@ -13,9 +13,9 @@
 
 @synthesize isUIDone;
 
--(instancetype)initWithCoder:(NSCoder *)aDecoder {
+-(instancetype)init {
     
-    self = [super initWithCoder:aDecoder];
+    self = [super init];
     
     if(self) {
         
@@ -26,6 +26,15 @@
     }
     
     return self;
+}
+
+-(void)loadView {
+    
+    [self setView:[UIView new]];
+    [super loadView];
+    
+    [[self view] setBackgroundColor:[UIColor whiteColor]];
+    [[self view] setOpaque:YES];
 }
 
 -(void)viewDidLoad {
@@ -169,6 +178,11 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [[self content] count];
+}
+
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return nil;
 }
 
 -(void)navStackPushedFrom:(UIViewController *)sourceVC {

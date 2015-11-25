@@ -184,6 +184,7 @@
     
     Run* entity = [[self content] objectAtIndex:[path row]];
     [vc setRunEntity:entity];
+    [vc setIsConfirmed:[[self actionHREF] isEqualToString:@"runsConfirmed"]];
     
     [[self navigationController] pushViewController:vc animated:YES];
 }

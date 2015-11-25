@@ -34,7 +34,7 @@
     FreightViewController* freightVC = [sb instantiateViewControllerWithIdentifier:@"freightVC"];
     [freightVC setRunEntity:[self runEntity]];
     
-    PaymentMethodViewController* paymentMethodVC = [sb instantiateViewControllerWithIdentifier:@"pmVC"];
+    PaymentMethodViewController* paymentMethodVC = [[PaymentMethodViewController alloc] init];
     [paymentMethodVC setRunEntity:[self runEntity]];
     
     CriteriaViewController* criteriaVC = [[CriteriaViewController alloc] init];
@@ -43,7 +43,7 @@
     TimeCardViewController* tcVC = [[TimeCardViewController alloc] init];
     [tcVC setRunEntity:[self runEntity]];
     
-    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:tcVC, nil];
+    NSMutableArray* vcs = [NSMutableArray arrayWithObjects:generalVC, freightVC, paymentMethodVC, criteriaVC, tcVC, nil];
     
     if ([[[BBHSession curSession] loginType] isEqualToString:@"Client"]) {
         
@@ -61,6 +61,7 @@
     RunDetailEditViewController* editVC = [sb instantiateViewControllerWithIdentifier:@"runDetailEditVC"];
     
     [editVC setRunEntity:[self runEntity]];
+    [editVC setIsConfirmed: [self isConfirmed]];
     [editVC setMode:EntityModeEdit];
     [[self navigationController] showViewController:editVC sender:self];
 }

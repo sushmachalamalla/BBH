@@ -26,10 +26,10 @@
     
     //[self setBackgroundColor:[UIColor redColor]];
     
-    _nameKeyLabel = [BBHUtil makeLabelWithText:@"Name"];
-    _statusKeyLabel = [BBHUtil makeLabelWithText:@"Status"];
-    _approvedByKeyLabel = [BBHUtil makeLabelWithText:@"Approved By"];
-    _approvedDateKeyLabel = [BBHUtil makeLabelWithText:@"Approval Date"];
+    _nameKeyLabel = [BBHUtil makeLabelWithText:@"Name:"];
+    _statusKeyLabel = [BBHUtil makeLabelWithText:@"Status:"];
+    _approvedByKeyLabel = [BBHUtil makeLabelWithText:@"Approved By:"];
+    _approvedDateKeyLabel = [BBHUtil makeLabelWithText:@"Approval Date:"];
     
     _nameLabel = [BBHUtil makeLabelWithText:@"-"];
     _statusLabel = [BBHUtil makeLabelWithText:@"-"];
@@ -68,17 +68,14 @@
     offset.x += box.width + 5.0;
     box = [BBHUtil makeStack:array superview:[self contentView] offset:offset];
     
+    //[[self contentView] setBackgroundColor:[UIColor redColor]];
     [[self contentView] mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.edges.equalTo(self).with.offset(5.0);
-        /*make.top.equalTo([self nameLabel].mas_top).with.offset(-5.0);
-        make.bottom.equalTo([self approvedDateKeyLabel].mas_bottom).with.offset(5.0);*/
+        //make.left.equalTo(self.mas_left);
+        //make.top.equalTo(self.mas_top);
+        make.bottom.equalTo([self approvedDateKeyLabel].mas_bottom).with.offset(5.0);
+        //make.right.mas_equalTo(box.width + offset.x + 5.0);
     }];
-    
-    /*[self mas_updateConstraints:^(MASConstraintMaker *make) {
-        
-        make.height.equalTo([self contentView]).with.offset(5.0);
-    }];*/
     
     [super updateConstraints];
 }

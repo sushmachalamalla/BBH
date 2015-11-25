@@ -27,6 +27,15 @@
     return self;
 }
 
+-(void)loadView {
+    
+    [self setView:[UIView new]];
+    [super loadView];
+    
+    [[self view] setBackgroundColor:[UIColor whiteColor]];
+    [[self view] setOpaque:YES];
+}
+
 -(void)viewDidLoad {
     
     [self makeUI];
@@ -52,7 +61,7 @@
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                [[self tableView] reloadData];
+                [[self tcTableView] reloadData];
             });
         }
     }];
@@ -122,6 +131,11 @@
     return cell;
 }
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return nil;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [[self content] count];
@@ -153,10 +167,16 @@
         cell = [tableView dequeueReusableCellWithIdentifier:@"tcDataCell"];
     });
     
-    [cell updateConstraintsIfNeeded];
+    if(!cell) {
+        
+        cell = [[TimeCardViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tcDataCell"];
+    }
+    
+    [cell setNeedsUpdateConstraints];
     [cell layoutIfNeeded];
     
-    CGSize size = [[cell contentView] systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGSize size = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    NSLog(@"++++++++++++ %.2f, %.2f", size.width, size.height);
     return size.height;
 }
 

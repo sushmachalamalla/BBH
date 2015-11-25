@@ -257,6 +257,11 @@
     }];
 }
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return nil;
+}
+
 -(void)success:(NSDictionary *)data {
     
     //

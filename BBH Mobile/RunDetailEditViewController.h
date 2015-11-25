@@ -14,6 +14,7 @@
 #import "FreightEditViewController.h"
 #import "PaymentMethodEditViewController.h"
 #import "CriteriaEditViewController.h"
+#import "TimeCardEditViewController.h"
 #import "UIViewController+BBHVIewController.h"
 
 #ifndef BBH_Mobile_RunDetailEditViewController_h
@@ -23,6 +24,7 @@
 
 @property Run* runEntity;
 @property EntityMode mode;
+@property BOOL isConfirmed;
 
 @end
 

@@ -25,6 +25,8 @@
 @property NSString* actionHREF;
 -(NSString*) nextFetchURL;
 
+@property BOOL isConfirmed;
+
 @end
 
 #endif

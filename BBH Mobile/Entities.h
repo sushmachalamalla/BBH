@@ -273,12 +273,27 @@
 @property int timeCardId;
 @property NSNumber* invoiceId;
 @property NSDate* timeCardDate;
+@property NSDate* startDate;
+@property NSDate* endDate;
 @property TimeCardStatus* timeCardStatus;
 @property Driver* driver;
 @property NSNumber* actualCost;
 @property SysUser* approvalBy;
 @property NSString* approvalComment;
 @property NSDate* approvalDate;
+
+@end
+
+/* Time Card */
+@interface TimeCardDetail : BBHEntity
+
+@property int timeCardDetailId;
+@property TimeCard* timeCard;
+@property RunPaymentMethod* runPaymentMethod;
+@property NSNumber* timeCardUnits;
+@property NSNumber* totalAmount;
+@property NSString* timeCardDetailDescription;
+@property BOOL isExpense;
 
 @end
 

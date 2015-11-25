@@ -29,6 +29,7 @@
 		584131191BCE6C45008294ED /* PickerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 584131181BCE6C45008294ED /* PickerDelegate.m */; };
 		584193731BC6725D007FB4C7 /* TimeCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584193721BC6725D007FB4C7 /* TimeCardViewController.m */; };
 		584193761BC67938007FB4C7 /* TimeCardViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 584193751BC67938007FB4C7 /* TimeCardViewCell.m */; };
+		5841EBF51C059DB00099A5F6 /* TimeCardExpenseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5841EBF41C059DB00099A5F6 /* TimeCardExpenseCell.m */; settings = {ASSET_TAGS = (); }; };
 		5841F82C1BFCB75E0015A2D1 /* PaymentMethodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5841F82B1BFCB75E0015A2D1 /* PaymentMethodCell.m */; settings = {ASSET_TAGS = (); }; };
 		58435E041C005AE400BA7B68 /* UIViewController+BBHVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58435E031C005AE400BA7B68 /* UIViewController+BBHVIewController.m */; settings = {ASSET_TAGS = (); }; };
 		584363FB1BC7C77E003B75AD /* DriverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 584363FA1BC7C77E003B75AD /* DriverViewController.m */; };
@@ -115,6 +116,8 @@
 		584193721BC6725D007FB4C7 /* TimeCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardViewController.m; sourceTree = "<group>"; };
 		584193741BC6791E007FB4C7 /* TimeCardViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeCardViewCell.h; sourceTree = "<group>"; };
 		584193751BC67938007FB4C7 /* TimeCardViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardViewCell.m; sourceTree = "<group>"; };
+		5841EBF31C059D9C0099A5F6 /* TimeCardExpenseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeCardExpenseCell.h; sourceTree = "<group>"; };
+		5841EBF41C059DB00099A5F6 /* TimeCardExpenseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeCardExpenseCell.m; sourceTree = "<group>"; };
 		5841F82A1BFCB43B0015A2D1 /* PaymentMethodCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentMethodCell.h; sourceTree = "<group>"; };
 		5841F82B1BFCB75E0015A2D1 /* PaymentMethodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentMethodCell.m; sourceTree = "<group>"; };
 		58435E021C005A6400BA7B68 /* UIViewController+BBHVIewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BBHVIewController.h"; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 				58367FF01C046C0900FC186C /* TimeCardEditViewController.m */,
 				58367FF21C04727300FC186C /* TimeCardEditView.h */,
 				58367FF31C04728700FC186C /* TimeCardEditView.m */,
+				5841EBF31C059D9C0099A5F6 /* TimeCardExpenseCell.h */,
+				5841EBF41C059DB00099A5F6 /* TimeCardExpenseCell.m */,
 			);
 			name = RunDetailEdit;
 			sourceTree = "<group>";
@@ -592,6 +597,7 @@
 				589D56801BEA28440005ABFA /* MASViewConstraint.m in Sources */,
 				58367FF41C04728700FC186C /* TimeCardEditView.m in Sources */,
 				5846E2CB1BB1629F005132BA /* RESTParams.m in Sources */,
+				5841EBF51C059DB00099A5F6 /* TimeCardExpenseCell.m in Sources */,
 				58382C5F1BA02ABA00ECF0D2 /* LoginViewController.m in Sources */,
 				58357C721BBAC1B900982E70 /* Entities.m in Sources */,
 				584818881BC3AD9700EE4CD6 /* PaymentMethodViewController.m in Sources */,

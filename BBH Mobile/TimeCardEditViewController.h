@@ -11,6 +11,8 @@
 #import "BBHUtil.h"
 #import "RESTClient.h"
 #import "TimeCardViewController.h"
+#import "TimeCardEditView.h"
+#import "RunDetailEditViewController.h"
 #import "UIViewController+BBHVIewController.h"
 
 #ifndef TimeCardEditViewController_h
@@ -18,7 +20,8 @@
 
 @interface TimeCardEditViewController : TimeCardViewController<BBHEditView>
 
-
+@property TimeCardEditView* editController;
+@property UIBarButtonItem* addBtn;
 
 @end
 

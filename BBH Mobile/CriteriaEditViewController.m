@@ -114,6 +114,11 @@
     [alert addAction:equipmentAction];
     [alert addAction:cancelAction];
     
+    UIPopoverPresentationController* popover = alert.popoverPresentationController;
+    if(popover) {
+        popover.barButtonItem = [self addBtn];
+    }
+    
     [vc presentViewController:alert animated:YES completion:nil];
 }
 

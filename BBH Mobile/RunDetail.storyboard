@@ -52,24 +52,6 @@
             </objects>
             <point key="canvasLocation" x="28" y="77"/>
         </scene>
-        <!--Payment Methods-->
-        <scene sceneID="FT0-mx-6fj">
-            <objects>
-                <viewController storyboardIdentifier="pmVC" title="Payment Methods" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fFr-o6-Zzh" customClass="PaymentMethodViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="GA0-un-G3d"/>
-                        <viewControllerLayoutGuide type="bottom" id="9dL-KX-xxg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="f0H-40-aWp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7Tp-MT-4cC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="643" y="77"/>
-        </scene>
         <!--Drivers-->
         <scene sceneID="k7u-MF-mFn">
             <objects>

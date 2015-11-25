@@ -588,11 +588,17 @@ static BBHSession* bbhSessioninstance;
         
         _timeCardId = [[dict valueForKey:@"TimeCardId"] intValue];
         
-        id invoiceId = [dict valueForKey:@""];
+        id invoiceId = [dict valueForKey:@"InvoiceId"];
         _invoiceId = [BBHUtil isNull:invoiceId] ? nil : invoiceId;
         
         id timeCardDate = [dict valueForKey:@"TimeCardDate"];
         _timeCardDate = [BBHUtil isNull:timeCardDate] ? nil : [[BBHUtil dateScan] dateFromString:timeCardDate];
+        
+        id startDate = [dict valueForKey:@"StartDate"];
+        _startDate = [BBHUtil isNull:startDate] ? nil : [[BBHUtil dateScan] dateFromString:startDate];
+        
+        id endDate = [dict valueForKey:@"EndDate"];
+        _endDate = [BBHUtil isNull:endDate] ? nil : [[BBHUtil dateScan] dateFromString:endDate];
         
         _timeCardStatus = [[TimeCardStatus alloc] initWithDict:[dict valueForKey:@"TimeCardStatus"]];
         
@@ -608,6 +614,39 @@ static BBHSession* bbhSessioninstance;
         _actualCost = [BBHUtil isNull:actualCost] ? nil : actualCost;
         
         _approvalBy = [[SysUser alloc] initWithDict:[dict valueForKey:@"ApprovalBy"]];
+    }
+    
+    return self;
+}
+
+@end
+
+@implementation TimeCardDetail
+
+-(instancetype)initWithDict:(NSDictionary *)dict {
+    
+    if([BBHUtil isNull:dict]) {
+        return nil;
+    }
+    
+    self = [super init];
+    
+    if (self) {
+        
+        _timeCardDetailId = [[dict valueForKey:@"TimeCardDetailId"] intValue];
+        
+        _timeCard = [[TimeCard alloc] initWithDict:[dict valueForKey:@"TimeCard"]];
+        
+        _runPaymentMethod = [[RunPaymentMethod alloc] initWithDict:[dict valueForKey:@"PaymentMethod"]];
+        
+        id timeCardUnits = [dict valueForKey:@"TimeCardUnits"];
+        _timeCardUnits = [BBHUtil isNull:timeCardUnits] ? nil : timeCardUnits;
+        
+        id totalAmount = [dict valueForKey:@"TotalAmount"];
+        _totalAmount = [BBHUtil isNull:totalAmount] ? nil : totalAmount;
+        
+        id timeCardDetailDescription = [dict valueForKey:@"TimeCardDetailDescription"];
+        _timeCardDetailDescription = [BBHUtil isNull:timeCardDetailDescription] ? nil : timeCardDetailDescription;
     }
     
     return self;
