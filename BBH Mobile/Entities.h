@@ -289,7 +289,8 @@
 
 @property int timeCardDetailId;
 @property TimeCard* timeCard;
-@property RunPaymentMethod* runPaymentMethod;
+@property PaymentMethod* paymentMethod;
+@property NSNumber* estUnits;
 @property NSNumber* timeCardUnits;
 @property NSNumber* totalAmount;
 @property NSString* timeCardDetailDescription;

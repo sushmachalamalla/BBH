@@ -56,7 +56,7 @@
 
 -(void)confirmSave:(void (^)(ConfirmResponse))handler {
     
-    //
+    [BBHUtil showConfirmSave:self handler:handler];
 }
 
 -(void)saveInfo {

@@ -13,6 +13,17 @@
 
 @synthesize isUIDone;
 
+-(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    if(self) {
+        
+        [self makeUI];
+    }
+    
+    return self;
+}
+
 -(void)updateConstraints {
     
     [_nameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -31,7 +42,7 @@
     
     [_actualAmtLabel mas_updateConstraints:^(MASConstraintMaker *make) {
         
-        make.left.equalTo(_actualAmtLabel.mas_right).with.offset(2.0);
+        make.left.equalTo(_estAmtLabel.mas_right).with.offset(2.0);
         make.centerY.equalTo([self contentView].mas_centerY);
         make.width.equalTo([self contentView].mas_width).with.multipliedBy(0.20);
     }];
@@ -42,7 +53,7 @@
 -(void)makeUI {
     
     [self setNameLabel:[BBHUtil makeLabelWithText:@"Description"]];
-    [self setEstAmtLabel:[BBHUtil makeLabelWithText:@"Estimated"]];
+    [self setEstAmtLabel:[BBHUtil makeLabelWithText:@"Estimate"]];
     [self setActualAmtLabel:[BBHUtil makeLabelWithText:@"Actual"]];
     
     [[self nameLabel] setTextAlignment:NSTextAlignmentLeft];

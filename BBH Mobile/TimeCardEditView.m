@@ -45,8 +45,11 @@
     
     [super viewWillAppear:animated];
     
+    NSArray* btnList = [[NSArray alloc] initWithObjects:[self addBtn], nil];
+    [[self navigationItem] setRightBarButtonItems:btnList];
+    
     if ([self isUIDone]) {
-        [self populate];
+        [self fetchData];
     }
 }
 
@@ -60,11 +63,13 @@
     
     [btnList addObject:saveBtn];
     
+    [self setAddBtn:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addExpense)]];
+    
     [[self navigationItem] setLeftItemsSupplementBackButton:YES];
     [[self navigationItem] setLeftBarButtonItems:btnList];
     
     [self makeUI];
-    [self populate];
+    //[self fetchData];
     [[self view] setNeedsUpdateConstraints];
 }
 
@@ -125,6 +130,9 @@
     [[self contentView] addSubview:[self endTimePicker]];
     
     [self setExpenseTableView:[[UITableView alloc] init]];
+    [[self expenseTableView] setDelegate:self];
+    [[self expenseTableView] setDataSource:self];
+    
     if([[self expenseTableView] respondsToSelector:@selector(setCellLayoutMarginsFollowReadableWidth:)]) {
         [[self expenseTableView] setCellLayoutMarginsFollowReadableWidth:NO];
     }
@@ -143,7 +151,7 @@
     
     if ([self mode] == EntityModeAdd) {
         
-        url = [NSString stringWithFormat:@"runs/%d/paymentMethods", [[self runEntity] runId]];
+        url = [NSString stringWithFormat:@"runs/%d/runPaymentMethods", [[self runEntity] runId]];
         [self setTcEntity:[[TimeCard alloc] init]];
         
         [[self tcEntity] setStartDate:[NSDate dateWithTimeIntervalSinceNow:0]];
@@ -151,20 +159,33 @@
         
         [client doGETWithURL:url params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary* dict) {
             
-            NSArray* rpmList = [dict valueForKey:@"RunPaymentMethods"];
-            [rpmList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@">>> TIMECARDDETAIL ADD: %@", dict);
+            
+            if(response == RESTResponseSuccess) {
                 
-                RunPaymentMethod* rpm = [[RunPaymentMethod alloc] initWithDict:obj];
-                //PaymentMethod* pm = [rpm paymentMethod];
+                NSArray* rpmList = [dict valueForKey:@"RunPaymentMethods"];
+                [rpmList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    RunPaymentMethod* rpm = [[RunPaymentMethod alloc] initWithDict:obj];
+                    PaymentMethod* pm = [rpm paymentMethod];
+                    
+                    TimeCardDetail* tcd = [[TimeCardDetail alloc] init];
+                    TimeCard* tc = [[TimeCard alloc] init];
+                    
+                    [tcd setPaymentMethod:pm];
+                    [tcd setEstUnits:[rpm estimatedUnits]];
+                    [tcd setTimeCardUnits:[NSNumber numberWithDouble:0.0]];
+                    [tcd setTimeCard:tc];
+                    
+                    [[self content] addObject:tcd];
+                }];
                 
-                TimeCardDetail* tcd = [[TimeCardDetail alloc] init];
-                TimeCard* tc = [[TimeCard alloc] init];
+                [[self expenseTableView] reloadData];
                 
-                [tcd setRunPaymentMethod:rpm];
-                [tcd setTimeCard:tc];
+            } else {
                 
-                [[self content] addObject:tcd];
-            }];
+                NSLog(@">> An ERROR OCCURED FETCHING ADD RPM");
+            }
         }];
     }
     
@@ -174,28 +195,48 @@
         
         [client doGETWithURL:url params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary* dict) {
             
-            NSArray* rpmList = [dict valueForKey:@"RunPaymentMethods"];
-            NSLog(@">>> TIMECARDDETAIL PM: %@", rpmList);
-            [rpmList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@">>> TIMECARDDETAIL PM: %@", dict);
+            
+            if(response == RESTResponseSuccess) {
                 
-                TimeCardDetail* tcd = [[TimeCardDetail alloc] initWithDict:obj];
-                [tcd setIsExpense:NO];
-                [[self content] addObject:tcd];
-            }];
+                NSArray* rpmList = [dict valueForKey:@"TimeCardDetails"];
+                [rpmList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    TimeCardDetail* tcd = [[TimeCardDetail alloc] initWithDict:obj];
+                    [tcd setIsExpense:NO];
+                    [[self content] addObject:tcd];
+                }];
+                
+                [[self expenseTableView] reloadData];
+                
+            } else {
+                
+                NSLog(@">> An ERROR OCCURED FETCHING EDIT PM");
+            }
         }];
         
         url = [NSString stringWithFormat:@"timeCards/%d/timeCardDetailExpenses", [[self tcEntity] timeCardId]];
         
         [client doGETWithURL:url params:[[RESTParams alloc] init] complete:^(RESTResponse response, NSDictionary* dict) {
             
-            NSArray* rpmList = [dict valueForKey:@"RunPaymentMethods"];
-            NSLog(@">>> TIMECARDDETAIL EXP: %@", rpmList);
-            [rpmList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@">>> TIMECARDDETAIL EXP: %@", dict);
+            
+            if(response == RESTResponseSuccess) {
                 
-                TimeCardDetail* tcd = [[TimeCardDetail alloc] initWithDict:obj];
-                [tcd setIsExpense:YES];
-                [[self content] addObject:tcd];
-            }];
+                NSArray* rpmList = [dict valueForKey:@"TimeCardDetails"];
+                [rpmList enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    
+                    TimeCardDetail* tcd = [[TimeCardDetail alloc] initWithDict:obj];
+                    [tcd setIsExpense:YES];
+                    [[self content] addObject:tcd];
+                }];
+                
+                [[self expenseTableView] reloadData];
+                
+            } else {
+                
+                NSLog(@">> An ERROR OCCURED FETCHING EDIT EXP");
+            }
         }];
     }
     
@@ -206,11 +247,19 @@
     
     TimeCard* tc = [self tcEntity];
     
-    [[self startDatePicker] setDate:[tc startDate] animated:YES];
-    [[self startTimePicker] setDate:[tc startDate] animated:YES];
+    if ([tc startDate]) {
+        
+        [[self startDatePicker] setDate:[tc startDate] animated:YES];
+        [[self startTimePicker] setDate:[tc startDate] animated:YES];
+    }
     
-    [[self endDatePicker] setDate:[tc endDate] animated:YES];
-    [[self endTimePicker] setDate:[tc endDate] animated:YES];
+    if ([tc endDate]) {
+        
+        [[self endDatePicker] setDate:[tc endDate] animated:YES];
+        [[self endTimePicker] setDate:[tc endDate] animated:YES];
+    }
+    
+    [[self view] setNeedsUpdateConstraints];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -222,32 +271,194 @@
     }
     
     TimeCardDetail* tcd = [[self content] objectAtIndex:[indexPath row]];
-    RunPaymentMethod* rpm = [tcd runPaymentMethod];
+    PaymentMethod* pm = [tcd paymentMethod];
     
-    [[cell nameLabel] setText:( [tcd isExpense] ? [tcd timeCardDetailDescription] : [[rpm paymentMethod] paymentMethodName])];
+    [[cell nameLabel] setText:( [tcd isExpense] ? [tcd timeCardDetailDescription] : [pm paymentMethodName])];
     
-    double estAmt = [tcd isExpense] ? 0.0 : [[rpm estimatedRate] doubleValue] * [[rpm estimatedUnits] doubleValue];
+    double estAmt = [tcd isExpense] ? 0.0 : [[tcd estUnits] doubleValue];
     
     NSString* sEstAmt = [tcd isExpense] ? @"N/A" : [NSString stringWithFormat:@"%.2f", estAmt];
     
     [[cell estAmtLabel] setText:sEstAmt];
     
-    double actAmt = [tcd isExpense] ? [[tcd totalAmount] doubleValue]: [[tcd timeCardUnits] doubleValue] * [[rpm estimatedRate] doubleValue];
+    double actAmt = [tcd isExpense] ? [[tcd totalAmount] doubleValue]: [[tcd timeCardUnits] doubleValue];
     
-    //NSString* sEstAmt = [tcd isExpense] ? @"N/A" : [NSString stringWithFormat:@"%.2f", estAmt];
+    NSString* sActAmt = [NSString stringWithFormat:@"%.2f", actAmt];
     
-    [[cell estAmtLabel] setText:sEstAmt];
+    [[cell actualAmtLabel] setText:sActAmt];
+    [cell setNeedsUpdateConstraints];
     
     return cell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    NSLog(@">>>> COUNT: %d", [[self content] count]);
     return [[self content] count];
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 35.0;
+}
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return nil;
+    
+    TimeCardExpenseCell* cell = [tableView dequeueReusableCellWithIdentifier:@"tcExpenseCell"];
+    
+    if (!cell) {
+        
+        cell = [[TimeCardExpenseCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"tcExpenseCell"];
+    }
+    
+    [[cell nameLabel] setText:@"Description"];
+    [[cell estAmtLabel] setText:@"Estimate"];
+    [[cell actualAmtLabel] setText:@"Actual"];
+    
+    [[cell nameLabel] setTextColor:[BBHUtil headerTextColor]];
+    [[cell estAmtLabel] setTextColor:[BBHUtil headerTextColor]];
+    [[cell actualAmtLabel] setTextColor:[BBHUtil headerTextColor]];
+    
+    [cell setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
+    [cell setNeedsUpdateConstraints];
+    
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [self showExpenseEditPopup:self entity:[[self content] objectAtIndex:[indexPath row]] mode: EntityModeEdit handler:^(ConfirmResponse response, TimeCardDetail* tcd) {
+        
+        if(response == ConfirmResponseSave) {
+            
+            RESTClient* client = [RESTClient instance];
+            NSString* url = [NSString stringWithFormat:@"runs/%d/timeCards", [[self runEntity] runId]];
+            
+            NSError* error = nil;
+            NSDictionary* tcdJSON = [tcd exportToDict];
+            NSArray* listJSON = [[NSArray alloc] initWithObjects:tcdJSON, nil];
+            NSDictionary* dictJSON = [[NSDictionary alloc] initWithObjectsAndKeys:listJSON, @"TimeCardDetails", nil];
+            
+            NSData* data = [NSJSONSerialization dataWithJSONObject:dictJSON options:kNilOptions error:&error];
+            
+            if(data && !error) {
+                
+                NSLog(@"Saving TCD (EDIT): %@", dictJSON);
+                [client doPUTWithURL:url data:data complete:^(RESTResponse response, NSDictionary* dict) {
+                   
+                    if(response == RESTResponseSuccess) {
+                        
+                        NSLog(@">> Saved TCD (Edit): %@", dict);
+                        [[self expenseTableView] reloadData];
+                        
+                    } else {
+                        
+                        NSLog(@">> Error saving TCD (Edit): %@", dict);
+                    }
+                }];
+            }
+        }
+    }];
+}
+
+-(void) showExpenseEditPopup:(UIViewController *)vc entity:(TimeCardDetail*) tcd mode:(EntityMode) entityMode handler: (void (^)(ConfirmResponse, TimeCardDetail*)) handler {
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:(entityMode == EntityModeAdd ? @"Add Time Card Detail" : @"Edit Time Card Detail") message:@"Please enter Time Card details" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* saveAction = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if ([tcd isExpense]) {
+            
+            [tcd setTimeCardDetailDescription:[[[alert textFields] objectAtIndex:0] text]];
+            [tcd setTotalAmount: [BBHUtil readDecimal:[[[alert textFields] objectAtIndex:1] text]]];
+            
+        } else {
+            
+            [tcd setTimeCardUnits:[BBHUtil readDecimal:[[[alert textFields] objectAtIndex:1] text]]];
+        }
+        
+        handler(ConfirmResponseSave, tcd);
+    }];
+    
+    UIAlertAction* cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        handler(ConfirmResponseCancel, tcd);
+    }];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        
+        textField.placeholder = @"Description";
+        textField.text = [tcd isExpense] ? [tcd timeCardDetailDescription] : [[tcd paymentMethod] paymentMethodName];
+        textField.enabled = (tcd && [tcd isExpense]);
+    }];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        
+        textField.placeholder = ([tcd isExpense] ? @"Expense Amount" : @"Actual Units");
+        
+        NSNumber* amt = [tcd isExpense] ? ([tcd totalAmount] ? [tcd totalAmount] : [NSNumber numberWithDouble:0.0]) : ([tcd timeCardUnits] ? [tcd timeCardUnits] : [NSNumber numberWithDouble:0.0]);
+        
+        textField.text = [NSString stringWithFormat:@"%.2f", [amt doubleValue]];
+        
+        [[NSNotificationCenter defaultCenter] addObserverForName:UITextFieldTextDidChangeNotification object:textField queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+            
+            NSString* sAmt = [textField text];
+            NSNumber* amt = [BBHUtil readDecimal:sAmt];
+            saveAction.enabled = amt ? ([amt doubleValue] >= 0.0 ? YES : NO) : NO;
+        }];
+    }];
+    
+    [alert addAction:saveAction];
+    [alert addAction:cancelAction];
+    
+    UIPopoverPresentationController* popover = alert.popoverPresentationController;
+    if(popover) {
+        popover.barButtonItem = [self addBtn];
+    }
+    
+    [vc presentViewController:alert animated:YES completion:nil];
+}
+
+-(void) addExpense {
+    
+    TimeCardDetail* entity = [[TimeCardDetail alloc] init];
+    [entity setTimeCard:[self tcEntity]];
+    [entity setIsExpense:YES];
+    [entity setTotalAmount:[NSNumber numberWithDouble:0.0]];
+    
+    [self showExpenseEditPopup:self entity:entity mode: EntityModeAdd handler:^(ConfirmResponse response, TimeCardDetail* tcd) {
+        
+        if(response == ConfirmResponseSave) {
+            
+            RESTClient* client = [RESTClient instance];
+            NSString* url = [NSString stringWithFormat:@"runs/%d/timeCards", [[self runEntity] runId]];
+            
+            NSError* error = nil;
+            NSDictionary* tcdJSON = [tcd exportToDict];
+            NSArray* listJSON = [[NSArray alloc] initWithObjects:tcdJSON, nil];
+            NSDictionary* dictJSON = [[NSDictionary alloc] initWithObjectsAndKeys:listJSON, @"TimeCardDetails", nil];
+            
+            NSData* data = [NSJSONSerialization dataWithJSONObject:dictJSON options:kNilOptions error:&error];
+            
+            if(data && !error) {
+                
+                NSLog(@"Saving TCD (ADD): %@", dictJSON);
+                [client doPUTWithURL:url data:data complete:^(RESTResponse response, NSDictionary* dict) {
+                    
+                    if(response == RESTResponseSuccess) {
+                        
+                        NSLog(@">> Saved TCD (ADD): %@", dict);
+                        [[self content] addObject:tcd];
+                        [[self expenseTableView] reloadData];
+                        
+                    } else {
+                        
+                        NSLog(@">> Error saving TCD (Edit): %@", dict);
+                    }
+                }];
+            }
+        }
+    }];
 }
 
 -(void)confirmSave:(void (^)(ConfirmResponse))handler {

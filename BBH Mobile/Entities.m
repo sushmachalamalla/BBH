@@ -637,10 +637,12 @@ static BBHSession* bbhSessioninstance;
         
         _timeCard = [[TimeCard alloc] initWithDict:[dict valueForKey:@"TimeCard"]];
         
-        _runPaymentMethod = [[RunPaymentMethod alloc] initWithDict:[dict valueForKey:@"PaymentMethod"]];
+        _paymentMethod = [[PaymentMethod alloc] initWithDict:[dict valueForKey:@"PaymentMethod"]];
         
         id timeCardUnits = [dict valueForKey:@"TimeCardUnits"];
         _timeCardUnits = [BBHUtil isNull:timeCardUnits] ? nil : timeCardUnits;
+        
+        _estUnits = [NSNumber numberWithDouble:0.0];
         
         id totalAmount = [dict valueForKey:@"TotalAmount"];
         _totalAmount = [BBHUtil isNull:totalAmount] ? nil : totalAmount;

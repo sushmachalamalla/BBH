@@ -36,6 +36,8 @@
 @property Run* runEntity;
 @property TimeCard* tcEntity;
 
+@property UIBarButtonItem* addBtn;
+
 @end
 
 #endif /* TimeCardEditView_h */
